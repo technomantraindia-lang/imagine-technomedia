@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Imagine Technomedia</title>
+  <meta name="description" content="Learn more about Imagine Technomedia, a premium post-production company delivering editing, VFX, animation, color grading, sound design and finishing services.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --bg: #030303;
+      --bg-soft: #090909;
+      --panel: rgba(10, 10, 10, 0.88);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.68);
+      --soft: rgba(255, 255, 255, 0.42);
+      --red: #ff1010;
+      --red-soft: rgba(255, 16, 16, 0.35);
+      --container: min(1180px, calc(100vw - 48px));
+      --radius-lg: 34px;
+      --radius-md: 24px;
+      --radius-sm: 18px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Outfit", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(120, 0, 0, 0.24), transparent 34%),
+        radial-gradient(circle at 88% 18%, rgba(255, 16, 16, 0.08), transparent 20%),
+        linear-gradient(180deg, #010101 0%, #050505 48%, #020202 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body.nav-open {
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 84px 84px;
+      mask-image: radial-gradient(circle at center, black 48%, transparent 100%);
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.065;
+      background-image: radial-gradient(rgba(255,255,255,0.7) 0.7px, transparent 0.7px);
+      background-size: 3px 3px;
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-shell {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .section {
+      position: relative;
+      padding: 100px 0;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255, 16, 16, 0.03), transparent);
+      opacity: 0.7;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: #ff8f8f;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 54px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 16, 16, 0.9), transparent);
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4.9rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-title span {
+      color: var(--red);
+    }
+
+    .section-copy,
+    .hero-lead,
+    .mission-list li,
+    .value-card p,
+    .story-copy p,
+    .vision-card p,
+    .industries-copy p,
+    .cta-copy p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.02rem;
+    }
+
+    #site-header,
+    #site-footer {
+      position: relative;
+      z-index: 15;
+    }
+
+    .about-hero {
+      padding: 148px 0 72px;
+      overflow: clip;
+    }
+
+    .about-hero .container {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-lead {
+      max-width: 660px;
+      margin: 22px 0 0;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .hero-meta-chip {
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.76);
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 620px;
+      border-radius: 36px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255, 16, 16, 0.18), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 16, 16, 0.08) inset;
+      isolation: isolate;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: auto 12% 8%;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255, 16, 16, 0.28), transparent 68%);
+      filter: blur(34px);
+      pointer-events: none;
+    }
+
+    .hero-glow-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.26), transparent);
+      opacity: 0.4;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      inset: 14% 12%;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.09);
+      animation: orbitFloat 16s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-orbit::before,
+    .hero-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      inset: 12%;
+      border: 1px dashed rgba(255, 16, 16, 0.24);
+    }
+
+    .hero-orbit::after {
+      inset: 24%;
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-logo-card,
+    .hero-photo-card {
+      position: absolute;
+      width: min(68%, 360px);
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.42);
+    }
+
+    .hero-logo-card {
+      top: 52px;
+      left: 28px;
+      padding: 24px;
+      backdrop-filter: blur(20px);
+    }
+
+    .hero-logo-card img {
+      width: clamp(180px, 42vw, 280px);
+      object-fit: contain;
+      margin: 0 auto;
+      filter: drop-shadow(0 12px 24px rgba(255, 16, 16, 0.22));
+    }
+
+    .hero-photo-card {
+      right: 28px;
+      bottom: 34px;
+      aspect-ratio: 0.92;
+    }
+
+    .hero-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-flash {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0.92) 50%, rgba(255,255,255,0.02) 70%, transparent 100%);
+      opacity: 0;
+      transform: translateX(-112%);
+      mix-blend-mode: screen;
+    }
+
+    .hero-photo-card:hover .hero-flash {
+      animation: photoFlash 0.9s var(--ease);
+    }
+
+    .hero-badge {
+      position: absolute;
+      left: 26px;
+      bottom: 28px;
+      max-width: 220px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(5, 5, 5, 0.82);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-badge strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .hero-badge span {
+      color: rgba(255,255,255,0.64);
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 34px;
+      align-items: stretch;
+    }
+
+    .story-copy,
+    .story-visual,
+    .vision-card,
+    .mission-card,
+    .value-card,
+    .industries-copy,
+    .industries-board,
+    .about-cta-panel {
+      position: relative;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--panel-border);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)),
+        rgba(7, 7, 7, 0.94);
+      box-shadow: 0 20px 54px rgba(0, 0, 0, 0.32);
+      overflow: hidden;
+    }
+
+    .story-copy,
+    .industries-copy {
+      padding: 42px;
+    }
+
+    .story-copy::before,
+    .story-visual::before,
+    .vision-card::before,
+    .mission-card::before,
+    .value-card::before,
+    .industries-copy::before,
+    .industries-board::before,
+    .about-cta-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 16, 16, 0.09), transparent 28%, transparent);
+      pointer-events: none;
+    }
+
+    .story-copy p {
+      margin: 0 0 18px;
+      max-width: 620px;
+    }
+
+    .story-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .story-visual {
+      padding: 34px;
+      display: grid;
+      place-items: center;
+      min-height: 420px;
+    }
+
+    .story-frame {
+      position: relative;
+      width: min(100%, 420px);
+      aspect-ratio: 0.98;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at bottom, rgba(255, 16, 16, 0.28), transparent 30%),
+        linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      box-shadow: 0 24px 46px rgba(0, 0, 0, 0.38);
+      isolation: isolate;
+    }
+
+    .story-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-frame:hover .hero-flash {
+      animation: photoFlash 0.9s var(--ease);
+    }
+
+    .story-frame-overlay {
+      position: absolute;
+      inset: auto 18px 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.64);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .story-frame-overlay strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .story-frame-overlay span {
+      color: rgba(255,255,255,0.64);
+      font-size: 0.9rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .stat-card {
+      position: relative;
+      padding: 28px 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 16, 16, 0.1), transparent 48%),
+        rgba(8, 8, 8, 0.88);
+      overflow: hidden;
+      transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 16, 16, 0.32);
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.35);
+    }
+
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,16,16,0.8), transparent);
+    }
+
+    .stat-value {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      color: var(--text);
+      letter-spacing: -0.05em;
+    }
+
+    .stat-label {
+      margin-top: 12px;
+      color: rgba(255,255,255,0.68);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+
+    .vision-mission-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .vision-card,
+    .mission-card {
+      padding: 38px;
+    }
+
+    .vision-card h3,
+    .mission-card h3,
+    .value-card h3,
+    .industries-copy h3,
+    .about-cta-panel h3 {
+      margin: 0 0 18px;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .vision-card h3 span,
+    .mission-card h3 span,
+    .industries-copy h3 span,
+    .about-cta-panel h3 span {
+      color: var(--red);
+    }
+
+    .mission-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+
+    .mission-list li {
+      position: relative;
+      padding-left: 28px;
+      margin: 0;
+    }
+
+    .mission-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,16,16,0.8));
+      box-shadow: 0 0 0 6px rgba(255,16,16,0.08);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .value-card {
+      padding: 28px 26px;
+      transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), background 0.45s var(--ease);
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 16, 16, 0.28);
+      background:
+        linear-gradient(180deg, rgba(255, 16, 16, 0.14), transparent 50%),
+        rgba(10, 10, 10, 0.96);
+    }
+
+    .value-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: var(--red);
+      border: 1px solid rgba(255,16,16,0.28);
+      background: rgba(255,16,16,0.08);
+      margin-bottom: 22px;
+    }
+
+    .value-card h3 {
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .value-card p {
+      margin: 0;
+      font-size: 0.97rem;
+    }
+
+    .process-section {
+      padding: 106px 0;
+    }
+
+    .process-copy {
+      max-width: 760px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .process-copy .section-title {
+      font-size: clamp(2.2rem, 4vw, 4rem);
+    }
+
+    .process-copy p {
+      margin: 16px auto 0;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 660px;
+    }
+
+    .process-panel {
+      position: relative;
+      border-radius: 36px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at center, rgba(255, 16, 16, 0.08), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+        rgba(5, 5, 5, 0.96);
+      padding: 46px 36px;
+      overflow: hidden;
+    }
+
+    .process-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(0deg, transparent, rgba(255,255,255,0.03), transparent),
+        radial-gradient(circle at 50% 50%, rgba(255,16,16,0.08), transparent 38%);
+      pointer-events: none;
+    }
+
+    .workflow-circle-container {
+      position: relative;
+      width: min(100%, 920px);
+      height: 720px;
+      margin: 0 auto;
+    }
+
+    .workflow-ring,
+    .workflow-ring-glow {
+      position: absolute;
+      inset: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .workflow-ring {
+      width: 460px;
+      height: 460px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow:
+        0 0 0 38px rgba(255,255,255,0.01),
+        0 0 0 78px rgba(255,255,255,0.015);
+    }
+
+    .workflow-ring-glow {
+      width: 560px;
+      height: 560px;
+      border: 1px dashed rgba(255, 16, 16, 0.18);
+      filter: drop-shadow(0 0 18px rgba(255, 16, 16, 0.2));
+    }
+
+    .workflow-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 230px;
+      height: 230px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background:
+        radial-gradient(circle at top, rgba(255, 16, 16, 0.16), transparent 50%),
+        rgba(7, 7, 7, 0.96);
+      box-shadow:
+        0 0 0 16px rgba(255,255,255,0.015),
+        0 0 56px rgba(255,16,16,0.12);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .workflow-center-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--red);
+      border: 1px solid rgba(255,16,16,0.28);
+      background: rgba(255,16,16,0.08);
+    }
+
+    .workflow-center-subtitle,
+    .workflow-step-num {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.52);
+    }
+
+    .workflow-center-title {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .workflow-step {
+      position: absolute;
+      width: 190px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      transition: transform 0.45s var(--ease);
+      z-index: 2;
+    }
+
+    .workflow-step.step-1 { left: 50%; top: 7%; }
+    .workflow-step.step-2 { left: 75%; top: 18%; }
+    .workflow-step.step-3 { left: 90%; top: 50%; }
+    .workflow-step.step-4 { left: 75%; top: 82%; }
+    .workflow-step.step-5 { left: 50%; top: 93%; }
+    .workflow-step.step-6 { left: 25%; top: 82%; }
+    .workflow-step.step-7 { left: 10%; top: 50%; }
+    .workflow-step.step-8 { left: 25%; top: 18%; }
+
+    .workflow-step h3,
+    .workflow-mobile-item h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .workflow-icon-box {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+    }
+
+    .step-1 .workflow-icon-box { border-color: rgba(59,130,246,0.55); box-shadow: 0 0 24px rgba(59,130,246,0.12); }
+    .step-2 .workflow-icon-box { border-color: rgba(6,182,212,0.55); box-shadow: 0 0 24px rgba(6,182,212,0.12); }
+    .step-3 .workflow-icon-box { border-color: rgba(168,85,247,0.55); box-shadow: 0 0 24px rgba(168,85,247,0.14); }
+    .step-4 .workflow-icon-box { border-color: rgba(249,115,22,0.55); box-shadow: 0 0 24px rgba(249,115,22,0.14); }
+    .step-5 .workflow-icon-box { border-color: rgba(14,165,233,0.55); box-shadow: 0 0 24px rgba(14,165,233,0.13); }
+    .step-6 .workflow-icon-box { border-color: rgba(16,185,129,0.55); box-shadow: 0 0 24px rgba(16,185,129,0.13); }
+    .step-7 .workflow-icon-box { border-color: rgba(236,72,153,0.55); box-shadow: 0 0 24px rgba(236,72,153,0.13); }
+    .step-8 .workflow-icon-box { border-color: rgba(234,179,8,0.55); box-shadow: 0 0 24px rgba(234,179,8,0.13); }
+
+    .workflow-step:hover .workflow-icon-box {
+      transform: scale(1.08);
+      box-shadow: 0 0 28px rgba(255,255,255,0.12);
+    }
+
+    .step-1:hover { transform: translate(-50%, calc(-50% + 12px)) scale(1.04); }
+    .step-2:hover { transform: translate(calc(-50% - 10px), calc(-50% + 10px)) scale(1.04); }
+    .step-3:hover { transform: translate(calc(-50% - 14px), -50%) scale(1.04); }
+    .step-4:hover { transform: translate(calc(-50% - 10px), calc(-50% - 10px)) scale(1.04); }
+    .step-5:hover { transform: translate(-50%, calc(-50% - 12px)) scale(1.04); }
+    .step-6:hover { transform: translate(calc(-50% + 10px), calc(-50% - 10px)) scale(1.04); }
+    .step-7:hover { transform: translate(calc(-50% + 14px), -50%) scale(1.04); }
+    .step-8:hover { transform: translate(calc(-50% + 10px), calc(-50% + 10px)) scale(1.04); }
+
+    .workflow-mobile-list {
+      display: none;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .workflow-mobile-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .industries-board {
+      padding: 34px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .industry-chip {
+      position: relative;
+      min-height: 116px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 16, 16, 0.08), transparent 42%),
+        rgba(255,255,255,0.03);
+      display: flex;
+      align-items: flex-end;
+      transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease);
+      overflow: hidden;
+    }
+
+    .industry-chip::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .industry-chip:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255,16,16,0.28);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.28);
+    }
+
+    .industry-chip span {
+      position: relative;
+      z-index: 1;
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.45;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .about-cta-panel {
+      padding: 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      padding: 15px 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.94rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), background 0.35s var(--ease);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: var(--text);
+      background: linear-gradient(135deg, #ff1a1a, #9b0000);
+      box-shadow: 0 20px 42px rgba(124, 0, 0, 0.35);
+    }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .site-footer {
+      position: relative;
+      padding-top: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-top: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .site-footer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255, 16, 16, 0.08), transparent 38%);
+      pointer-events: none;
+    }
+
+    .footer-inner {
+      width: var(--container);
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.6fr;
+      gap: 48px;
+      padding: 60px 0 40px;
+    }
+
+    .footer-brand img {
+      width: 104px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      max-width: 300px;
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      line-height: 1.85;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-socials a,
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .footer-links h3,
+    .footer-contact h3 {
+      margin: 0 0 18px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .footer-links,
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a,
+    .footer-contact a,
+    .footer-contact p {
+      margin: 0;
+      color: rgba(255,255,255,0.66);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .contact-item > div {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .footer-bottom {
+      width: var(--container);
+      margin: 0 auto;
+      padding: 18px 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.54);
+      font-size: 12px;
+    }
+
+    .footer-top {
+      width: 36px;
+      height: 36px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .is-visible {
+      opacity: 1;
+    }
+
+    @keyframes orbitFloat {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes photoFlash {
+      0% { opacity: 0; transform: translateX(-112%); }
+      20% { opacity: 0.22; }
+      48% { opacity: 0.96; }
+      100% { opacity: 0; transform: translateX(112%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .about-hero .container,
+      .story-grid,
+      .industries-grid,
+      .about-cta-panel,
+      .vision-mission-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 560px;
+      }
+
+      .values-grid,
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 920px) {
+      .section {
+        padding: 84px 0;
+      }
+
+      .process-panel {
+        padding: 28px 18px;
+      }
+
+      .workflow-circle-container {
+        display: none;
+      }
+
+      .workflow-mobile-list {
+        display: grid;
+      }
+
+      .industries-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .about-hero {
+        padding: 126px 0 56px;
+      }
+
+      .container {
+        width: min(100vw - 24px, 1180px);
+      }
+
+      .hero-meta,
+      .cta-actions {
+        gap: 10px;
+      }
+
+      .hero-meta-chip,
+      .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 470px;
+      }
+
+      .hero-logo-card {
+        left: 16px;
+        right: 16px;
+        width: auto;
+      }
+
+      .hero-photo-card {
+        width: 60%;
+        right: 16px;
+        bottom: 18px;
+      }
+
+      .story-copy,
+      .story-visual,
+      .vision-card,
+      .mission-card,
+      .industries-copy,
+      .industries-board,
+      .about-cta-panel {
+        padding: 24px;
+      }
+
+      .stats-grid,
+      .values-grid,
+      .industries-board,
+      .workflow-mobile-list,
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <div id="site-header"></div>
+
+    <main>
+      <section class="about-hero section" id="about-hero">
+        <div class="container">
+          <div class="hero-copy" data-reveal="up">
+            <span class="eyebrow">About Imagine Technomedia</span>
+            <h1 class="section-title">Crafting <span>Stories</span> Beyond Imagination</h1>
+            <p class="hero-lead">
+              Imagine TechnoMedia is a creative post-production company dedicated to delivering visually stunning and emotionally engaging content. We build films, series, commercials and digital campaigns with precision, cinematic polish and a premium finishing mindset.
+            </p>
+            <div class="hero-meta">
+              <div class="hero-meta-chip">Post Production</div>
+              <div class="hero-meta-chip">VFX &amp; Animation</div>
+              <div class="hero-meta-chip">Color Grading</div>
+            </div>
+          </div>
+
+          <div class="hero-visual" data-reveal="left">
+            <div class="hero-glow-line"></div>
+            <div class="hero-orbit"></div>
+            <div class="hero-logo-card">
+              <img src="images/ne%20bg%20lgo.png" alt="Imagine Technomedia logo">
+            </div>
+            <div class="hero-photo-card">
+              <img src="images/savant.png" alt="Founder and Creative Director">
+              <div class="hero-flash" aria-hidden="true"></div>
+            </div>
+            <div class="hero-badge">
+              <strong>Global-standard finishing</strong>
+              <span>Creativity, precision and on-time delivery across every frame.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about-story">
+        <div class="container">
+          <div class="story-grid">
+            <div class="story-copy" data-reveal="left">
+              <span class="eyebrow">Who We Are</span>
+              <h2 class="section-title">Premium <span>Post</span> Production</h2>
+              <p>
+                We provide end-to-end post-production services for films, TV shows, web series, commercials, corporate videos and digital content.
+              </p>
+              <p>
+                With a team of passionate professionals and cutting-edge technology, we ensure every project meets international standards with creativity, precision and on-time delivery.
+              </p>
+              <p>
+                Our approach combines disciplined execution with cinematic taste, so every edit, effect, grade and sound layer feels intentional, emotional and premium on screen.
+              </p>
+            </div>
+
+            <div class="story-visual" data-reveal="right">
+              <div class="story-frame">
+                <img src="images/pravin.png" alt="Creative Director Pravin Pathak">
+                <div class="hero-flash" aria-hidden="true"></div>
+                <div class="story-frame-overlay">
+                  <strong>Human-led creative finishing</strong>
+                  <span>Built by experienced editors, VFX artists, designers and storytellers.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card" data-reveal="up">
+              <h3 class="stat-value">10+</h3>
+              <div class="stat-label">Years Of Experience</div>
+            </article>
+            <article class="stat-card" data-reveal="up">
+              <h3 class="stat-value">50+</h3>
+              <div class="stat-label">Happy Clients</div>
+            </article>
+            <article class="stat-card" data-reveal="up">
+              <h3 class="stat-value">1000+</h3>
+              <div class="stat-label">Projects Completed</div>
+            </article>
+            <article class="stat-card" data-reveal="up">
+              <h3 class="stat-value">24/7</h3>
+              <div class="stat-label">Dedicated Support</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="vision-mission">
+        <div class="container">
+          <div class="vision-mission-grid">
+            <article class="vision-card" data-reveal="left">
+              <span class="eyebrow">Our Vision</span>
+              <h3>Trusted <span>Creative</span> Partner</h3>
+              <p>
+                To be a globally trusted post-production partner known for creativity, innovation and excellence.
+              </p>
+            </article>
+
+            <article class="mission-card" data-reveal="right">
+              <span class="eyebrow">Our Mission</span>
+              <h3>Precision With <span>Purpose</span></h3>
+              <ul class="mission-list">
+                <li>Deliver high-quality post-production services with creativity and precision.</li>
+                <li>Build long-term relationships through trust, transparency and timely delivery.</li>
+                <li>Invest in latest technology and continuous learning.</li>
+                <li>Exceed client expectations and bring their vision to life.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="why-choose-us">
+        <div class="container">
+          <span class="eyebrow">Why Choose Us</span>
+          <h2 class="section-title" data-reveal="up">Built For <span>Premium</span> Delivery</h2>
+          <div class="values-grid">
+            <article class="value-card" data-reveal="left">
+              <div class="value-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+              </div>
+              <h3>Experienced Team</h3>
+              <p>Skilled professionals with years of industry experience guiding every stage of post-production.</p>
+            </article>
+            <article class="value-card" data-reveal="up">
+              <div class="value-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="12" rx="2"></rect><path d="M2 20h20"></path></svg>
+              </div>
+              <h3>Latest Technology</h3>
+              <p>We use industry-leading software and high-performance systems for reliable professional output.</p>
+            </article>
+            <article class="value-card" data-reveal="right">
+              <div class="value-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"></path><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 1 0 0 1.996A.952.952 0 0 0 21 12Z"></path></svg>
+              </div>
+              <h3>High Quality Output</h3>
+              <p>We deliver visually stunning and technically flawless results built for screens of every size.</p>
+            </article>
+            <article class="value-card" data-reveal="left">
+              <div class="value-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>
+              </div>
+              <h3>Fast Turnaround</h3>
+              <p>We value your time and ensure on-time delivery without compromising craft or consistency.</p>
+            </article>
+            <article class="value-card" data-reveal="up">
+              <div class="value-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              </div>
+              <h3>Affordable Pricing</h3>
+              <p>Premium quality services within your budget, designed for long-term creative partnerships.</p>
+            </article>
+            <article class="value-card" data-reveal="right">
+              <div class="value-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7-8 8-4.5-1-8-3-8-8V6l8-3 8 3Z"></path><path d="M9 12l2 2 4-4"></path></svg>
+              </div>
+              <h3>Confidentiality</h3>
+              <p>We prioritize your data security and project confidentiality across every exchange and delivery.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="process-section section" id="process">
+        <div class="container">
+          <div class="process-copy" data-reveal="up">
+            <span class="eyebrow">Our Workflow</span>
+            <h2 class="section-title">Structured <span>Creative</span> Flow</h2>
+            <p>
+              A smooth workflow that ensures quality, creativity and on-time delivery across every stage of production.
+            </p>
+          </div>
+
+          <div class="process-panel">
+            <div class="workflow-circle-container" data-reveal="up">
+              <div class="workflow-ring"></div>
+              <div class="workflow-ring-glow"></div>
+
+              <div class="workflow-center">
+                <div class="workflow-center-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <span class="workflow-center-subtitle">Our</span>
+                <h3 class="workflow-center-title">Workflow</h3>
+              </div>
+
+              <div class="workflow-step step-1" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
+                </div>
+                <span class="workflow-step-num">01</span>
+                <h3>Client Brief</h3>
+              </div>
+              <div class="workflow-step step-2" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1"></rect><line x1="9" y1="12" x2="10" y2="12"></line><line x1="9" y1="16" x2="10" y2="16"></line><line x1="14" y1="12" x2="15" y2="12"></line><line x1="14" y1="16" x2="15" y2="16"></line></svg>
+                </div>
+                <span class="workflow-step-num">02</span>
+                <h3>Planning</h3>
+              </div>
+              <div class="workflow-step step-3" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="9.8" y1="8.2" x2="20" y2="18"></line><line x1="9.8" y1="15.8" x2="20" y2="6"></line></svg>
+                </div>
+                <span class="workflow-step-num">03</span>
+                <h3>Editing</h3>
+              </div>
+              <div class="workflow-step step-4" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M19.07 4.93L4.93 19.07M19.07 19.07L4.93 4.93"></path></svg>
+                </div>
+                <span class="workflow-step-num">04</span>
+                <h3>VFX &amp; Graphics</h3>
+              </div>
+              <div class="workflow-step step-5" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                </div>
+                <span class="workflow-step-num">05</span>
+                <h3>Color Grading</h3>
+              </div>
+              <div class="workflow-step step-6" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="4" y2="15"></line><line x1="9" y1="4" x2="9" y2="20"></line><line x1="14" y1="8" x2="14" y2="16"></line><line x1="19" y1="11" x2="19" y2="13"></line></svg>
+                </div>
+                <span class="workflow-step-num">06</span>
+                <h3>Sound Design</h3>
+              </div>
+              <div class="workflow-step step-7" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <span class="workflow-step-num">07</span>
+                <h3>Review &amp; QC</h3>
+              </div>
+              <div class="workflow-step step-8" data-reveal="up">
+                <div class="workflow-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <span class="workflow-step-num">08</span>
+                <h3>Final Delivery</h3>
+              </div>
+            </div>
+
+            <div class="workflow-mobile-list">
+              <div class="workflow-mobile-item" data-reveal="left">
+                <div class="workflow-icon-box" style="border-color: rgba(59,130,246,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
+                </div>
+                <div><span class="workflow-step-num">01</span><h3>Client Brief</h3></div>
+              </div>
+              <div class="workflow-mobile-item" data-reveal="right">
+                <div class="workflow-icon-box" style="border-color: rgba(6,182,212,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1"></rect></svg>
+                </div>
+                <div><span class="workflow-step-num">02</span><h3>Planning</h3></div>
+              </div>
+              <div class="workflow-mobile-item" data-reveal="left">
+                <div class="workflow-icon-box" style="border-color: rgba(168,85,247,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="9.8" y1="8.2" x2="20" y2="18"></line><line x1="9.8" y1="15.8" x2="20" y2="6"></line></svg>
+                </div>
+                <div><span class="workflow-step-num">03</span><h3>Editing</h3></div>
+              </div>
+              <div class="workflow-mobile-item" data-reveal="right">
+                <div class="workflow-icon-box" style="border-color: rgba(249,115,22,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg>
+                </div>
+                <div><span class="workflow-step-num">04</span><h3>VFX &amp; Graphics</h3></div>
+              </div>
+              <div class="workflow-mobile-item" data-reveal="left">
+                <div class="workflow-icon-box" style="border-color: rgba(14,165,233,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                </div>
+                <div><span class="workflow-step-num">05</span><h3>Color Grading</h3></div>
+              </div>
+              <div class="workflow-mobile-item" data-reveal="right">
+                <div class="workflow-icon-box" style="border-color: rgba(16,185,129,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="4" y2="15"></line><line x1="9" y1="4" x2="9" y2="20"></line></svg>
+                </div>
+                <div><span class="workflow-step-num">06</span><h3>Sound Design</h3></div>
+              </div>
+              <div class="workflow-mobile-item" data-reveal="left">
+                <div class="workflow-icon-box" style="border-color: rgba(236,72,153,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16"></path></svg>
+                </div>
+                <div><span class="workflow-step-num">07</span><h3>Review &amp; QC</h3></div>
+              </div>
+              <div class="workflow-mobile-item" data-reveal="right">
+                <div class="workflow-icon-box" style="border-color: rgba(234,179,8,0.55);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div><span class="workflow-step-num">08</span><h3>Final Delivery</h3></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="industries">
+        <div class="container">
+          <div class="industries-grid">
+            <div class="industries-copy" data-reveal="left">
+              <span class="eyebrow">Industries We Serve</span>
+              <h3>Cinematic Solutions Across <span>Every Format</span></h3>
+              <p>
+                We partner with studios, agencies, brands and creators who need dependable post-production support with premium visual quality and polished delivery.
+              </p>
+            </div>
+            <div class="industries-board">
+              <div class="industry-chip" data-reveal="up"><span>Film Production</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Television Networks</span></div>
+              <div class="industry-chip" data-reveal="up"><span>OTT Platforms</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Advertising Agencies</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Corporate Companies</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Educational Institutions</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Government Organizations</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Digital Content Creators</span></div>
+              <div class="industry-chip" data-reveal="up"><span>YouTube Channels</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Event Management</span></div>
+              <div class="industry-chip" data-reveal="up"><span>Real Estate &amp; Architecture</span></div>
+              <div class="industry-chip" data-reveal="up"><span>And More</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about-cta">
+        <div class="container">
+          <div class="about-cta-panel" data-reveal="up">
+            <div class="cta-copy">
+              <span class="eyebrow">Let’s Build</span>
+              <h3>Ready To Finish Your Next <span>Story</span> With Precision?</h3>
+              <p>
+                From edit to final mastering, we help brands, filmmakers and studios create visuals that feel refined, confident and memorable.
+              </p>
+            </div>
+            <div class="cta-actions">
+              <a href="index.html#contact" class="btn btn-primary">Start A Project</a>
+              <a href="index.html#work" class="btn btn-secondary">View Our Work</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script>
+    async function injectPartial(targetId, file) {
+      const target = document.getElementById(targetId);
+      if (!target) return null;
+
+      try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error("Failed to load " + file);
+        target.innerHTML = await response.text();
+
+        if (targetId === "site-header") {
+          const links = target.querySelectorAll(".site-nav a");
+          const currentPath = (window.location.pathname.split("/").pop() || "about.html").toLowerCase();
+          const currentHash = window.location.hash || "";
+
+          links.forEach((link) => {
+            const href = (link.getAttribute("href") || "").toLowerCase();
+            const linkHash = href.includes("#") ? "#" + href.split("#")[1] : "";
+            const isAboutLink = href === "about.html";
+            const isActive = isAboutLink
+              ? currentPath === "about.html"
+              : currentPath === "index.html" && linkHash === currentHash;
+
+            link.classList.toggle("active", isActive);
+
+            link.addEventListener("click", () => {
+              document.body.classList.remove("nav-open");
+            });
+          });
+
+          const toggleBtn = target.querySelector(".menu-toggle");
+          if (toggleBtn) {
+            toggleBtn.addEventListener("click", (event) => {
+              event.stopPropagation();
+              document.body.classList.toggle("nav-open");
+            });
+          }
+
+          document.addEventListener("click", (event) => {
+            if (!target.contains(event.target)) {
+              document.body.classList.remove("nav-open");
+            }
+          });
+        }
+
+        return target;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+
+    injectPartial("site-header", "header.html");
+    injectPartial("site-footer", "footer.html");
+
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!prefersReducedMotion) {
+        const revealMap = {
+          up: { y: 60 },
+          left: { x: -80 },
+          right: { x: 80 },
+          down: { y: -60 }
+        };
+
+        const revealElements = document.querySelectorAll("[data-reveal]");
+        revealElements.forEach((element, index) => {
+          const key = element.getAttribute("data-reveal") || "up";
+          const vars = revealMap[key] || revealMap.up;
+
+          gsap.fromTo(
+            element,
+            {
+              autoAlpha: 0,
+              x: vars.x || 0,
+              y: vars.y || 0
+            },
+            {
+              autoAlpha: 1,
+              x: 0,
+              y: 0,
+              duration: 0.95,
+              ease: "power3.out",
+              delay: index % 4 === 0 ? 0 : 0.04,
+              scrollTrigger: {
+                trigger: element,
+                start: "top 84%",
+                once: true
+              }
+            }
+          );
+        });
+      } else {
+        document.querySelectorAll("[data-reveal]").forEach((element) => {
+          element.style.opacity = "1";
+          element.style.transform = "none";
+        });
+      }
+    } else {
+      document.querySelectorAll("[data-reveal]").forEach((element) => {
+        element.style.opacity = "1";
+        element.style.transform = "none";
+      });
+    }
+  </script>
+</body>
+</html>
