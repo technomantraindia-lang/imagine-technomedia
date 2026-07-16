@@ -3445,6 +3445,88 @@
         transform: translateX(4px);
       }
     }
+
+    /* CLIENT MARQUEE SHOWCASE */
+    .client-showcase-section {
+      padding: 40px 0;
+      background: rgba(4, 4, 4, 0.45);
+      position: relative;
+      z-index: 2;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+
+    .marquee-container {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    .marquee-container::before,
+    .marquee-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 150px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .marquee-container::before {
+      left: 0;
+      background: linear-gradient(to right, #040404, transparent);
+    }
+
+    .marquee-container::after {
+      right: 0;
+      background: linear-gradient(to left, #040404, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 35s linear infinite;
+    }
+
+    .marquee-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 60px;
+      padding: 0 30px;
+    }
+
+    .marquee-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 175px; /* Enlarge logo width even more */
+      height: 75px; /* Enlarge logo height even more */
+      opacity: 0.75;
+      transition: all 0.4s var(--ease);
+    }
+
+    .marquee-item:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .marquee-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
   </style>
 </head>
 <body>
@@ -3977,6 +4059,56 @@
       </div>
     </section>
 
+    <!-- CLIENT LOGOS SHOWCASE -->
+    <section class="client-showcase-section">
+      <div class="container" style="margin-bottom: 40px; text-align: center;">
+        <span class="section-eyebrow" style="padding-left: 0; display: block; margin-bottom: 12px; margin-top: 10px;">Our Partners</span>
+        <h2 class="section-title" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.2;">Trusted by <span>Leading Brands</span></h2>
+      </div>
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <!-- Copy 1 -->
+          <div class="marquee-list">
+            <div class="marquee-item"><img src="images/clients/adani.png" alt="Adani logo"></div>
+            <div class="marquee-item"><img src="images/clients/airtel.png" alt="Airtel logo"></div>
+            <div class="marquee-item"><img src="images/clients/alt.png" alt="ALT Balaji logo"></div>
+            <div class="marquee-item"><img src="images/clients/amazon.png" alt="Amazon logo"></div>
+            <div class="marquee-item"><img src="images/clients/cocla.png" alt="Coca-Cola logo"></div>
+            <div class="marquee-item"><img src="images/clients/colors.png" alt="Colors TV logo"></div>
+            <div class="marquee-item"><img src="images/clients/disnp hostar.png" alt="Disney+ Hotstar logo"></div>
+            <div class="marquee-item"><img src="images/clients/godhrej.png" alt="Godrej logo"></div>
+            <div class="marquee-item"><img src="images/clients/infosys.png" alt="Infosys logo"></div>
+            <div class="marquee-item"><img src="images/clients/macd.png" alt="McDonald's logo"></div>
+            <div class="marquee-item"><img src="images/clients/netflix.png" alt="Netflix logo"></div>
+            <div class="marquee-item"><img src="images/clients/sony.png" alt="Sony logo"></div>
+            <div class="marquee-item"><img src="images/clients/star.png" alt="Star TV logo"></div>
+            <div class="marquee-item"><img src="images/clients/suzuki.png" alt="Suzuki logo"></div>
+            <div class="marquee-item"><img src="images/clients/tata.png" alt="Tata logo"></div>
+            <div class="marquee-item"><img src="images/clients/zee.png" alt="Zee TV logo"></div>
+          </div>
+          <!-- Copy 2 (Duplicated for infinite seamless loop) -->
+          <div class="marquee-list">
+            <div class="marquee-item"><img src="images/clients/adani.png" alt="Adani logo"></div>
+            <div class="marquee-item"><img src="images/clients/airtel.png" alt="Airtel logo"></div>
+            <div class="marquee-item"><img src="images/clients/alt.png" alt="ALT Balaji logo"></div>
+            <div class="marquee-item"><img src="images/clients/amazon.png" alt="Amazon logo"></div>
+            <div class="marquee-item"><img src="images/clients/cocla.png" alt="Coca-Cola logo"></div>
+            <div class="marquee-item"><img src="images/clients/colors.png" alt="Colors TV logo"></div>
+            <div class="marquee-item"><img src="images/clients/disnp hostar.png" alt="Disney+ Hotstar logo"></div>
+            <div class="marquee-item"><img src="images/clients/godhrej.png" alt="Godrej logo"></div>
+            <div class="marquee-item"><img src="images/clients/infosys.png" alt="Infosys logo"></div>
+            <div class="marquee-item"><img src="images/clients/macd.png" alt="McDonald's logo"></div>
+            <div class="marquee-item"><img src="images/clients/netflix.png" alt="Netflix logo"></div>
+            <div class="marquee-item"><img src="images/clients/sony.png" alt="Sony logo"></div>
+            <div class="marquee-item"><img src="images/clients/star.png" alt="Star TV logo"></div>
+            <div class="marquee-item"><img src="images/clients/suzuki.png" alt="Suzuki logo"></div>
+            <div class="marquee-item"><img src="images/clients/tata.png" alt="Tata logo"></div>
+            <div class="marquee-item"><img src="images/clients/zee.png" alt="Zee TV logo"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="projects-section" id="work">
       <div class="projects-panel">
         <div class="projects-head">
@@ -4449,6 +4581,8 @@
     </section>
       </div>
     </section>
+
+
 
     <section class="cta-section" id="contact">
       <div class="cta-panel">
