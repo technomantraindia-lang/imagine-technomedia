@@ -1,0 +1,4115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imagine Technomedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --bg: #040404;
+      --panel: #0a0a0a;
+      --panel-2: #111111;
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f5f5f5;
+      --muted: rgba(255, 255, 255, 0.72);
+      --accent: #e21010;
+      --accent-2: #8c0909;
+      --container: calc(100% - 64px);
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+      --font-display: "Outfit", sans-serif;
+      --font-body: "Plus Jakarta Sans", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: var(--font-body);
+      background:
+        linear-gradient(90deg, #050505 0%, #050505 74%, #260101 100%);
+      overflow-x: hidden;
+    }
+
+    /* Custom Animated Cursor */
+    .custom-cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: #ff1010;
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+    }
+
+    .custom-cursor-follower {
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid rgba(255, 16, 16, 0.4);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+    }
+    
+    /* Hover active states for cursor */
+    body.cursor-hover .custom-cursor-follower {
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 16, 16, 0.08);
+      border-color: #ff1010;
+      box-shadow: 0 0 15px rgba(255, 16, 16, 0.35);
+    }
+    
+    body.cursor-hover .custom-cursor-dot {
+      width: 12px;
+      height: 12px;
+      background: #ffffff;
+    }
+
+    /* Hide default cursor on devices that support hover */
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, [role="button"], input, select, textarea, .service-card, .tool-card, .project-item {
+        cursor: none !important;
+      }
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(5, 5, 5, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(16px);
+    }
+
+    .header-inner {
+      width: var(--container);
+      margin: 0 auto;
+      min-height: 94px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .brand img {
+      width: 126px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      flex: 1 1 auto;
+    }
+
+    .site-nav a,
+    .header-cta {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .site-nav a {
+      color: rgba(255, 255, 255, 0.88);
+      transition: color 0.25s ease, text-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(226, 16, 16, 0.6);
+    }
+
+    .site-nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .site-nav a:hover::after,
+    .site-nav a.active::after {
+      width: 100%;
+      left: 0;
+    }
+
+    .header-cta {
+      padding: 18px 28px;
+      background: linear-gradient(90deg, #c80d0d, #f31a1a);
+      box-shadow: 0 14px 34px rgba(226, 16, 16, 0.24);
+      flex: 0 0 auto;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .header-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(226, 16, 16, 0.4);
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .hero-video-alone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .hero-inner {
+      width: var(--container);
+      margin: 0 auto;
+      min-height: calc(100vh - 94px);
+      display: grid;
+      grid-template-columns: minmax(520px, 1.2fr) minmax(320px, 0.72fr);
+      align-items: center;
+      gap: 64px;
+      padding: 56px 0 130px;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .hero-title,
+    .section-title,
+    .service-card h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(3rem, 5.2vw, 4.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title .accent {
+      color: var(--accent);
+      text-shadow: 0 0 28px rgba(226, 16, 16, 0.24);
+    }
+
+    .hero-copy p {
+      max-width: 560px;
+      margin: 28px 0 34px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 20px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 148px;
+      min-height: 52px;
+      padding: 14px 24px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #c80d0d, #f31a1a);
+      box-shadow: 0 14px 34px rgba(226, 16, 16, 0.24);
+      border: 1px solid transparent;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(226, 16, 16, 0.4);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: rgba(226, 16, 16, 0.08);
+      box-shadow: 0 10px 25px rgba(226, 16, 16, 0.15);
+    }
+
+    .hero-card {
+      margin-top: 140px;
+      margin-left: auto;
+      width: min(100%, 390px);
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.74), rgba(9, 9, 9, 0.96));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-preview {
+      aspect-ratio: 1.05 / 0.92;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      overflow: hidden;
+      margin-bottom: 18px;
+      background: url("images/hero_preview.png") center/cover no-repeat;
+      position: relative;
+    }
+
+    .hero-card h2 {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .showreel {
+      position: absolute;
+      right: calc((100vw - var(--container)) / 2);
+      bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 24px;
+      background: rgba(8, 8, 8, 0.82);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .showreel:hover {
+      transform: translateY(-4px);
+      border-color: rgba(226, 16, 16, 0.4);
+      box-shadow: 0 18px 45px rgba(226, 16, 16, 0.12);
+    }
+
+    .play-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 0 10px rgba(226, 16, 16, 0.08);
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .showreel:hover .play-btn {
+      background: var(--accent);
+      transform: scale(1.05);
+      box-shadow: 0 0 0 14px rgba(226, 16, 16, 0.15), 0 0 25px rgba(226, 16, 16, 0.45);
+    }
+
+    .play-btn::before {
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: 4px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 13px solid #ffffff;
+    }
+
+    .showreel strong {
+      display: block;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .showreel span {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 13px;
+    }
+
+    .services {
+      padding: 46px 0 80px;
+      background: linear-gradient(180deg, rgba(4, 4, 4, 0.98), rgba(7, 7, 7, 1));
+    }
+
+    .services-panel {
+      background: transparent;
+      border: none;
+      padding: 34px 0 22px;
+      box-shadow: none;
+    }
+
+    .services-head {
+      margin-bottom: 36px;
+      text-align: center;
+      display: block;
+    }
+
+    .section-title,
+    .about-mockup-title,
+    .tools-title,
+    .cta-title {
+      margin: 0;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      font-family: var(--font-display);
+      font-weight: 900;
+      background: linear-gradient(90deg, #ffffff 0%, #ff4d4d 50%, #ffffff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 5s linear infinite;
+      padding-right: 0.15em;
+      margin-right: -0.15em;
+      overflow: visible;
+    }
+
+    @keyframes shineText {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    /* Call To Action (CTA) / Contact Section */
+    .cta-section {
+      padding: 100px 0 120px;
+      background: #040404;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-panel {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 54px;
+      background: rgba(12, 12, 12, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .cta-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(226, 16, 16, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .cta-head {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .cta-subtitle {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 12px 0 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      text-align: left;
+    }
+
+    /* Left Side: Contact Information */
+    .contact-info h3,
+    .contact-form-container h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin: 0 0 28px;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-card-item {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 24px;
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .contact-card-item:hover {
+      transform: translateX(6px);
+    }
+
+    .contact-card-icon {
+      flex: 0 0 46px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(226, 16, 16, 0.08);
+      border: 1px solid rgba(226, 16, 16, 0.15);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card-item:hover .contact-card-icon {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(226, 16, 16, 0.4);
+      transform: scale(1.05);
+    }
+
+    .contact-card-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-card-text span {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.12em;
+      transition: color 0.3s ease;
+    }
+
+    .contact-card-item:hover .contact-card-text span {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .contact-card-text a {
+      font-size: 16px;
+      color: #ffffff;
+      transition: color 0.3s ease;
+    }
+
+    .contact-card-text a:hover {
+      color: var(--accent);
+    }
+
+    .contact-card-text p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 380px;
+    }
+
+    /* Right Side: Contact Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.08em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(226, 16, 16, 0.15);
+      outline: none;
+    }
+
+    .form-submit-btn {
+      align-self: flex-start;
+      margin-top: 10px;
+      min-width: 170px;
+    }
+
+    @media (max-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 46px;
+      }
+      .cta-panel {
+        padding: 50px 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cta-section {
+        padding: 70px 0 90px;
+      }
+      .cta-panel {
+        padding: 42px 24px;
+      }
+    }
+
+    .services-copy {
+      display: none;
+    }
+
+    .services-showcase-container {
+      position: relative;
+      width: 100%;
+      max-width: 1350px;
+      margin: 40px auto 0;
+      overflow: visible;
+    }
+
+    .services-track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 480px;
+      perspective: 1500px;
+      transform-style: preserve-3d;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      position: absolute;
+      width: 290px;
+      height: 410px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #090909;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transform-origin: center center;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      will-change: transform, filter;
+      outline: none;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease;
+      z-index: 1;
+    }
+
+    .service-card.editing::before { background-image: url("images/service_video_editing.png"); }
+    .service-card.vfx::before { background-image: url("images/service_vfx.png"); }
+    .service-card.grading::before { background-image: url("images/service_color_grading.png"); }
+    .service-card.sound::before { background-image: url("images/service_sound_design.png"); }
+    .service-card.mastering::before { background-image: url("images/service_di_mastering.png"); }
+
+    .service-card:hover::before {
+      transform: scale(1.06);
+    }
+
+    .service-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
+      z-index: 2;
+      transition: background 0.4s ease;
+    }
+
+    .service-card:hover .service-card-overlay {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(226, 16, 16, 0.15) 50%, rgba(0, 0, 0, 0.2) 100%);
+    }
+
+    .service-card:hover {
+      border-color: rgba(226, 16, 16, 0.8);
+      box-shadow: 0 0 35px rgba(226, 16, 16, 0.3), 0 20px 45px rgba(0, 0, 0, 0.7);
+    }
+
+    .service-card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 24px;
+      z-index: 3;
+      text-align: left;
+    }
+
+    .service-card-content h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin: 0 0 8px 0;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      transition: color 0.3s ease;
+    }
+
+    .service-card:hover h3 {
+      color: var(--accent);
+    }
+
+    .service-card-content p {
+      margin: 0;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      opacity: 0.85;
+    }
+
+    /* Controls styling */
+    .services-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin-top: 36px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .services-arrow {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 10, 10, 0.6);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .services-arrow:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.06);
+    }
+
+    .services-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .services-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .services-dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .services-track {
+        height: 420px;
+      }
+      .service-card {
+        width: 240px;
+        height: 350px;
+      }
+      .service-card-content {
+        padding: 20px;
+      }
+      .service-card-content h3 {
+        font-size: 17px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .services-track {
+        height: 380px;
+      }
+      .service-card {
+        width: 190px;
+        height: 290px;
+      }
+      .service-card-content h3 {
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+      .service-card-content p {
+        font-size: 11px;
+        line-height: 1.5;
+      }
+    }
+
+    .featured-work,
+    .process-section {
+      padding: 0 0 34px;
+      background: linear-gradient(180deg, rgba(6, 6, 6, 1), rgba(5, 5, 5, 1));
+    }
+
+    .featured-panel,
+    .process-panel {
+      background: linear-gradient(180deg, rgba(8, 8, 8, 0.98), rgba(11, 11, 11, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow);
+    }
+
+    .featured-panel {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .featured-copy {
+      padding: 42px 32px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+        linear-gradient(135deg, rgba(255, 0, 0, 0.06), transparent 42%);
+    }
+
+    .featured-copy .section-title,
+    .process-copy .section-title {
+      font-size: clamp(2rem, 3.6vw, 3.2rem);
+      max-width: 280px;
+    }
+
+    .section-mark {
+      width: 42px;
+      height: 22px;
+      margin: 22px 0 28px;
+      position: relative;
+    }
+
+    .section-mark::before,
+    .section-mark::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      background: var(--accent);
+    }
+
+    .section-mark::before {
+      top: 0;
+      width: 30px;
+      height: 2px;
+    }
+
+    .section-mark::after {
+      top: 0;
+      bottom: 0;
+      width: 2px;
+    }
+
+    .outline-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 168px;
+      min-height: 52px;
+      padding: 14px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      color: #ffffff;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .outline-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(226, 16, 16, 0.55);
+    }
+
+    .outline-btn::after {
+      content: "->";
+      font-size: 12px;
+    }
+
+    /* Projects Section Layout - Pinned Horizontal Scroll */
+    .projects-section {
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(180deg, rgba(5, 5, 5, 1), rgba(4, 4, 4, 1));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .projects-panel {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      padding: 6vh 4vw 4vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 0;
+    }
+
+    .projects-head {
+      text-align: center;
+      margin-bottom: 2vh;
+    }
+
+    .projects-head p {
+      max-width: 600px;
+      margin: 10px auto 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .projects-list-wrapper {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      display: block;
+      position: relative;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: 400%; /* 4 projects, each is 100% of container width */
+      height: 100%;
+      will-change: transform;
+    }
+
+    .project-item {
+      flex: 0 0 25%; /* exactly 1 panel width, i.e., 100% of projects-list-wrapper */
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 4vw;
+      box-sizing: border-box;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 48px;
+      width: 100%;
+      max-width: 1200px;
+      height: 62vh;
+      background: rgba(10, 10, 10, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      align-items: center;
+      box-sizing: border-box;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .project-item:hover .project-card {
+      border-color: rgba(255, 16, 16, 0.25);
+      box-shadow: 0 30px 60px rgba(255, 16, 16, 0.08), 0 30px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .project-img-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: #000000;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      height: 100%;
+      max-height: 54vh;
+    }
+
+    .project-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .project-img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      border-radius: 16px;
+      pointer-events: none;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      z-index: 2;
+    }
+
+    .project-item:hover .project-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .project-item:hover .project-img-wrap::after {
+      border-color: #ff1010;
+      box-shadow: inset 0 0 30px rgba(255, 16, 16, 0.35);
+    }
+
+    .project-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      text-transform: uppercase;
+      margin: 0 0 20px 0;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      line-height: 1.1;
+      transition: color 0.3s ease;
+    }
+
+    .project-item:hover .project-title {
+      color: #ff1010;
+      text-shadow: 0 0 15px rgba(255, 16, 16, 0.3);
+    }
+
+    .project-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .project-meta-row {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .project-meta-row strong {
+      color: #ffffff;
+      font-weight: 600;
+      margin-right: 6px;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+    .project-meta-separator {
+      color: rgba(255, 16, 16, 0.4);
+      margin: 0 10px;
+    }
+
+    @media (max-width: 991px) {
+      .projects-section {
+        height: auto;
+        overflow: visible;
+        padding: 80px 0;
+      }
+      .projects-panel {
+        height: auto;
+        padding: 0 24px;
+      }
+      .projects-list {
+        width: 100%;
+        flex-direction: column;
+        gap: 40px;
+        height: auto;
+      }
+      .project-item {
+        flex: none;
+        width: 100%;
+        padding: 0;
+      }
+      .project-card {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 20px;
+        padding: 16px;
+      }
+      .project-img-wrap {
+        aspect-ratio: 16 / 10;
+        max-height: none;
+        height: auto;
+      }
+    }
+
+    .process-panel {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .process-copy {
+      text-align: center;
+      margin: 0 auto 10px;
+      max-width: 600px;
+    }
+
+    .process-copy p {
+      max-width: 600px;
+      margin: 14px auto 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.85;
+      font-size: 16px;
+    }
+
+    /* Circular Workflow Styles */
+    .workflow-circle-container {
+      position: relative;
+      width: 520px;
+      height: 520px;
+      margin: 40px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .workflow-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 420px;
+      height: 420px;
+      transform: translate(-50%, -50%);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: rotateRing 45s linear infinite;
+    }
+
+    .workflow-ring-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 350px;
+      height: 350px;
+      transform: translate(-50%, -50%);
+      border: 2px solid transparent;
+      border-top-color: var(--accent);
+      border-bottom-color: rgba(226, 16, 16, 0.15);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: rotateRing 18s linear infinite reverse;
+      opacity: 0.55;
+      filter: blur(1.5px);
+    }
+
+    .workflow-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 175px;
+      height: 175px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, #1a0303 0%, #050505 100%);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 35px rgba(226, 16, 16, 0.35), inset 0 0 15px rgba(226, 16, 16, 0.2);
+      text-align: center;
+      z-index: 5;
+      overflow: visible;
+    }
+
+    .workflow-center-subtitle {
+      font-size: 10px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .workflow-center-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .workflow-center-icon {
+      margin-bottom: 6px;
+      color: var(--accent);
+      animation: pulsePlay 2s infinite ease-in-out;
+    }
+
+    @keyframes pulsePlay {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .workflow-step {
+      position: absolute;
+      width: 110px;
+      text-align: center;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    .workflow-step:hover {
+      transform: scale(1.08);
+    }
+
+    .workflow-icon-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #090909;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+      color: #ffffff;
+    }
+
+    .workflow-icon-box svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .workflow-step-num {
+      display: block;
+      font-size: 9px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.1em;
+      margin-bottom: 2px;
+    }
+
+    .workflow-step h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.3;
+    }
+
+    /* Colors per step node matching dashboard diagram */
+    .step-1 .workflow-icon-box { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.25); }
+    .step-2 .workflow-icon-box { border-color: #06b6d4; box-shadow: 0 0 12px rgba(6, 182, 212, 0.25); }
+    .step-3 .workflow-icon-box { border-color: #a855f7; box-shadow: 0 0 12px rgba(168, 85, 247, 0.25); }
+    .step-4 .workflow-icon-box { border-color: #f97316; box-shadow: 0 0 12px rgba(249, 115, 22, 0.25); }
+    .step-5 .workflow-icon-box { border-color: #06b6d4; box-shadow: 0 0 12px rgba(6, 182, 212, 0.25); }
+    .step-6 .workflow-icon-box { border-color: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); }
+    .step-7 .workflow-icon-box { border-color: #ec4899; box-shadow: 0 0 12px rgba(236, 72, 153, 0.25); }
+    .step-8 .workflow-icon-box { border-color: #eab308; box-shadow: 0 0 12px rgba(234, 179, 8, 0.25); }
+
+    /* Hover Glistening */
+    .step-1:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); border-color: #60a5fa; color: #60a5fa; }
+    .step-2:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(6, 182, 212, 0.8); border-color: #22d3ee; color: #22d3ee; }
+    .step-3:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(168, 85, 247, 0.8); border-color: #c084fc; color: #c084fc; }
+    .step-4:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(249, 115, 22, 0.8); border-color: #fb923c; color: #fb923c; }
+    .step-5:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(6, 182, 212, 0.8); border-color: #22d3ee; color: #22d3ee; }
+    .step-6:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); border-color: #34d399; color: #34d399; }
+    .step-7:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(236, 72, 153, 0.8); border-color: #f472b6; color: #f472b6; }
+    .step-8:hover .workflow-icon-box { box-shadow: 0 0 20px rgba(234, 179, 8, 0.8); border-color: #fde047; color: #fde047; }
+
+    /* Positioning Node Angles */
+    .step-1 { top: 0%; left: 50%; transform: translate(-50%, -50%); }
+    .step-2 { top: 14.6%; left: 85.4%; transform: translate(-50%, -50%); }
+    .step-3 { top: 50%; left: 100%; transform: translate(-50%, -50%); }
+    .step-4 { top: 85.4%; left: 85.4%; transform: translate(-50%, -50%); }
+    .step-5 { top: 100%; left: 50%; transform: translate(-50%, -50%); }
+    .step-6 { top: 85.4%; left: 14.6%; transform: translate(-50%, -50%); }
+    .step-7 { top: 50%; left: 0%; transform: translate(-50%, -50%); }
+    .step-8 { top: 14.6%; left: 14.6%; transform: translate(-50%, -50%); }
+
+    /* Mobile workflow styling */
+    .workflow-mobile-list {
+      display: none;
+    }
+
+    @keyframes rotateRing {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+      .process-panel {
+        text-align: center;
+      }
+      .process-copy {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .process-copy p {
+        max-width: 500px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .workflow-circle-container {
+        display: none;
+      }
+      .workflow-mobile-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 30px;
+        width: 100%;
+      }
+      .workflow-mobile-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: rgba(10, 10, 10, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 12px 16px;
+        border-radius: 8px;
+        text-align: left;
+      }
+      .workflow-mobile-item .workflow-icon-box {
+        margin: 0;
+        flex: 0 0 48px;
+        width: 48px;
+        height: 48px;
+      }
+      .workflow-mobile-item h3 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 13px;
+        text-transform: uppercase;
+        color: #fff;
+      }
+      .workflow-mobile-item .workflow-step-num {
+        margin: 0 0 2px 0;
+      }
+    }
+
+    /* About Us Section Styles */
+    .about-section {
+      padding: 120px 0 60px;
+      background: linear-gradient(180deg, rgba(4, 4, 4, 1), rgba(5, 5, 5, 1));
+      position: relative;
+    }
+
+    .about-panel {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Left Side: Mockup Visual camera lens design */
+    .about-visual-container {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-lens-only-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.5s ease;
+    }
+
+    .about-lens-only-img:hover {
+      transform: scale(1.02);
+    }
+
+    /* Right Side Content */
+    .about-mockup-content {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Watermark rotating logo */
+    .about-watermark-logo {
+      position: absolute;
+      right: 0;
+      top: 10px;
+      width: 120px;
+      height: 120px;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Eyebrows matching mockup exactly */
+    .about-eyebrow-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .about-eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .about-eyebrow-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 16, 16, 0.35), transparent);
+    }
+
+    .about-mockup-title {
+      margin: 0 0 32px 0;
+      text-align: center;
+    }
+
+    .about-paragraphs {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 40px;
+      max-width: 680px;
+      z-index: 2;
+    }
+
+    .about-paragraphs p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.85);
+      margin: 0;
+    }
+
+    /* Achievements card deck horizontal layout */
+    .about-achievements-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .about-achievements-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .about-achievements-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 16, 16, 0.35), transparent);
+    }
+
+    .about-stats-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+
+    .about-stat-card {
+      background: rgba(12, 12, 12, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s ease;
+    }
+
+    .about-stat-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      border-radius: 16px;
+      pointer-events: none;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .about-stat-card:hover {
+      transform: translateY(-4px);
+      background: rgba(16, 16, 16, 0.75);
+    }
+
+    .about-stat-card:hover::before {
+      border-color: rgba(255, 16, 16, 0.3);
+      box-shadow: inset 0 0 15px rgba(255, 16, 16, 0.15);
+    }
+
+    .about-stat-icon-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .about-stat-icon {
+      font-size: 18px;
+      color: var(--accent);
+      filter: drop-shadow(0 0 5px rgba(255, 16, 16, 0.4));
+    }
+
+    .about-stat-value {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 2.8vw, 2.6rem);
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .about-stat-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.35;
+    }
+
+    /* Watermark SVG styling */
+    .itm-watermark-svg {
+      width: 100%;
+      height: 100%;
+      animation: rotateWatermark 30s linear infinite;
+    }
+
+    @keyframes rotateWatermark {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1199px) {
+      .about-panel {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .about-visual-container {
+        justify-content: center;
+        height: 400px;
+      }
+      .about-visual-lens-card {
+        width: 75%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .about-stats-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .about-visual-container {
+        height: 350px;
+      }
+      .about-visual-lens-card {
+        width: 100%;
+      }
+      .about-sidebar-text {
+        display: none;
+      }
+      .about-overlay-card {
+        left: 20px;
+      }
+    }
+
+    .tools-section,
+    .testimonial-section {
+      padding: 0 0 34px;
+      background: linear-gradient(180deg, rgba(4, 4, 4, 1), rgba(5, 5, 5, 1));
+    }
+
+    .tools-panel,
+    .testimonial-panel {
+      background: linear-gradient(180deg, rgba(8, 8, 8, 0.99), rgba(10, 10, 10, 0.99));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .tools-panel {
+      position: relative;
+      padding: 42px 34px 38px;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent),
+        linear-gradient(180deg, rgba(8, 8, 8, 0.99), rgba(10, 10, 10, 0.99));
+    }
+
+    .tools-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+
+
+    .tools-title {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 42px;
+    }
+
+    /* Tools & Technology Marquee CSS Layout */
+    .tools-marquee-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tools-marquee-row-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 10px 0;
+    }
+
+    /* Left and right fade-out overlay masks */
+    .tools-marquee-row-wrapper::before,
+    .tools-marquee-row-wrapper::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 12vw;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .tools-marquee-row-wrapper::before {
+      left: 0;
+      background: linear-gradient(90deg, #050505 0%, transparent 100%);
+    }
+
+    .tools-marquee-row-wrapper::after {
+      right: 0;
+      background: linear-gradient(270deg, #050505 0%, transparent 100%);
+    }
+
+    .tools-marquee-track {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      width: max-content;
+    }
+
+    .track-left {
+      animation: scrollLeft 35s linear infinite;
+    }
+
+    .track-right {
+      animation: scrollRight 35s linear infinite;
+    }
+
+    /* Pause scroll on hover to allow card flips */
+    .tools-marquee-row-wrapper:hover .tools-marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollLeft {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(-1044px, 0, 0);
+      }
+    }
+
+    @keyframes scrollRight {
+      0% {
+        transform: translate3d(-1044px, 0, 0);
+      }
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      @keyframes scrollLeft {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        100% {
+          transform: translate3d(-864px, 0, 0);
+        }
+      }
+
+      @keyframes scrollRight {
+        0% {
+          transform: translate3d(-864px, 0, 0);
+        }
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+    }
+
+    /* Smaller tool card design: 150px square */
+    .tool-card {
+      flex: 0 0 150px;
+      width: 150px;
+      height: 150px;
+      background: transparent;
+      perspective: 1000px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tool-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      border-radius: 12px;
+      overflow: hidden;
+      will-change: transform;
+      background: #080808;
+    }
+
+    .tool-card-front,
+    .tool-card-back {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .tool-card-front {
+      background: rgba(12, 12, 12, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 2;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    .front-darken {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .tool-logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45));
+      z-index: 2;
+    }
+
+    .tool-card-front h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.3;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .tool-card-back {
+      background: #050505;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      z-index: 1;
+      transform: rotateY(90deg);
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+      padding: 12px;
+    }
+
+    .back-category {
+      font-size: 8px;
+      text-transform: uppercase;
+      color: #ff1010;
+      letter-spacing: 0.10em;
+      font-weight: 800;
+      margin-bottom: 4px;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .back-title {
+      font-family: var(--font-display);
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      margin: 0 0 6px 0;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .back-description {
+      font-size: 8px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0 0 8px 0;
+      max-width: 130px;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .back-arrow-box {
+      margin-top: 0;
+      opacity: 0;
+      transform: scale(0.6) rotate(0deg);
+    }
+
+    .back-arrow-svg {
+      display: block;
+    }
+
+    /* Red glow backdrop */
+    .glow-bg {
+      position: absolute;
+      inset: -15px;
+      background: radial-gradient(circle, rgba(226, 16, 16, 0.15) 0%, transparent 70%);
+      opacity: 0;
+      z-index: -1;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .tool-card:hover .glow-bg {
+      opacity: 1;
+    }
+
+    /* Traveling border line animation elements */
+    .border-line {
+      position: absolute;
+      background: #ff1010;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .border-line-top { top: 0; left: 0; height: 1.5px; width: 0; }
+    .border-line-right { top: 0; right: 0; width: 1.5px; height: 0; }
+    .border-line-bottom { bottom: 0; right: 0; height: 1.5px; width: 0; }
+    .border-line-left { bottom: 0; left: 0; width: 1.5px; height: 0; }
+
+    @media (max-width: 768px) {
+      .tool-card {
+        flex: 0 0 120px;
+        width: 120px;
+        height: 120px;
+      }
+      .tool-logo {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 8px;
+      }
+      .tool-card-front h3 {
+        font-size: 9px;
+      }
+      .back-title {
+        font-size: 9px;
+        margin-bottom: 4px;
+      }
+      .back-description {
+        font-size: 7px;
+        max-width: 100px;
+        margin-bottom: 4px;
+      }
+    }
+
+
+
+    .site-footer {
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255, 0, 0, 0.18), transparent 24%),
+        linear-gradient(135deg, #060606 0%, #080808 58%, #130303 100%);
+      overflow: hidden;
+    }
+
+    .site-footer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .site-footer::after {
+      content: "";
+      position: absolute;
+      right: -8%;
+      top: -16%;
+      width: 520px;
+      height: 220px;
+      background:
+        radial-gradient(circle at center, rgba(255, 0, 0, 0.12), transparent 62%);
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    .footer-inner {
+      width: var(--container);
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.6fr;
+      gap: 48px;
+      padding: 60px 0 40px;
+    }
+
+    .footer-brand img {
+      width: 88px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      max-width: 300px;
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      line-height: 1.85;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-socials a {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.6);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .footer-socials a:hover {
+      color: #ffffff;
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(226, 16, 16, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .footer-links h3,
+    .footer-contact h3 {
+      margin: 0 0 16px;
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a,
+    .footer-contact a,
+    .footer-contact p {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 12px;
+      line-height: 1.7;
+      text-decoration: none;
+      margin: 0;
+    }
+
+    .footer-links a:hover,
+    .footer-contact a:hover {
+      color: #ffffff;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: 20px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .contact-item div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-icon {
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* Floating WhatsApp Button Style */
+    .whatsapp-float-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25d366;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+      z-index: 999;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      text-decoration: none;
+    }
+
+    .whatsapp-float-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(37, 211, 102, 0.55);
+      background: #22c35e;
+      color: #ffffff;
+    }
+
+    .whatsapp-float-btn svg {
+      stroke-width: 2.5;
+    }
+
+    .footer-bottom {
+      width: var(--container);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      min-height: 46px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.56);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .footer-top {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 12px;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1.03) translateX(0); }
+      to { transform: scale(1.09) translateX(-1.2%); }
+    }
+
+    @keyframes scanMove {
+      from { transform: translateX(-24px); }
+      to { transform: translateX(24px); }
+    }
+
+    @media (max-width: 1240px) {
+      .hero-inner,
+      .services-head,
+      .featured-panel,
+      .process-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        margin: 10px 0 0;
+      }
+
+      .showreel {
+        right: 32px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .featured-copy,
+      .process-copy {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .process-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 0;
+      }
+
+      .process-steps::before {
+        left: 18%;
+        right: 18%;
+      }
+
+      .why-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+
+
+      .why-visual {
+        min-height: 280px;
+      }
+
+      .why-copy {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .why-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 0;
+      }
+
+      .why-stat:nth-child(2) {
+        border-right: 0;
+      }
+
+      .why-stat:nth-child(1),
+      .why-stat:nth-child(2) {
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    @media (max-width: 860px) {
+      :root {
+        --container: calc(100% - 36px);
+      }
+
+      .header-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 0;
+      }
+
+      .site-nav {
+        gap: 14px 18px;
+        flex-wrap: wrap;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 34px 0 108px;
+      }
+
+      .hero-title {
+        font-size: clamp(3.2rem, 14vw, 5rem);
+      }
+
+      .hero-copy p {
+        font-size: 17px;
+      }
+
+      .showreel {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        justify-content: flex-start;
+      }
+
+      .services {
+        padding-top: 22px;
+      }
+
+      .services-panel {
+        padding: 24px 18px 18px;
+      }
+
+      .services-copy {
+        padding-top: 0;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-slider,
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .slider-arrow {
+        display: none;
+      }
+
+      .work-card {
+        min-height: 280px;
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .process-steps {
+        padding: 28px 14px 22px;
+      }
+
+      .process-steps::before {
+        display: none;
+      }
+
+      .step {
+        padding: 0 4px;
+      }
+
+      .why-visual {
+        min-height: 220px;
+      }
+
+      .lens-core {
+        left: 28px;
+        top: 52px;
+        width: 250px;
+        height: 116px;
+      }
+
+      .lens-core::before {
+        width: 96px;
+        height: 96px;
+        right: 16px;
+        top: 10px;
+      }
+
+      .lens-core::after {
+        width: 88px;
+        height: 76px;
+        left: 12px;
+        top: 18px;
+      }
+
+      .lens-mount {
+        left: 14px;
+        bottom: 28px;
+        width: 68px;
+        height: 42px;
+      }
+
+      .why-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .tools-panel {
+        padding: 28px 18px 24px;
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        padding: 28px 0 18px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        justify-content: center;
+        padding: 12px 0;
+      }
+
+      .tool-badge {
+        width: 64px;
+        height: 64px;
+        font-size: 1.45rem;
+      }
+
+
+
+      .why-stat,
+      .why-stat:nth-child(1),
+      .why-stat:nth-child(2) {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0 0 16px;
+      }
+
+      .why-stat:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    /* Responsive Header & Navigation (Mobile Hamburg Menu) */
+    .menu-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .header-cta {
+        display: none !important;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        width: 42px;
+        height: 42px;
+        z-index: 50;
+        transition: all 0.3s ease;
+      }
+
+      .menu-toggle:hover {
+        border-color: var(--accent);
+        background: rgba(226, 16, 16, 0.08);
+        box-shadow: 0 0 10px rgba(226, 16, 16, 0.25);
+      }
+
+      .menu-toggle svg {
+        transition: transform 0.3s ease;
+      }
+
+      .nav-open .menu-toggle svg {
+        transform: rotate(90deg);
+      }
+
+      .site-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(5, 5, 5, 0.98);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-direction: column;
+        gap: 0 !important;
+        padding: 16px 24px;
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 45;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+      }
+
+      .nav-open .site-nav {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .site-nav a {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.01);
+        border-radius: 8px;
+        margin-bottom: 8px;
+        box-sizing: border-box;
+        transition: all 0.25s ease;
+      }
+
+      .site-nav a:hover,
+      .site-nav a.active {
+        background: rgba(226, 16, 16, 0.08);
+        border-color: rgba(226, 16, 16, 0.2);
+        color: var(--accent) !important;
+      }
+
+      .site-nav a::after {
+        display: none !important;
+      }
+
+      /* Premium arrow suffix on links matching mockup screenshot */
+      .site-nav a::before {
+        content: ">";
+        order: 2;
+        color: var(--accent);
+        font-weight: 800;
+        font-size: 14px;
+        transition: transform 0.2s ease;
+      }
+
+      .site-nav a:hover::before {
+        transform: translateX(4px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="hero" id="home">
+      <video class="hero-video-alone" autoplay muted loop playsinline>
+        <source src="images/ye_video_ekdam_perfect_hai_but_gwr_video_mvp.mp4" type="video/mp4">
+        <source src="images/new viideo.mov" type="video/quicktime">
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="about-panel">
+        <!-- Left Side: Raw Camera Lens Image -->
+        <div class="about-visual-container">
+          <img src="images/camera.png" alt="Imagine TechnoMedia Camera Lens" class="about-lens-only-img">
+        </div>
+
+        <!-- Right Side: Content Block -->
+        <div class="about-mockup-content">
+          <!-- Watermark rotating logo border overlay -->
+          <div class="about-watermark-logo">
+            <svg class="itm-watermark-svg" viewBox="0 0 100 100">
+              <path id="textPath" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+              <text font-size="5" letter-spacing="1.15" fill="rgba(255, 16, 16, 0.4)">
+                <textPath href="#textPath" startOffset="0%">
+                  IMAGINE TECHNOMEDIA • POST PRODUCTION • IMAGINE TECHNOMEDIA • POST PRODUCTION
+                </textPath>
+              </text>
+              <text x="50" y="55" font-size="13" font-family="var(--font-display)" fill="var(--accent)" text-anchor="middle" font-weight="900">iTM</text>
+            </svg>
+          </div>
+
+          <!-- Eyebrow "Who We Are" -->
+          <div class="about-eyebrow-container">
+            <span class="about-eyebrow">Who We Are</span>
+            <div class="about-eyebrow-line"></div>
+          </div>
+
+          <!-- Title: ABOUT US -->
+          <h2 class="about-mockup-title">About Us</h2>
+
+          <!-- Descriptions -->
+          <div class="about-paragraphs">
+            <p>Imagine TechnoMedia is a creative post-production company dedicated to delivering visually stunning and emotionally engaging content.</p>
+            <p>We provide end-to-end post-production services for films, TV shows, web series, commercials, corporate videos, and digital content.</p>
+            <p>With a team of passionate professionals and cutting-edge technology, we ensure every project meets international standards with creativity, precision, and on-time delivery.</p>
+          </div>
+
+          <!-- Achievements header row -->
+          <div class="about-achievements-title-row">
+            <span class="about-achievements-title">Our Achievements</span>
+            <div class="about-achievements-line"></div>
+          </div>
+
+          <!-- Stats 4 horizontal cards -->
+          <div class="about-stats-cards">
+            <!-- Stat 1 -->
+            <div class="about-stat-card">
+              <div class="about-stat-icon-row">
+                <span class="about-stat-icon">⭐</span>
+                <span class="about-stat-value">10+</span>
+              </div>
+              <span class="about-stat-label">Years of Experience</span>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="about-stat-card">
+              <div class="about-stat-icon-row">
+                <span class="about-stat-icon">👥</span>
+                <span class="about-stat-value">50+</span>
+              </div>
+              <span class="about-stat-label">Happy Clients</span>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="about-stat-card">
+              <div class="about-stat-icon-row">
+                <span class="about-stat-icon">🎬</span>
+                <span class="about-stat-value">1000+</span>
+              </div>
+              <span class="about-stat-label">Projects Completed</span>
+            </div>
+
+            <!-- Stat 4 -->
+            <div class="about-stat-card">
+              <div class="about-stat-icon-row">
+                <span class="about-stat-icon">🎧</span>
+                <span class="about-stat-value">24/7</span>
+              </div>
+              <span class="about-stat-label">Dedicated Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="container">
+        <div class="services-panel">
+          <div class="services-head">
+            <div>
+              <h2 class="section-title">Our Services</h2>
+            </div>
+          </div>
+
+          <div class="services-showcase-container">
+            <div class="services-track">
+              <!-- Service 1: Video Editing -->
+              <article class="service-card editing" tabindex="0" aria-label="Video Editing Service">
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                  <h3>Video Editing</h3>
+                  <p>Seamless cuts, powerful storytelling, and pacing that keeps every frame sharp and memorable.</p>
+                </div>
+              </article>
+
+              <!-- Service 2: VFX & Animation -->
+              <article class="service-card vfx" tabindex="0" aria-label="VFX and Animation Service">
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                  <h3>VFX &amp; Animation</h3>
+                  <p>Bringing imagination to life with stunning visuals, depth, and high-impact motion treatment.</p>
+                </div>
+              </article>
+
+              <!-- Service 3: Color Grading -->
+              <article class="service-card grading" id="technology" tabindex="0" aria-label="Color Grading Service">
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                  <h3>Color Grading</h3>
+                  <p>Perfecting moods with precision, richer contrast, and a premium cinematic finish.</p>
+                </div>
+              </article>
+
+              <!-- Service 4: Sound Design -->
+              <article class="service-card sound" id="careers" tabindex="0" aria-label="Sound Design Service">
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                  <h3>Sound Design</h3>
+                  <p>Sound that enhances every emotion and moment with clean layering and deeper atmosphere.</p>
+                </div>
+              </article>
+
+              <!-- Service 5: DI & Mastering -->
+              <article class="service-card mastering" id="contact-service" tabindex="0" aria-label="DI and Mastering Service">
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                  <h3>DI &amp; Mastering</h3>
+                  <p>Delivering the perfect final output with polish, consistency, and platform-ready quality.</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Carousel Controls -->
+            <div class="services-controls">
+              <button class="services-arrow services-arrow-prev" aria-label="Previous Service">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
+              
+              <div class="services-dots">
+                <span class="services-dot" data-index="0"></span>
+                <span class="services-dot" data-index="1"></span>
+                <span class="services-dot" data-index="2"></span>
+                <span class="services-dot" data-index="3"></span>
+                <span class="services-dot" data-index="4"></span>
+              </div>
+
+              <button class="services-arrow services-arrow-next" aria-label="Next Service">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 42px;">
+            <a href="#contact" class="btn-secondary">View More Services</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="process-section" id="process">
+      <div class="container">
+        <div class="process-copy">
+          <h2 class="section-title">Our Workflow</h2>
+          <p>
+            A smooth workflow that ensures quality, creativity, and on-time delivery across all stages of production.
+          </p>
+        </div>
+        <div class="process-panel">
+
+          <!-- Circular Workflow Console Diagram -->
+          <div class="workflow-circle-container">
+            <div class="workflow-ring"></div>
+            <div class="workflow-ring-glow"></div>
+            
+            <div class="workflow-center">
+              <div class="workflow-center-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+              <span class="workflow-center-subtitle">OUR</span>
+              <h3 class="workflow-center-title">WORKFLOW</h3>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="workflow-step step-1">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
+              </div>
+              <span class="workflow-step-num">01</span>
+              <h3>Client Brief</h3>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="workflow-step step-2">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><line x1="9" y1="12" x2="10" y2="12"></line><line x1="9" y1="16" x2="10" y2="16"></line><line x1="14" y1="12" x2="15" y2="12"></line><line x1="14" y1="16" x2="15" y2="16"></line></svg>
+              </div>
+              <span class="workflow-step-num">02</span>
+              <h3>Planning</h3>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="workflow-step step-3">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="9.8" y1="8.2" x2="20" y2="18"></line><line x1="9.8" y1="15.8" x2="20" y2="6"></line></svg>
+              </div>
+              <span class="workflow-step-num">03</span>
+              <h3>Editing</h3>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="workflow-step step-4">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M19.07 4.93L4.93 19.07M19.07 19.07L4.93 4.93"></path></svg>
+              </div>
+              <span class="workflow-step-num">04</span>
+              <h3>VFX &amp; Graphics</h3>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="workflow-step step-5">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+              </div>
+              <span class="workflow-step-num">05</span>
+              <h3>Color Grading</h3>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="workflow-step step-6">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="4" y2="15"></line><line x1="9" y1="4" x2="9" y2="20"></line><line x1="14" y1="8" x2="14" y2="16"></line><line x1="19" y1="11" x2="19" y2="13"></line></svg>
+              </div>
+              <span class="workflow-step-num">06</span>
+              <h3>Sound Design</h3>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="workflow-step step-7">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <span class="workflow-step-num">07</span>
+              <h3>Review &amp; QC</h3>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="workflow-step step-8">
+              <div class="workflow-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </div>
+              <span class="workflow-step-num">08</span>
+              <h3>Final Delivery</h3>
+            </div>
+          </div>
+
+          <!-- Mobile Fallback list (Responsive Grid/Flex list) -->
+          <div class="workflow-mobile-list">
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #3b82f6;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">01</span>
+                <h3>Client Brief</h3>
+              </div>
+            </div>
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #06b6d4;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><line x1="9" y1="12" x2="10" y2="12"></line><line x1="9" y1="16" x2="10" y2="16"></line><line x1="14" y1="12" x2="15" y2="12"></line><line x1="14" y1="16" x2="15" y2="16"></line></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">02</span>
+                <h3>Planning</h3>
+              </div>
+            </div>
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #a855f7;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="9.8" y1="8.2" x2="20" y2="18"></line><line x1="9.8" y1="15.8" x2="20" y2="6"></line></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">03</span>
+                <h3>Editing</h3>
+              </div>
+            </div>
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #f97316;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M19.07 4.93L4.93 19.07M19.07 19.07L4.93 4.93"></path></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">04</span>
+                <h3>VFX &amp; Graphics</h3>
+              </div>
+            </div>
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #06b6d4;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">05</span>
+                <h3>Color Grading</h3>
+              </div>
+            </div>
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #10b981;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="4" y2="15"></line><line x1="9" y1="4" x2="9" y2="20"></line><line x1="14" y1="8" x2="14" y2="16"></line><line x1="19" y1="11" x2="19" y2="13"></line></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">06</span>
+                <h3>Sound Design</h3>
+              </div>
+            </div>
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #ec4899;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">07</span>
+                <h3>Review &amp; QC</h3>
+              </div>
+            </div>
+            <div class="workflow-mobile-item">
+              <div class="workflow-icon-box" style="border-color: #eab308;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </div>
+              <div>
+                <span class="workflow-step-num">08</span>
+                <h3>Final Delivery</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-section" id="work">
+      <div class="projects-panel">
+        <div class="projects-head">
+          <h2 class="section-title">Projects</h2>
+          <p>A showcase of our featured projects across films, television shows, commercials, and digital content.</p>
+        </div>
+
+        <div class="projects-list-wrapper">
+          <div class="projects-list">
+            <!-- Project 1 -->
+            <article class="project-item">
+              <div class="project-card">
+                <div class="project-img-wrap">
+                  <img src="images/shadow of the  time.png" alt="Shadows of Time Project Image">
+                </div>
+                <div class="project-details">
+                  <h3 class="project-title">1. SHADOWS OF TIME</h3>
+                  <div class="project-meta-list">
+                    <div class="project-meta-row">
+                      <strong>Genre:</strong> Thriller
+                      <span class="project-meta-separator">|</span>
+                      <strong>Format:</strong> Feature Film
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Our Work:</strong> Editing, VFX, Color Grading, Sound Design
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Tools Used:</strong> Premiere Pro, Nuke, DaVinci Resolve
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+ 
+            <!-- Project 2 -->
+            <article class="project-item">
+              <div class="project-card">
+                <div class="project-img-wrap">
+                  <img src="images/citylights.png" alt="City Lights Project Image">
+                </div>
+                <div class="project-details">
+                  <h3 class="project-title">2. CITY LIGHTS</h3>
+                  <div class="project-meta-list">
+                    <div class="project-meta-row">
+                      <strong>Genre:</strong> Drama
+                      <span class="project-meta-separator">|</span>
+                      <strong>Format:</strong> Web Series
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Our Work:</strong> Editing, Color Grading, Titles, Sound Design
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Tools Used:</strong> Premiere Pro, After Effects, Resolve
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+ 
+            <!-- Project 3 -->
+            <article class="project-item">
+              <div class="project-card">
+                <div class="project-img-wrap">
+                  <img src="images/drive in to fuutre.png" alt="Drive Into Future Project Image">
+                </div>
+                <div class="project-details">
+                  <h3 class="project-title">3. DRIVE INTO FUTURE</h3>
+                  <div class="project-meta-list">
+                    <div class="project-meta-row">
+                      <strong>Genre:</strong> Commercial
+                      <span class="project-meta-separator">|</span>
+                      <strong>Format:</strong> TVC
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Our Work:</strong> VFX, Motion Graphics, Color Grading
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Tools Used:</strong> After Effects, Cinema 4D, Resolve
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+ 
+            <!-- Project 4 -->
+            <article class="project-item">
+              <div class="project-card">
+                <div class="project-img-wrap">
+                  <img src="images/nature call.png" alt="Nature's Call Project Image">
+                </div>
+                <div class="project-details">
+                  <h3 class="project-title">4. NATURE’S CALL</h3>
+                  <div class="project-meta-list">
+                    <div class="project-meta-row">
+                      <strong>Genre:</strong> Documentary
+                      <span class="project-meta-separator">|</span>
+                      <strong>Format:</strong> TV Program
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Our Work:</strong> Editing, Color Grading, Sound Design
+                    </div>
+                    <div class="project-meta-row">
+                      <strong>Tools Used:</strong> Premiere Pro, DaVinci Resolve
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tools-section" id="technology">
+      <div class="container">
+        <div class="tools-panel">
+          <h2 class="tools-title">Tools &amp; Technology</h2>
+
+          <div class="tools-marquee-container">
+            <!-- Row 1: Moves Left -->
+            <div class="tools-marquee-row-wrapper">
+              <div class="tools-marquee-track track-left">
+                <!-- Adobe Premiere Pro -->
+                <article class="tool-card" tabindex="0" aria-label="Adobe Premiere Pro, Category: Video Editing">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/adobe premium.png" alt="Adobe Premiere Pro Logo" class="tool-logo">
+                      <h3>Premiere Pro</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Editing</span>
+                      <h3 class="back-title">Premiere Pro</h3>
+                      <p class="back-description">Video editing software for television, film, and creative digital video productions.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Adobe After Effects -->
+                <article class="tool-card" tabindex="0" aria-label="Adobe After Effects, Category: VFX &amp; Motion">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/adobe affter effect.png" alt="Adobe After Effects Logo" class="tool-logo">
+                      <h3>After Effects</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">VFX &amp; Motion</span>
+                      <h3 class="back-title">After Effects</h3>
+                      <p class="back-description">Motion graphics, animation visual elements, and composite designs.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Adobe Photoshop -->
+                <article class="tool-card" tabindex="0" aria-label="Adobe Photoshop, Category: Image Editing">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/adobe photo shop.png" alt="Adobe Photoshop Logo" class="tool-logo">
+                      <h3>Photoshop</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Images</span>
+                      <h3 class="back-title">Photoshop</h3>
+                      <p class="back-description">Image editing, layouts, photo composites, and creative visuals.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Adobe Illustrator -->
+                <article class="tool-card" tabindex="0" aria-label="Adobe Illustrator, Category: Vector Graphics">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/iustrator.png" alt="Adobe Illustrator Logo" class="tool-logo">
+                      <h3>Illustrator</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Vector</span>
+                      <h3 class="back-title">Illustrator</h3>
+                      <p class="back-description">Vector graphics, branding symbols, logos, and typographic works.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Adobe Audition -->
+                <article class="tool-card" tabindex="0" aria-label="Adobe Audition, Category: Audio Production">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/audtion.png" alt="Adobe Audition Logo" class="tool-logo">
+                      <h3>Audition</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Audio</span>
+                      <h3 class="back-title">Audition</h3>
+                      <p class="back-description">Advanced audio editing, restoration, waveform designs, and mixing.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Adobe Media Encoder -->
+                <article class="tool-card" tabindex="0" aria-label="Adobe Media Encoder, Category: Video Encoding">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/medoa encoder.png" alt="Adobe Media Encoder Logo" class="tool-logo">
+                      <h3>Media Encoder</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Encoding</span>
+                      <h3 class="back-title">Media Encoder</h3>
+                      <p class="back-description">Unified file ingestion, encoding, compression, and delivery output.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+              </div>
+            </div>
+
+            <!-- Row 2: Moves Right -->
+            <div class="tools-marquee-row-wrapper">
+              <div class="tools-marquee-track track-right">
+                <!-- DaVinci Resolve -->
+                <article class="tool-card" tabindex="0" aria-label="DaVinci Resolve, Category: Color Grading">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/davingi.png" alt="DaVinci Resolve Logo" class="tool-logo">
+                      <h3>DaVinci Resolve</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Grading</span>
+                      <h3 class="back-title">Resolve</h3>
+                      <p class="back-description">Color correction, visual effects, and professional audio post-processing.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Cinema 4D -->
+                <article class="tool-card" tabindex="0" aria-label="Cinema 4D, Category: 3D Animation">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/cinema 4d.png" alt="Cinema 4D Logo" class="tool-logo">
+                      <h3>Cinema 4D</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">3D Motion</span>
+                      <h3 class="back-title">Cinema 4D</h3>
+                      <p class="back-description">3D modeling, dynamic physics animations, and rendering pipelines.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Blender -->
+                <article class="tool-card" tabindex="0" aria-label="Blender, Category: 3D Creation">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/blender.png" alt="Blender Logo" class="tool-logo">
+                      <h3>Blender</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Modeling</span>
+                      <h3 class="back-title">Blender</h3>
+                      <p class="back-description">Open-source software tool for visual effects, rendering, and composits.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Autodesk Maya -->
+                <article class="tool-card" tabindex="0" aria-label="Autodesk Maya, Category: 3D VFX">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/autodesk maya.png" alt="Autodesk Maya Logo" class="tool-logo">
+                      <h3>Autodesk Maya</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Maya VFX</span>
+                      <h3 class="back-title">Maya</h3>
+                      <p class="back-description">3D character simulation, rigid effects, and visual asset modeling.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Nuke -->
+                <article class="tool-card" tabindex="0" aria-label="Nuke, Category: Compositing">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/nuke.png" alt="Nuke Logo" class="tool-logo">
+                      <h3>Nuke</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Node VFX</span>
+                      <h3 class="back-title">Nuke</h3>
+                      <p class="back-description">Compositing, green screen, multi-channel processing, and cleanup.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Mocha Pro -->
+                <article class="tool-card" tabindex="0" aria-label="Mocha Pro, Category: Planar Tracking">
+                  <div class="tool-card-inner">
+                    <div class="glow-bg"></div>
+                    <div class="border-line border-line-top"></div>
+                    <div class="border-line border-line-right"></div>
+                    <div class="border-line border-line-bottom"></div>
+                    <div class="border-line border-line-left"></div>
+                    <div class="tool-card-front">
+                      <div class="front-darken"></div>
+                      <img src="images/mocha pro.png" alt="Mocha Pro Logo" class="tool-logo">
+                      <h3>Mocha Pro</h3>
+                    </div>
+                    <div class="tool-card-back">
+                      <span class="back-category">Tracking</span>
+                      <h3 class="back-title">Mocha Pro</h3>
+                      <p class="back-description">Planar tracking, mask generation, lens corrections, and clean plates.</p>
+                      <div class="back-arrow-box">
+                        <svg class="back-arrow-svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                          <circle cx="16" cy="16" r="12" stroke="#ff1010" stroke-width="2" fill="none"></circle>
+                          <line x1="12" y1="16" x2="20" y2="16" stroke="#ff1010" stroke-width="2" stroke-linecap="round"></line>
+                          <polyline points="16 12 20 16 16 20" stroke="#ff1010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+      <div class="cta-panel">
+        <div class="cta-glow"></div>
+        <div class="container">
+          
+          <div class="cta-head">
+            <h2 class="cta-title">Ready to bring your vision to life?</h2>
+            <p class="cta-subtitle">Let's craft your next visual masterpiece together.</p>
+          </div>
+
+          <div class="contact-grid">
+            <!-- Left Side: Contact Information -->
+            <div class="contact-info">
+              <h3>Contact Info</h3>
+              
+              <div class="contact-card-item">
+                <div class="contact-card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div class="contact-card-text">
+                  <span>Call Us</span>
+                  <a href="tel:+918097647925">+91 8097647925</a>
+                  <a href="tel:+918451045735">+91 8451045735</a>
+                </div>
+              </div>
+
+              <div class="contact-card-item">
+                <div class="contact-card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="contact-card-text">
+                  <span>Email Us</span>
+                  <a href="mailto:info@imaginetechnomedia.in">info@imaginetechnomedia.in</a>
+                  <a href="mailto:imaginetechnomedia@gmail.com">imaginetechnomedia@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="contact-card-item">
+                <div class="contact-card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </div>
+                <div class="contact-card-text">
+                  <span>Website</span>
+                  <a href="https://imaginetechnomedia.in" target="_blank" rel="noopener noreferrer">imaginetechnomedia.in</a>
+                </div>
+              </div>
+
+              <div class="contact-card-item">
+                <div class="contact-card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div class="contact-card-text">
+                  <span>Office Address</span>
+                  <p>Office no. 406, Abhishek Premises Co-Operative Society Ltd. Plot No. C-5, Dalia Industrial Estate, Off New Link Road, Andheri West, Mumbai - 400 053</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="contact-form-container">
+              <h3>Send A Message</h3>
+              <form class="contact-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Message sent successfully!'); this.reset();">
+                <div class="form-group">
+                  <label for="contact-name">Full Name</label>
+                  <input type="text" id="contact-name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                  <label for="contact-email">Email Address</label>
+                  <input type="email" id="contact-email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                  <label for="contact-message">Your Message</label>
+                  <textarea id="contact-message" name="message" rows="4" placeholder="How can we help you?" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary form-submit-btn">Send Message</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    async function injectPartial(targetId, file) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error("Failed to load " + file);
+        target.innerHTML = await response.text();
+
+        if (targetId === "site-header") {
+          const links = target.querySelectorAll(".site-nav a");
+          const currentHash = window.location.hash || "#home";
+          links.forEach((link) => {
+            const linkHash = link.getAttribute("href").split("#")[1];
+            link.classList.toggle("active", "#" + linkHash === currentHash);
+            
+            // On mobile, close nav when link is clicked
+            link.addEventListener("click", () => {
+              document.body.classList.remove("nav-open");
+            });
+          });
+
+          // Mobile menu toggle button binder
+          const toggleBtn = target.querySelector(".menu-toggle");
+          if (toggleBtn) {
+            toggleBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              document.body.classList.toggle("nav-open");
+            });
+          }
+
+          // Close nav on clicking anywhere outside
+          document.addEventListener("click", (e) => {
+            if (!target.contains(e.target)) {
+              document.body.classList.remove("nav-open");
+            }
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    injectPartial("site-header", "header.html");
+    injectPartial("site-footer", "footer.html");
+
+    // GSAP Direction-Aware Cards Animation Controller
+    document.addEventListener("DOMContentLoaded", () => {
+      // 3D Coverflow Carousel for Services Section
+      const serviceCards = document.querySelectorAll(".service-card");
+      const serviceDots = document.querySelectorAll(".services-dot");
+      const prevBtn = document.querySelector(".services-arrow-prev");
+      const nextBtn = document.querySelector(".services-arrow-next");
+      let activeServiceIndex = 2; // Default is the middle card (Color Grading)
+
+      function updateCoverflow() {
+        const isMobile = window.matchMedia("(max-width: 480px)").matches;
+        const isTablet = window.matchMedia("(max-width: 768px)").matches;
+        
+        // Scale values depending on viewport to space out cards exactly like the sample image
+        const translateOffset = isMobile ? 120 : (isTablet ? 190 : 255);
+        const rotAngle = isMobile ? 25 : (isTablet ? 30 : 35);
+        const zOffset = isMobile ? 40 : (isTablet ? 60 : 100);
+
+        serviceCards.forEach((card, index) => {
+          let diff = index - activeServiceIndex;
+          if (diff > 2) diff -= 5;
+          if (diff < -2) diff += 5;
+          
+          if (diff === 0) {
+            // Active center card
+            gsap.to(card, {
+              x: 0,
+              rotateY: 0,
+              z: zOffset,
+              scale: 1.12,
+              filter: "brightness(1) blur(0px)",
+              opacity: 1,
+              zIndex: 10,
+              pointerEvents: "auto",
+              duration: 0.65,
+              ease: "power2.out"
+            });
+          } else {
+            // Side cards
+            const xTranslation = diff * translateOffset;
+            const direction = diff < 0 ? 1 : -1;
+            const rotationY = direction * rotAngle;
+
+            // Spaced out cards, but hidden on smaller devices if they are far away to prevent overflowing viewport.
+            // On mobile/tablet, show only active center card and its immediate left/right siblings.
+            let opacityVal = 0.85;
+            if (isMobile || isTablet) {
+              if (Math.abs(diff) > 1) {
+                opacityVal = 0;
+              }
+            }
+
+            gsap.to(card, {
+              x: xTranslation,
+              rotateY: rotationY,
+              z: 0,
+              scale: 0.9,
+              filter: "brightness(0.55) blur(1.5px)",
+              opacity: opacityVal,
+              zIndex: 10 - Math.abs(diff),
+              pointerEvents: "auto",
+              duration: 0.65,
+              ease: "power2.out"
+            });
+          }
+        });
+
+        // Update dot states
+        serviceDots.forEach((dot, index) => {
+          dot.classList.toggle("active", index === activeServiceIndex);
+        });
+      }
+
+      // Autoplay timer setup
+      let autoplayInterval = setInterval(autoPlayNext, 3800);
+
+      function autoPlayNext() {
+        if (activeServiceIndex < serviceCards.length - 1) {
+          activeServiceIndex++;
+        } else {
+          activeServiceIndex = 0;
+        }
+        updateCoverflow();
+      }
+
+      function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        autoplayInterval = setInterval(autoPlayNext, 3800);
+      }
+
+      // Initialize
+      updateCoverflow();
+
+      // Recalculate on window resize
+      window.addEventListener("resize", updateCoverflow);
+
+      // Event Listeners for controls
+      prevBtn.addEventListener("click", () => {
+        if (activeServiceIndex > 0) {
+          activeServiceIndex--;
+        } else {
+          activeServiceIndex = serviceCards.length - 1;
+        }
+        updateCoverflow();
+        resetAutoplay();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        if (activeServiceIndex < serviceCards.length - 1) {
+          activeServiceIndex++;
+        } else {
+          activeServiceIndex = 0;
+        }
+        updateCoverflow();
+        resetAutoplay();
+      });
+
+      serviceDots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          activeServiceIndex = index;
+          updateCoverflow();
+          resetAutoplay();
+        });
+      });
+
+      serviceCards.forEach((card, index) => {
+        card.addEventListener("click", () => {
+          if (activeServiceIndex !== index) {
+            activeServiceIndex = index;
+            updateCoverflow();
+            resetAutoplay();
+          }
+        });
+        
+        // Keyboard focus trigger
+        card.addEventListener("focus", () => {
+          if (activeServiceIndex !== index) {
+            activeServiceIndex = index;
+            updateCoverflow();
+          }
+        });
+      });
+
+      // Swipe / Drag detection logic for track
+      let startX = 0;
+      let isDragging = false;
+      const track = document.querySelector(".services-track");
+
+      track.addEventListener("mousedown", (e) => {
+        startX = e.clientX;
+        isDragging = true;
+      });
+
+      track.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const diffX = e.clientX - startX;
+        if (Math.abs(diffX) > 60) {
+          if (diffX > 0 && activeServiceIndex > 0) {
+            activeServiceIndex--;
+            updateCoverflow();
+          } else if (diffX < 0 && activeServiceIndex < serviceCards.length - 1) {
+            activeServiceIndex++;
+            updateCoverflow();
+          }
+          isDragging = false;
+        }
+      });
+
+      window.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+
+      track.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      }, { passive: true });
+
+      track.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        const diffX = e.touches[0].clientX - startX;
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0 && activeServiceIndex > 0) {
+            activeServiceIndex--;
+            updateCoverflow();
+          } else if (diffX < 0 && activeServiceIndex < serviceCards.length - 1) {
+            activeServiceIndex++;
+            updateCoverflow();
+          }
+          isDragging = false;
+        }
+      }, { passive: true });
+
+      track.addEventListener("touchend", () => {
+        isDragging = false;
+        resetAutoplay();
+      });
+
+      track.addEventListener("mouseenter", () => {
+        clearInterval(autoplayInterval);
+      });
+
+      track.addEventListener("mouseleave", () => {
+        resetAutoplay();
+      });
+
+      // Clone marquee tracks dynamically to ensure 4 full sets (24 cards) are present, avoiding empty gaps on wider screens
+      const cloneMarqueeTracks = () => {
+        const leftTrack = document.querySelector(".track-left");
+        const rightTrack = document.querySelector(".track-right");
+
+        if (leftTrack) {
+          const originalCards = Array.from(leftTrack.querySelectorAll(".tool-card"));
+          for (let i = 0; i < 3; i++) {
+            originalCards.forEach(card => {
+              const clone = card.cloneNode(true);
+              leftTrack.appendChild(clone);
+            });
+          }
+        }
+
+        if (rightTrack) {
+          const originalCards = Array.from(rightTrack.querySelectorAll(".tool-card"));
+          for (let i = 0; i < 3; i++) {
+            originalCards.forEach(card => {
+              const clone = card.cloneNode(true);
+              rightTrack.appendChild(clone);
+            });
+          }
+        }
+      };
+
+      cloneMarqueeTracks();
+
+      const cards = document.querySelectorAll(".tool-card");
+
+      // Register GSAP ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Create matchMedia interface for responsive scroll animations
+      let mm = gsap.matchMedia();
+
+      // Desktop animation: horizontal pin scrolljacking
+      mm.add("(min-width: 992px)", () => {
+        const projectsList = document.querySelector(".projects-list");
+        
+        gsap.to(projectsList, {
+          xPercent: -75,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".projects-section",
+            pin: true,
+            scrub: 1.1,
+            start: "top top",
+            end: () => "+=" + (window.innerHeight * 3),
+            invalidateOnRefresh: true
+          }
+        });
+      });
+
+      // Mobile/Tablet fallback: vertical slide-up reveal
+      mm.add("(max-width: 991px)", () => {
+        gsap.utils.toArray(".project-item").forEach((item) => {
+          const imgWrap = item.querySelector(".project-img-wrap");
+          const details = item.querySelector(".project-details");
+
+          gsap.from([imgWrap, details], {
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              toggleActions: "play none none none"
+            },
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power2.out"
+          });
+        });
+      });
+
+      // Stagger reveal animation for Tools grid cards
+      gsap.from(".tool-card", {
+        scrollTrigger: {
+          trigger: ".tools-marquee-container",
+          start: "top 88%",
+          toggleActions: "play none none none"
+        },
+        opacity: 0,
+        scale: 0.85,
+        y: 30,
+        duration: 0.7,
+        stagger: 0.05,
+        ease: "power2.out"
+      });
+
+      cards.forEach((card) => {
+        const inner = card.querySelector(".tool-card-inner");
+        const front = card.querySelector(".tool-card-front");
+        const back = card.querySelector(".tool-card-back");
+        const darken = card.querySelector(".front-darken");
+        const logo = card.querySelector(".tool-logo");
+
+        // Back card info elements for staggered entry
+        const cat = card.querySelector(".back-category");
+        const title = card.querySelector(".back-title");
+        const desc = card.querySelector(".back-description");
+        const arrow = card.querySelector(".back-arrow-box");
+
+        // Border line elements
+        const borderTop = card.querySelector(".border-line-top");
+        const borderRight = card.querySelector(".border-line-right");
+        const borderBottom = card.querySelector(".border-line-bottom");
+        const borderLeft = card.querySelector(".border-line-left");
+
+        let tl = null;
+        let isFlipped = false;
+
+        // Direction Detection Algorithm
+        function getDirection(e) {
+          const rect = card.getBoundingClientRect();
+          const w = rect.width;
+          const h = rect.height;
+          
+          // Normalized relative offset coordinates from card center
+          const x = (e.clientX - rect.left - (w / 2)) * (w > h ? (h / w) : 1);
+          const y = (e.clientY - rect.top - (h / 2)) * (h > w ? (w / h) : 1);
+          
+          // Calculate angle into 4 quadrants (0: Top, 1: Right, 2: Bottom, 3: Left)
+          const direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
+          return direction;
+        }
+
+        // Enter State Tween
+        function playEnter(direction) {
+          if (tl) tl.kill();
+          tl = gsap.timeline({ defaults: { ease: "cubic-bezier(0.22, 1, 0.36, 1)", duration: 0.65 } });
+
+          const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (isReduced) {
+            tl.to(front, { opacity: 0, duration: 0.25 })
+              .to(back, { opacity: 1, rotateX: 0, rotateY: 0, duration: 0.25 }, "<")
+              .to([cat, title, desc, arrow], { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.2, stagger: 0.05 });
+            return;
+          }
+
+          const isTablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)").matches;
+          const rotationAngle = isTablet ? 60 : 90; // reduced rotation for tablet
+
+          let frontRotX = 0, frontRotY = 0;
+          let backRotX = 0, backRotY = 0;
+
+          switch (direction) {
+            case 0: // Top
+              frontRotX = rotationAngle;
+              backRotX = -rotationAngle;
+              break;
+            case 1: // Right
+              frontRotY = rotationAngle;
+              backRotY = -rotationAngle;
+              break;
+            case 2: // Bottom
+              frontRotX = -rotationAngle;
+              backRotX = rotationAngle;
+              break;
+            case 3: // Left
+              frontRotY = -rotationAngle;
+              backRotY = rotationAngle;
+              break;
+          }
+
+          // Instantly preset starting position of the back card from the entry angle
+          gsap.set(back, { rotateX: backRotX, rotateY: backRotY, z: 0 });
+          gsap.set(front, { rotateX: 0, rotateY: 0 });
+
+          // Run parallel 3D rotations
+          tl.to(front, {
+            rotateX: frontRotX,
+            rotateY: frontRotY,
+            scale: 1.04,
+            duration: 0.65
+          });
+
+          tl.to(back, {
+            rotateX: 0,
+            rotateY: 0,
+            duration: 0.65
+          }, "<");
+
+          // Image Darkening effect
+          tl.to(darken, {
+            opacity: 0.65,
+            duration: 0.35
+          }, "<");
+
+          // Resizing logo scaling
+          tl.to(logo, {
+            scale: 0.95,
+            duration: 0.4
+          }, "<");
+
+          // Traveling edge highlight sequence
+          tl.to(borderTop, { width: "100%", duration: 0.15 }, "<");
+          tl.to(borderRight, { height: "100%", duration: 0.15 }, ">-0.05");
+          tl.to(borderBottom, { width: "100%", duration: 0.15 }, ">-0.05");
+          tl.to(borderLeft, { height: "100%", duration: 0.15 }, ">-0.05");
+
+          // Back elements stagger reveal details
+          tl.to(cat, { opacity: 1, y: 0, duration: 0.35 }, "<0.08");
+          tl.to(title, { opacity: 1, y: 0, duration: 0.35 }, "<0.05");
+          tl.to(desc, { opacity: 1, y: 0, duration: 0.35 }, "<0.05");
+          tl.to(arrow, { opacity: 1, scale: 1, rotate: 30, duration: 0.35, ease: "back.out(1.5)" }, "<0.05");
+        }
+
+        // Leave State Tween
+        function playLeave(direction) {
+          if (tl) tl.kill();
+          tl = gsap.timeline({ defaults: { ease: "cubic-bezier(0.22, 1, 0.36, 1)", duration: 0.65 } });
+
+          const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (isReduced) {
+            tl.to(back, { opacity: 0, duration: 0.25 })
+              .to(front, { opacity: 1, duration: 0.25 }, "<");
+            return;
+          }
+
+          const isTablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)").matches;
+          const rotationAngle = isTablet ? 60 : 90;
+
+          let frontRotX = 0, frontRotY = 0;
+          let backRotX = 0, backRotY = 0;
+
+          switch (direction) {
+            case 0: // Top
+              frontRotX = rotationAngle;
+              backRotX = -rotationAngle;
+              break;
+            case 1: // Right
+              frontRotY = rotationAngle;
+              backRotY = -rotationAngle;
+              break;
+            case 2: // Bottom
+              frontRotX = -rotationAngle;
+              backRotX = rotationAngle;
+              break;
+            case 3: // Left
+              frontRotY = -rotationAngle;
+              backRotY = rotationAngle;
+              break;
+          }
+
+          // Fold card back towards exiting angle direction
+          tl.to(back, {
+            rotateX: backRotX,
+            rotateY: backRotY,
+            duration: 0.65
+          });
+
+          tl.to(front, {
+            rotateX: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 0.65
+          }, "<");
+
+          tl.to(darken, {
+            opacity: 0,
+            duration: 0.3
+          }, "<");
+
+          tl.to(logo, {
+            scale: 1,
+            duration: 0.35
+          }, "<");
+
+          // Reset borders instantly
+          tl.to([borderTop, borderBottom], { width: "0%", duration: 0.2 }, "<");
+          tl.to([borderRight, borderLeft], { height: "0%", duration: 0.2 }, "<");
+
+          // Reset texts
+          tl.to([cat, title, desc], { opacity: 0, y: 15, duration: 0.2 }, "<");
+          tl.to(arrow, { opacity: 0, scale: 0.7, rotate: 0, duration: 0.2 }, "<");
+        }
+
+        // Accessibility Listeners
+        card.addEventListener("focus", () => {
+          playEnter(3); // enter from left on key tab focus
+        }, true);
+
+        card.addEventListener("blur", () => {
+          playLeave(3); // exit to left on blur
+        }, true);
+
+        // Desktop Pointer Listeners
+        card.addEventListener("mouseenter", (e) => {
+          if (window.matchMedia("(hover: none)").matches) return;
+          const dir = getDirection(e);
+          playEnter(dir);
+        });
+
+        card.addEventListener("mouseleave", (e) => {
+          if (window.matchMedia("(hover: none)").matches) return;
+          const dir = getDirection(e);
+          playLeave(dir);
+        });
+
+        // Touch Interaction Fallback (Mobile)
+        card.addEventListener("click", (e) => {
+          if (!window.matchMedia("(hover: none)").matches) return;
+
+          e.preventDefault();
+          if (!isFlipped) {
+            // Close any currently flipped sibling cards
+            cards.forEach((c) => {
+              if (c !== card && c.closeTouchFlip) {
+                c.closeTouchFlip();
+              }
+            });
+            playEnter(3); // default from left
+            isFlipped = true;
+          } else {
+            playLeave(3);
+            isFlipped = false;
+          }
+        });
+
+        card.closeTouchFlip = () => {
+          if (isFlipped) {
+            playLeave(3);
+            isFlipped = false;
+          }
+        };
+      });
+
+      // Animated Custom Cursor Follower setup
+      const cursorDot = document.createElement("div");
+      const cursorFollower = document.createElement("div");
+      cursorDot.className = "custom-cursor-dot";
+      cursorFollower.className = "custom-cursor-follower";
+      document.body.appendChild(cursorDot);
+      document.body.appendChild(cursorFollower);
+
+      // High-performance quickSetter configuration for lag-free rendering
+      const xSetDot = gsap.quickSetter(cursorDot, "x", "px");
+      const ySetDot = gsap.quickSetter(cursorDot, "y", "px");
+      const xSetFollower = gsap.quickSetter(cursorFollower, "x", "px");
+      const ySetFollower = gsap.quickSetter(cursorFollower, "y", "px");
+
+      let mouseX = 0, mouseY = 0;
+      let followerX = 0, followerY = 0;
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Update dot position instantly in compositor thread to match OS pointer
+        xSetDot(mouseX);
+        ySetDot(mouseY);
+      });
+
+      // Lerping ease follow utilizing GSAP's optimized requestAnimationFrame ticker loop
+      gsap.ticker.add(() => {
+        const dt = 1.0 - Math.pow(1.0 - 0.15, gsap.ticker.deltaRatio());
+        followerX += (mouseX - followerX) * dt;
+        followerY += (mouseY - followerY) * dt;
+        xSetFollower(followerX);
+        ySetFollower(followerY);
+      });
+
+      // Bind cursor expansion classes on hovering any active clickable/interactive elements
+      const updateHoverBindings = () => {
+        const hoverTargets = document.querySelectorAll(
+          "a, button, .service-card, .tool-card, .project-item, .workflow-circle-container, .workflow-mobile-item, .outline-btn, .btn-primary, .btn-secondary, .services-arrow, .services-dot, .about-stat-card, .about-lens-only-img"
+        );
+        hoverTargets.forEach((target) => {
+          target.removeEventListener("mouseenter", addHoverClass);
+          target.removeEventListener("mouseleave", removeHoverClass);
+          
+          target.addEventListener("mouseenter", addHoverClass);
+          target.addEventListener("mouseleave", removeHoverClass);
+        });
+      };
+
+      function addHoverClass() {
+        document.body.classList.add("cursor-hover");
+      }
+
+      function removeHoverClass() {
+        document.body.classList.remove("cursor-hover");
+      }
+
+      // Initial binding
+      updateHoverBindings();
+
+      // Since headers/footers load dynamically, run binding check after a short timeout
+      setTimeout(updateHoverBindings, 800);
+      setTimeout(updateHoverBindings, 2000);
+    });
+  </script>
+  <!-- Floating WhatsApp Chat Button -->
+  <a href="https://wa.me/918097647925" class="whatsapp-float-btn" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    <span>Chat with us</span>
+  </a>
+</body>
+</html>
