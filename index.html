@@ -892,10 +892,14 @@
         linear-gradient(135deg, rgba(255, 0, 0, 0.06), transparent 42%);
     }
 
-    .featured-copy .section-title,
-    .process-copy .section-title {
+    .featured-copy .section-title {
       font-size: clamp(2rem, 3.6vw, 3.2rem);
       max-width: 280px;
+    }
+
+    .process-copy .section-title {
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      max-width: 100%;
     }
 
     .section-mark {
@@ -951,6 +955,347 @@
     .outline-btn::after {
       content: "->";
       font-size: 12px;
+    }
+
+    .director-section {
+      position: relative;
+      padding: 68px 0 44px;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(255, 16, 16, 0.18), transparent 28%),
+        radial-gradient(circle at 82% 75%, rgba(255, 16, 16, 0.12), transparent 24%),
+        linear-gradient(180deg, rgba(4, 4, 4, 1), rgba(3, 3, 3, 1));
+      overflow: hidden;
+    }
+
+    .director-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .director-panel {
+      position: relative;
+      z-index: 1;
+      max-width: 1580px;
+      margin: 0 auto;
+    }
+
+    .director-head {
+      text-align: center;
+      margin: 0 auto 28px;
+      max-width: 760px;
+    }
+
+    .director-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .director-eyebrow::before,
+    .director-eyebrow::after {
+      content: "";
+      width: 92px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 16, 16, 0.85), transparent);
+    }
+
+    .director-title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 4.6vw, 4.3rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+    }
+
+    .director-title span {
+      color: var(--accent);
+      text-shadow: 0 0 24px rgba(255, 16, 16, 0.2);
+    }
+
+    .director-title-mark {
+      width: 82px;
+      height: 3px;
+      margin: 14px auto 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255, 16, 16, 0.25), var(--accent), rgba(255, 16, 16, 0.25));
+      box-shadow: 0 0 20px rgba(255, 16, 16, 0.25);
+    }
+
+    .director-head p {
+      margin: 0 auto;
+      max-width: 620px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .director-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .director-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr) 250px;
+      gap: 28px;
+      align-items: center;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(135deg, rgba(255, 16, 16, 0.08), transparent 30%),
+        rgba(9, 9, 9, 0.86);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      max-width: 1720px;
+      margin: 0 auto;
+    }
+
+    .director-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      border-radius: 24px;
+      pointer-events: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .director-card:hover::after {
+      border-color: rgba(255, 16, 16, 0.32);
+      box-shadow: inset 0 0 30px rgba(255, 16, 16, 0.12);
+    }
+
+    .director-portrait {
+      position: relative;
+      aspect-ratio: 4 / 4.9;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.1), transparent 25%),
+        linear-gradient(180deg, #3a3a3a, #141414);
+      box-shadow: 0 0 0 1px rgba(255, 16, 16, 0.1), 0 14px 24px rgba(0, 0, 0, 0.42);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .director-portrait::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 28%;
+      background: linear-gradient(180deg, transparent, rgba(255, 16, 16, 0.24));
+      pointer-events: none;
+    }
+
+    .director-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .director-avatar {
+      position: relative;
+      z-index: 1;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.35);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.92);
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 0 24px rgba(255, 16, 16, 0.18);
+    }
+
+    .director-content h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .director-role {
+      margin: 8px 0 0;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .director-role-line {
+      width: 56px;
+      height: 2px;
+      margin: 14px 0 14px;
+      background: linear-gradient(90deg, var(--accent), rgba(255, 16, 16, 0.1));
+    }
+
+    .director-content p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .director-content strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .director-highlights {
+      display: grid;
+      gap: 14px;
+      padding-left: 22px;
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .director-highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .director-highlight-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 16, 16, 0.28);
+      background: rgba(255, 16, 16, 0.08);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .director-highlight strong,
+    .director-imdb-label {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .director-highlight span,
+    .director-imdb-link {
+      font-size: 13px;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .director-imdb {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+      text-decoration: none;
+    }
+
+    .director-imdb-badge {
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: #f5c518;
+      color: #111111;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+
+    .director-imdb-wrap {
+      margin-top: 6px;
+    }
+
+    .director-imdb-link {
+      display: block;
+      margin-top: 8px;
+      word-break: break-word;
+      text-decoration: none;
+    }
+
+    .director-imdb-link:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 1199px) {
+      .director-card {
+        grid-template-columns: 200px minmax(0, 1fr);
+      }
+
+      .director-highlights {
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding-left: 0;
+        padding-top: 18px;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .director-section {
+        padding: 58px 0 34px;
+      }
+
+      .director-eyebrow::before,
+      .director-eyebrow::after {
+        width: 44px;
+      }
+
+      .director-card {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 18px;
+      }
+
+      .director-portrait {
+        max-width: 250px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .director-content {
+        text-align: center;
+      }
+
+      .director-role-line {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .director-highlights {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Projects Section Layout - Pinned Horizontal Scroll */
@@ -2897,6 +3242,104 @@
                 <h3>Final Delivery</h3>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="director-section" id="director-background">
+      <div class="container">
+        <div class="director-panel">
+          <div class="director-head">
+            <div class="director-eyebrow">The Vision Behind The Stories</div>
+            <h2 class="director-title">Director <span>Background</span></h2>
+            <div class="director-title-mark"></div>
+            <p>The creative minds driving Imagine Technomedia with vision, passion and excellence.</p>
+          </div>
+
+          <div class="director-grid">
+            <article class="director-card">
+              <div class="director-portrait" aria-label="Portrait of Savant Ramachal Yadav">
+                <img src="images/savant.png" alt="Savant Ramachal Yadav portrait">
+              </div>
+
+              <div class="director-content">
+                <h3>Savant Ramachal Yadav</h3>
+                <p class="director-role">Founder &amp; Creative Director</p>
+                <div class="director-role-line"></div>
+                <p>Founder &amp; Creative Director of Imagine Technomedia, is a passionate media professional with over <strong>10 years of industry experience</strong>. He has led numerous successful projects in <strong>video editing, VFX, animation, and color grading</strong>. His creative vision and commitment to quality have helped the company earn the trust of clients across diverse industries. He believes every story deserves exceptional visual excellence.</p>
+              </div>
+
+              <div class="director-highlights">
+                <div class="director-highlight">
+                  <div class="director-highlight-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14v10H5z"></path><path d="M9 7V5h6v2"></path><path d="M10 12l2 1.5L14 12"></path></svg>
+                  </div>
+                  <div><strong>10+ Years</strong><span>of industry experience</span></div>
+                </div>
+                <div class="director-highlight">
+                  <div class="director-highlight-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a5 5 0 1 0-5-5"></path><path d="M12 14c-4.2 0-8 2.1-8 5v1h16v-1c0-2.9-3.8-5-8-5z"></path></svg>
+                  </div>
+                  <div><strong>Project Leader</strong><span>trusted across industries</span></div>
+                </div>
+                <div class="director-highlight">
+                  <div class="director-highlight-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path></svg>
+                  </div>
+                  <div><strong>Creative Vision</strong><span>with innovation and precision</span></div>
+                </div>
+                <div class="director-highlight">
+                  <div class="director-highlight-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17l-5 3 1.5-5.5L4 10.5l5.8-.4L12 5l2.2 5.1 5.8.4-4.5 4 1.5 5.5z"></path></svg>
+                  </div>
+                  <div><strong>Client Trust</strong><span>built through consistent excellence</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="director-card">
+              <div class="director-portrait" aria-label="Portrait of Pravin Pathak">
+                <img src="images/pravin.png" alt="Pravin Pathak portrait">
+              </div>
+
+              <div class="director-content">
+                <h3>Pravin Pathak</h3>
+                <p class="director-role">Creative Director</p>
+                <div class="director-role-line"></div>
+                <p>An accomplished Creative Director with over <strong>12 years of experience</strong> in the film, television, and digital media industry. His expertise lies in <strong>creative direction, visual storytelling, post-production management, and content strategy</strong>. Throughout his career, he has successfully led numerous commercial campaigns, documentaries, corporate films, and entertainment projects. His innovative approach, attention to detail, and commitment to excellence have earned the trust of leading brands and production houses.</p>
+              </div>
+
+              <div class="director-highlights">
+                <div class="director-highlight">
+                  <div class="director-highlight-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M7 4v6"></path><path d="M17 4v6"></path><path d="M5 20h14"></path><path d="M8 10l-2 10"></path><path d="M16 10l2 10"></path></svg>
+                  </div>
+                  <div><strong>12+ Years</strong><span>in film, TV and digital media</span></div>
+                </div>
+                <div class="director-highlight">
+                  <div class="director-highlight-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>
+                  </div>
+                  <div><strong>Creative Strategy</strong><span>and visual storytelling leadership</span></div>
+                </div>
+                <div class="director-highlight">
+                  <div class="director-highlight-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.9"></path><path d="M16 3.1a4 4 0 0 1 0 7.8"></path></svg>
+                  </div>
+                  <div><strong>Impactful Projects</strong><span>across brands and productions</span></div>
+                </div>
+                <div class="director-highlight director-imdb-wrap">
+                  <a class="director-imdb" href="https://www.imdb.com/name/nm15651895/" target="_blank" rel="noopener noreferrer" aria-label="Pravin Pathak IMDb profile">
+                    <span class="director-imdb-badge">IMDb</span>
+                    <span>
+                      <span class="director-imdb-label">Pravin Pathak IMDb</span>
+                      <span class="director-imdb-link">https://www.imdb.com/name/nm15651895/</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>
