@@ -274,6 +274,10 @@
       box-shadow: 0 18px 40px rgba(226, 16, 16, 0.4);
     }
 
+    .menu-toggle {
+      display: none;
+    }
+
     /* Page Loader styles */
     .itm-loader {
       position: fixed;
@@ -306,6 +310,48 @@
 
     @keyframes spin {
       to { transform: rotate(360deg); }
+    }
+
+    /* HERO BANNER - FULL WIDTH */
+    .contact-hero-banner {
+      padding: 0; /* Removing top padding resolves gap issue! */
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .contact-hero-banner .container {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-banner-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 21 / 8.5; /* Even taller aspect ratio */
+      max-height: 560px; /* Increased desktop height */
+      background: #000;
+    }
+
+    .hero-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .hero-banner-wrapper:hover .hero-banner-img {
+      transform: scale(1.02);
+    }
+
+    .hero-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 65%, rgba(4, 4, 4, 0.9) 100%);
+      pointer-events: none;
     }
 
     /* CONTACT HERO HEADER */
@@ -677,6 +723,121 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .header-cta {
+        display: none !important;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        width: 42px;
+        height: 42px;
+        z-index: 50;
+        transition: all 0.3s ease;
+      }
+
+      .menu-toggle:hover {
+        border-color: var(--accent);
+        background: rgba(226, 16, 16, 0.08);
+        box-shadow: 0 0 10px rgba(226, 16, 16, 0.25);
+      }
+
+      .menu-toggle svg {
+        transition: transform 0.3s ease;
+      }
+
+      .nav-open .menu-toggle svg {
+        transform: rotate(90deg);
+      }
+
+      .site-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(5, 5, 5, 0.98);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-direction: column;
+        gap: 0 !important;
+        padding: 16px 24px;
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 45;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+      }
+
+      .nav-open .site-nav {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .site-nav a {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.01);
+        border-radius: 8px;
+        margin-bottom: 8px;
+        box-sizing: border-box;
+        transition: all 0.25s ease;
+      }
+
+      .site-nav a:hover,
+      .site-nav a.active {
+        background: rgba(226, 16, 16, 0.08);
+        border-color: rgba(226, 16, 16, 0.2);
+        color: var(--accent) !important;
+      }
+
+      .site-nav a::after {
+        display: none !important;
+      }
+
+      .site-nav a::before {
+        content: ">";
+        order: 2;
+        color: var(--accent);
+        font-weight: 800;
+        font-size: 14px;
+        transition: transform 0.2s ease;
+      }
+
+      .site-nav a:hover::before {
+        transform: translateX(4px);
+      }
+
+      .hero-banner-wrapper {
+        aspect-ratio: 16 / 7;
+        height: auto;
+        max-height: 240px;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      .contact-main-grid {
+        gap: 30px;
+      }
+      .map-section {
+        height: 320px;
+      }
+    }
+
     @media (max-width: 600px) {
       .form-grid {
         grid-template-columns: 1fr;
@@ -689,9 +850,46 @@
       }
     }
 
+    @media (max-width: 480px) {
+      :root {
+        --container: calc(100% - 32px);
+      }
+      .contact-card {
+        padding: 20px 16px;
+        gap: 12px;
+      }
+      .contact-form-panel {
+        padding: 24px 16px;
+      }
+      .form-grid {
+        gap: 16px;
+      }
+      .map-section {
+        height: 300px;
+      }
+      .whatsapp-float-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 14px;
+        font-size: 12px;
+      }
+    }
+
     [data-reveal] {
       opacity: 0;
-      transform: translate3d(0, 40px, 0);
+      will-change: transform, opacity;
+    }
+    [data-reveal="up"] {
+      transform: translate3d(0, 50px, 0);
+    }
+    [data-reveal="down"] {
+      transform: translate3d(0, -50px, 0);
+    }
+    [data-reveal="left"] {
+      transform: translate3d(-50px, 0, 0);
+    }
+    [data-reveal="right"] {
+      transform: translate3d(50px, 0, 0);
     }
   </style>
 </head>
@@ -708,11 +906,15 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- HERO TITLE HEADER -->
-    <section class="contact-hero" data-reveal="up">
+
+
+    <!-- HERO BANNER SECTION (FULL WIDTH) -->
+    <section class="contact-hero-banner" data-reveal="up">
       <div class="container">
-        <span class="section-eyebrow" style="padding-left: 0; margin-bottom: 12px;">Contact Us</span>
-        <h1 class="section-title">Connect with <span>Us</span></h1>
+        <div class="hero-banner-wrapper">
+          <img src="images/contact us .png" alt="Imagine TechnoMedia Contact Us Banner" class="hero-banner-img">
+          <div class="hero-banner-overlay"></div>
+        </div>
       </div>
     </section>
 
@@ -865,11 +1067,24 @@
             const menuToggle = element.querySelector(".menu-toggle");
             const siteNav = element.querySelector(".site-nav");
             if (menuToggle && siteNav) {
-              menuToggle.addEventListener("click", () => {
-                siteNav.classList.toggle("open");
-                menuToggle.classList.toggle("active");
+              menuToggle.addEventListener("click", (event) => {
+                event.stopPropagation();
+                document.body.classList.toggle("nav-open");
               });
             }
+
+            const navLinks = element.querySelectorAll(".site-nav a");
+            navLinks.forEach((link) => {
+              link.addEventListener("click", () => {
+                document.body.classList.remove("nav-open");
+              });
+            });
+
+            document.addEventListener("click", (event) => {
+              if (!element.contains(event.target)) {
+                document.body.classList.remove("nav-open");
+              }
+            });
           }
           return element;
         }
@@ -954,6 +1169,12 @@
             else if (direction === "left") animProps.x = -50;
             else if (direction === "right") animProps.x = 50;
 
+            const inlineDelay = el.style.animationDelay;
+            let delayVal = 0;
+            if (inlineDelay) {
+              delayVal = parseFloat(inlineDelay) || 0;
+            }
+
             gsap.fromTo(el, 
               animProps, 
               {
@@ -961,6 +1182,7 @@
                 x: 0,
                 y: 0,
                 duration: 1.4, /* Medium entry speed so details are visible */
+                delay: delayVal,
                 ease: "power3.out",
                 scrollTrigger: {
                   trigger: el,
