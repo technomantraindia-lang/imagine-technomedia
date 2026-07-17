@@ -497,209 +497,6 @@
       }
     }
 
-    /* Call To Action (CTA) / Contact Section */
-    .cta-section {
-      padding: 100px 0 120px;
-      background: #040404;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-panel {
-      position: relative;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 70px 54px;
-      background: rgba(12, 12, 12, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 24px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-      z-index: 1;
-    }
-
-    .cta-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(226, 16, 16, 0.08) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .cta-head {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .cta-subtitle {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.6);
-      margin: 12px 0 0;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 56px;
-      text-align: left;
-    }
-
-    /* Left Side: Contact Information */
-    .contact-info h3,
-    .contact-form-container h3 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin: 0 0 28px;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-    }
-
-    .contact-card-item {
-      display: flex;
-      gap: 18px;
-      margin-bottom: 24px;
-      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    .contact-card-item:hover {
-      transform: translateX(6px);
-    }
-
-    .contact-card-icon {
-      flex: 0 0 46px;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: rgba(226, 16, 16, 0.08);
-      border: 1px solid rgba(226, 16, 16, 0.15);
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-
-    .contact-card-item:hover .contact-card-icon {
-      background: var(--accent);
-      color: #ffffff;
-      box-shadow: 0 0 15px rgba(226, 16, 16, 0.4);
-      transform: scale(1.05);
-    }
-
-    .contact-card-text {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .contact-card-text span {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.4);
-      letter-spacing: 0.12em;
-      transition: color 0.3s ease;
-    }
-
-    .contact-card-item:hover .contact-card-text span {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .contact-card-text a {
-      font-size: 16px;
-      color: #ffffff;
-      transition: color 0.3s ease;
-    }
-
-    .contact-card-text a:hover {
-      color: var(--accent);
-    }
-
-    .contact-card-text p {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.8);
-      max-width: 380px;
-    }
-
-    /* Right Side: Contact Form */
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .form-group label {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 0.08em;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 14px 18px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 4px;
-      color: #ffffff;
-      font-family: var(--font-body);
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: rgba(255, 255, 255, 0.3);
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: var(--accent);
-      box-shadow: 0 0 10px rgba(226, 16, 16, 0.15);
-      outline: none;
-    }
-
-    .form-submit-btn {
-      align-self: flex-start;
-      margin-top: 10px;
-      min-width: 170px;
-    }
-
-    @media (max-width: 992px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 46px;
-      }
-      .cta-panel {
-        padding: 50px 32px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .cta-section {
-        padding: 70px 0 90px;
-      }
-      .cta-panel {
-        padding: 42px 24px;
-      }
-    }
-
     .services-copy {
       display: none;
     }
@@ -1095,6 +892,10 @@
       overflow: hidden;
       max-width: 1720px;
       margin: 0 auto;
+      transform-style: preserve-3d;
+      transform: perspective(1400px) rotateX(0deg) rotateY(0deg) translateY(0);
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.45s ease;
+      will-change: transform;
     }
 
     .director-card::after {
@@ -1112,6 +913,16 @@
       box-shadow: inset 0 0 30px rgba(255, 16, 16, 0.12);
     }
 
+    .director-card.is-tilting {
+      box-shadow: 0 34px 80px rgba(0, 0, 0, 0.52);
+    }
+
+    .director-card > * {
+      position: relative;
+      z-index: 1;
+      transform: translateZ(26px);
+    }
+
     .director-portrait {
       position: relative;
       aspect-ratio: 4 / 4.9;
@@ -1125,6 +936,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transform: translateZ(44px);
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
     }
 
     .director-portrait::after {
@@ -1140,6 +953,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform: scale(1.01);
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .director-avatar {
@@ -1204,12 +1019,14 @@
       gap: 14px;
       padding-left: 22px;
       border-left: 1px solid rgba(255, 255, 255, 0.12);
+      transform: translateZ(36px);
     }
 
     .director-highlight {
       display: flex;
       align-items: flex-start;
       gap: 12px;
+      transition: transform 0.35s ease;
     }
 
     .director-highlight-icon {
@@ -1277,6 +1094,18 @@
       color: #ffffff;
     }
 
+    .director-card.is-tilting .director-portrait {
+      box-shadow: 0 24px 40px rgba(0, 0, 0, 0.52), 0 0 0 1px rgba(255, 16, 16, 0.18);
+    }
+
+    .director-card.is-tilting .director-portrait img {
+      transform: scale(1.06);
+    }
+
+    .director-card.is-tilting .director-highlight {
+      transform: translateX(4px);
+    }
+
     @media (max-width: 1199px) {
       .director-card {
         grid-template-columns: 200px minmax(0, 1fr);
@@ -1293,6 +1122,12 @@
     }
 
     @media (max-width: 767px) {
+      .hero {
+        height: 72svh;
+        min-height: 420px;
+        max-height: 620px;
+      }
+
       .director-section {
         padding: 58px 0 34px;
       }
@@ -1877,41 +1712,90 @@
     }
 
     @media (max-width: 768px) {
+      .process-section {
+        padding: 48px 0 110px;
+      }
+
+      .process-panel {
+        padding: 0 6px;
+      }
+
       .workflow-circle-container {
         display: none;
       }
+
       .workflow-mobile-list {
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        margin-top: 30px;
+        gap: 14px;
+        margin-top: 26px;
         width: 100%;
       }
+
       .workflow-mobile-item {
         display: flex;
-        align-items: center;
-        gap: 16px;
-        background: rgba(10, 10, 10, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 12px 16px;
-        border-radius: 8px;
+        align-items: flex-start;
+        gap: 14px;
+        background:
+          linear-gradient(180deg, rgba(12, 12, 12, 0.92), rgba(8, 8, 8, 0.96));
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 16px 15px;
+        border-radius: 14px;
         text-align: left;
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
       }
+
       .workflow-mobile-item .workflow-icon-box {
         margin: 0;
-        flex: 0 0 48px;
-        width: 48px;
-        height: 48px;
+        flex: 0 0 50px;
+        width: 50px;
+        height: 50px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.015);
       }
+
+      .workflow-mobile-item .workflow-icon-box svg {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .workflow-mobile-item > div:last-child {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
       .workflow-mobile-item h3 {
-        margin: 0;
+        margin: 1px 0 0;
         font-family: var(--font-display);
-        font-size: 13px;
+        font-size: 16px;
+        line-height: 1.15;
+        letter-spacing: 0;
         text-transform: uppercase;
         color: #fff;
       }
+
       .workflow-mobile-item .workflow-step-num {
-        margin: 0 0 2px 0;
+        display: inline-block;
+        margin: 0 0 4px 0;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .workflow-mobile-item .workflow-desc {
+        margin-top: 7px !important;
+        font-size: 13px !important;
+        line-height: 1.55 !important;
+        color: rgba(255, 255, 255, 0.68) !important;
+      }
+
+      .whatsapp-float-btn {
+        right: 16px;
+        bottom: 16px;
+        padding: 10px 16px;
+        font-size: 12px;
       }
     }
 
@@ -2212,10 +2096,47 @@
     }
 
     @media (max-width: 768px) {
+      .about-achievements-title-row {
+        margin-bottom: 16px;
+      }
+
+      .about-achievements-title {
+        font-size: 11px;
+        letter-spacing: 0.13em;
+      }
+
       .about-stats-cards {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        gap: 12px;
       }
+
+      .about-stat-card {
+        min-height: 132px;
+        padding: 16px 15px 16px;
+        gap: 12px;
+        border-radius: 14px;
+      }
+
+      .about-stat-icon-row {
+        align-items: center;
+        gap: 10px;
+      }
+
+      .about-stat-icon {
+        font-size: 17px;
+      }
+
+      .about-stat-value {
+        font-size: clamp(1.85rem, 7.2vw, 2.2rem);
+        line-height: 1;
+      }
+
+      .about-stat-label {
+        font-size: 11px;
+        line-height: 1.35;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
       .about-visual-container {
         height: 350px;
       }
@@ -2230,9 +2151,73 @@
       }
     }
 
+    @media (max-width: 480px) {
+      .about-achievements-title-row {
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .about-stats-cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .about-stat-card {
+        display: grid;
+        grid-template-columns: 46px 1fr;
+        grid-template-rows: auto auto;
+        align-items: center;
+        min-height: unset;
+        padding: 16px;
+        gap: 2px 14px;
+      }
+
+      .about-stat-icon-row {
+        display: contents;
+      }
+
+      .about-stat-icon {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        font-size: 20px;
+        justify-self: center;
+        align-self: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      }
+
+      .about-stat-value {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        text-align: left;
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+
+      .about-stat-label {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+        margin-top: 0;
+        font-size: 13px;
+        line-height: 1.35;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: none;
+      }
+    }
+
     .tools-section,
     .testimonial-section {
-      padding: 0 0 34px;
+      padding: 0 0 10px;
       background: linear-gradient(180deg, rgba(4, 4, 4, 1), rgba(5, 5, 5, 1));
     }
 
@@ -2553,6 +2538,323 @@
       }
     }
 
+    .home-contact-section {
+      position: relative;
+      padding: 72px 0 96px;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255, 16, 16, 0.1), transparent 26%),
+        radial-gradient(circle at 85% 78%, rgba(255, 16, 16, 0.08), transparent 24%),
+        linear-gradient(180deg, rgba(4, 4, 4, 1), rgba(3, 3, 3, 1));
+      overflow: hidden;
+    }
+
+    .home-contact-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .home-contact-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 48px 40px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(180deg, rgba(10, 10, 10, 0.9), rgba(7, 7, 7, 0.94)),
+        radial-gradient(circle at 20% 18%, rgba(255, 16, 16, 0.08), transparent 28%);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.48);
+      overflow: hidden;
+    }
+
+    .home-contact-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.24;
+      pointer-events: none;
+    }
+
+    .home-contact-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255, 16, 16, 0.1);
+      pointer-events: none;
+    }
+
+    .home-contact-head {
+      margin: 0 auto 56px;
+      max-width: 860px;
+      text-align: center;
+    }
+
+    .home-contact-title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: #ff9da3;
+    }
+
+    .home-contact-head p {
+      margin: 22px auto 0;
+      max-width: 560px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .home-contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
+      gap: 42px;
+      align-items: start;
+    }
+
+    .home-contact-info-title,
+    .home-contact-form-title {
+      margin: 0 0 28px;
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 2.2vw, 2.4rem);
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .home-contact-info-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .home-contact-card,
+    .home-contact-form-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(9, 9, 9, 0.6);
+      box-shadow: none;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .home-contact-card::before,
+    .home-contact-form-panel::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), rgba(226, 16, 16, 0.2), transparent 85%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .home-contact-card:hover::before,
+    .home-contact-form-panel:hover::before {
+      opacity: 1;
+    }
+
+    .home-contact-card::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: translateX(-50%);
+      box-shadow: 0 0 14px rgba(255, 16, 16, 0.65);
+      transition: width 0.35s ease;
+    }
+
+    .home-contact-card:hover::after {
+      width: 100%;
+    }
+
+    .home-contact-card,
+    .home-contact-form-panel,
+    .home-contact-card *,
+    .home-contact-form-panel * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 24px 24px 22px;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .home-contact-card:hover,
+    .home-contact-form-panel:hover {
+      border-color: rgba(226, 16, 16, 0.35);
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.55), 0 0 24px rgba(226, 16, 16, 0.12);
+    }
+
+    .home-contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(226, 16, 16, 0.28);
+      background: rgba(226, 16, 16, 0.08);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+    }
+
+    .home-contact-card:hover .home-contact-icon {
+      transform: scale(1.08);
+      background: rgba(226, 16, 16, 0.14);
+      box-shadow: 0 0 18px rgba(226, 16, 16, 0.18);
+    }
+
+    .home-contact-copy h4 {
+      margin: 0 0 6px;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+    .home-contact-copy a,
+    .home-contact-copy p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .home-contact-copy a {
+      display: block;
+    }
+
+    .home-contact-copy a:hover {
+      color: var(--accent);
+    }
+
+    .home-contact-form-panel {
+      padding: 28px 28px 30px;
+      min-height: 100%;
+    }
+
+    .home-contact-form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .home-contact-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .home-contact-field input,
+    .home-contact-field textarea {
+      width: 100%;
+      padding: 17px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+    .home-contact-field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .home-contact-field input::placeholder,
+    .home-contact-field textarea::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .home-contact-field input:focus,
+    .home-contact-field textarea:focus {
+      border-color: rgba(226, 16, 16, 0.45);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 16px rgba(226, 16, 16, 0.1);
+    }
+
+    .home-contact-submit {
+      width: fit-content;
+      min-width: 170px;
+      padding: 18px 28px;
+      border: none;
+      background: linear-gradient(90deg, #d00e0e, #ff1a1a);
+      color: #000000;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 18px 36px rgba(226, 16, 16, 0.24);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .home-contact-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 44px rgba(226, 16, 16, 0.35);
+    }
+
+    @media (max-width: 991px) {
+      .home-contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .home-contact-section {
+        padding: 60px 0 74px;
+      }
+
+      .home-contact-wrap {
+        padding: 28px 18px 22px;
+      }
+
+      .home-contact-head {
+        margin-bottom: 38px;
+      }
+
+      .home-contact-form-panel {
+        padding: 24px 20px 24px;
+      }
+
+      .home-contact-card {
+        padding: 20px 18px;
+      }
+
+      .home-contact-submit {
+        width: 100%;
+      }
+    }
+
 
 
     .site-footer {
@@ -2591,28 +2893,35 @@
 
     .footer-inner {
       width: var(--container);
-      max-width: 1200px;
+      max-width: 1380px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1.6fr;
-      gap: 48px;
+      grid-template-columns: minmax(340px, 1.9fr) minmax(150px, 0.95fr) minmax(150px, 0.95fr) minmax(280px, 1.45fr);
+      gap: 64px;
       padding: 60px 0 40px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      justify-self: start;
+      max-width: 360px;
     }
 
     .footer-brand img {
-      width: 104px;
+      display: block;
+      width: min(100%, 220px);
       height: auto;
       object-fit: contain;
-      margin-bottom: 16px;
+      margin: 0 0 22px;
     }
 
     .footer-brand p {
       max-width: 300px;
       margin: 0 0 18px;
       color: rgba(255, 255, 255, 0.68);
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.85;
     }
 
@@ -2646,7 +2955,7 @@
       margin: 0 0 16px;
       color: var(--accent);
       font-family: var(--font-display);
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       letter-spacing: -0.03em;
       text-transform: uppercase;
     }
@@ -2661,8 +2970,8 @@
     .footer-contact a,
     .footer-contact p {
       color: rgba(255, 255, 255, 0.74);
-      font-size: 12px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.75;
       text-decoration: none;
       margin: 0;
     }
@@ -2706,33 +3015,33 @@
       right: 30px;
       background: #25d366;
       color: #ffffff;
-      padding: 12px 20px;
-      border-radius: 30px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
-      z-index: 999;
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 700;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+      z-index: 9999;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       text-decoration: none;
     }
 
     .whatsapp-float-btn:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 15px 30px rgba(37, 211, 102, 0.55);
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
       background: #22c35e;
-      color: #ffffff;
     }
 
     .whatsapp-float-btn svg {
-      stroke-width: 2.5;
+      width: 28px;
+      height: 28px;
+      fill: #ffffff;
     }
 
     .footer-bottom {
       width: var(--container);
+      max-width: 1380px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -2740,15 +3049,17 @@
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: 16px;
+      padding: 0 0 10px;
     }
 
     .footer-bottom p {
       margin: 0;
       color: rgba(255, 255, 255, 0.56);
-      font-size: 11px;
+      font-size: 13px;
       line-height: 1.5;
+      text-align: center;
     }
 
     .footer-top {
@@ -2760,6 +3071,10 @@
       place-items: center;
       color: rgba(255, 255, 255, 0.82);
       font-size: 12px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     @keyframes slowZoom {
@@ -2848,7 +3163,7 @@
 
     @media (max-width: 860px) {
       :root {
-        --container: calc(100% - 36px);
+        --container: calc(100% - 24px);
       }
 
       .header-inner {
@@ -2883,6 +3198,7 @@
         right: 18px;
         bottom: 18px;
         justify-content: flex-start;
+        max-width: calc(100% - 36px);
       }
 
       .services {
@@ -2891,6 +3207,7 @@
 
       .services-panel {
         padding: 24px 18px 18px;
+        overflow: hidden;
       }
 
       .services-copy {
@@ -2966,6 +3283,7 @@
 
       .tools-panel {
         padding: 28px 18px 24px;
+        overflow: hidden;
       }
 
       .tools-grid {
@@ -2973,48 +3291,106 @@
       }
 
       .footer-inner {
+        display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px 16px;
-        padding: 28px 0 18px;
+        gap: 32px 16px;
+        padding: 40px 16px 24px;
       }
 
-      .footer-brand,
-      .footer-contact {
+      .footer-brand {
         grid-column: 1 / -1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+      }
+
+      .footer-brand img {
+        width: 130px;
+        margin: 0 auto 16px;
       }
 
       .footer-brand p {
-        max-width: none;
+        text-align: center;
+        margin: 0 auto 20px;
+        max-width: 320px;
+        font-size: 13.5px;
+        line-height: 1.8;
       }
 
-      .footer-links h3,
-      .footer-contact h3 {
+      .footer-socials {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .footer-links h3 {
         margin-bottom: 12px;
+        text-align: left;
       }
 
       .footer-links {
+        align-items: flex-start;
+        text-align: left;
         gap: 8px;
       }
 
-      .footer-links a,
-      .footer-contact a,
-      .footer-contact p {
-        font-size: 11px;
-        line-height: 1.6;
+      .footer-links a {
+        font-size: 13.5px;
+        line-height: 1.7;
+        text-align: left;
       }
 
       .footer-contact {
-        gap: 10px;
+        grid-column: 1 / -1;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .footer-contact h3 {
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .footer-contact a,
+      .footer-contact p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        text-align: center;
       }
 
       .contact-item {
-        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .contact-item div {
+        align-items: center;
+      }
+
+      .contact-item p {
+        text-align: center;
+        max-width: 280px;
       }
 
       .footer-bottom {
         flex-direction: column;
         justify-content: center;
-        padding: 12px 0;
+        padding: 16px 0;
+        gap: 12px;
+      }
+
+      .footer-top {
+        position: static;
+        transform: none;
+        margin: 8px auto 0;
       }
 
       .tool-badge {
@@ -3039,16 +3415,86 @@
     }
 
     @media (max-width: 520px) {
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+      }
+
+      .container,
+      .header-inner,
+      .hero-inner,
+      .footer-inner,
+      .footer-bottom {
+        width: min(100%, var(--container));
+        max-width: 100%;
+      }
+
+      .hero-card,
+      .services-panel,
+      .featured-panel,
+      .process-panel,
+      .projects-panel,
+      .tools-panel,
+      .cta-panel {
+        max-width: 100%;
+      }
+
+      .services-showcase-container,
+      .services-track,
+      .projects-list-wrapper,
+      .tools-marquee-container {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .service-card {
+        max-width: calc(100vw - 56px);
+      }
+
+      .showreel {
+        left: 12px;
+        right: 12px;
+        max-width: calc(100% - 24px);
+        padding: 14px 16px;
+      }
+
+      .whatsapp-float-btn {
+        right: 20px;
+        bottom: 20px;
+        width: 50px;
+        height: 50px;
+      }
+      .whatsapp-float-btn svg {
+        width: 24px;
+        height: 24px;
+      }
+
       .footer-inner {
-        gap: 20px 14px;
+        gap: 28px;
       }
 
       .footer-socials {
         flex-wrap: wrap;
+        justify-content: center;
       }
 
       .footer-bottom p {
         text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .director-card,
+      .director-portrait,
+      .director-portrait img,
+      .director-highlight,
+      .cta-panel,
+      .cta-head,
+      .contact-info,
+      .contact-form-container {
+        transition: none;
       }
     }
 
@@ -4353,93 +4799,91 @@
         </div>
       </div>
     </section>
-      </div>
-    </section>
 
-
-
-    <section class="cta-section" id="contact">
-      <div class="cta-panel">
-        <div class="cta-glow"></div>
-        <div class="container">
-          
-          <div class="cta-head">
-            <h2 class="cta-title">Ready to bring your vision to life?</h2>
-            <p class="cta-subtitle">Let's craft your next visual masterpiece together.</p>
+    <section class="home-contact-section" id="contact">
+      <div class="container">
+        <div class="home-contact-wrap">
+          <div class="home-contact-head">
+            <h2 class="home-contact-title">Ready To Bring Your Vision To Life?</h2>
+            <p>Let's craft your next visual masterpiece together.</p>
           </div>
 
-          <div class="contact-grid">
-            <!-- Left Side: Contact Information -->
-            <div class="contact-info">
-              <h3>Contact Info</h3>
-              
-              <div class="contact-card-item">
-                <div class="contact-card-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                </div>
-                <div class="contact-card-text">
-                  <span>Call Us</span>
-                  <a href="tel:+918097647925">+91 8097647925</a>
-                  <a href="tel:+918451045735">+91 8451045735</a>
-                </div>
-              </div>
+          <div class="home-contact-grid">
+            <div class="home-contact-info">
+              <h3 class="home-contact-info-title">Contact Info</h3>
 
-              <div class="contact-card-item">
-                <div class="contact-card-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                </div>
-                <div class="contact-card-text">
-                  <span>Email Us</span>
-                  <a href="mailto:info@imaginetechnomedia.in">info@imaginetechnomedia.in</a>
-                  <a href="mailto:imaginetechnomedia@gmail.com">imaginetechnomedia@gmail.com</a>
-                </div>
-              </div>
+              <div class="home-contact-info-list">
+                <article class="home-contact-card">
+                  <div class="home-contact-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </div>
+                  <div class="home-contact-copy">
+                    <h4>Call Us</h4>
+                    <a href="tel:+918097647925">+91 8097647925</a>
+                    <a href="tel:+918451045735">+91 8451045735</a>
+                  </div>
+                </article>
 
-              <div class="contact-card-item">
-                <div class="contact-card-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                </div>
-                <div class="contact-card-text">
-                  <span>Website</span>
-                  <a href="https://imaginetechnomedia.in" target="_blank" rel="noopener noreferrer">imaginetechnomedia.in</a>
-                </div>
-              </div>
+                <article class="home-contact-card">
+                  <div class="home-contact-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <div class="home-contact-copy">
+                    <h4>Email Us</h4>
+                    <a href="mailto:info@imaginetechnomedia.in">info@imaginetechnomedia.in</a>
+                    <a href="mailto:imaginetechnomedia@gmail.com">imaginetechnomedia@gmail.com</a>
+                  </div>
+                </article>
 
-              <div class="contact-card-item">
-                <div class="contact-card-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                </div>
-                <div class="contact-card-text">
-                  <span>Office Address</span>
-                  <p>Office no. 406, Abhishek Premises Co-Operative Society Ltd. Plot No. C-5, Dalia Industrial Estate, Off New Link Road, Andheri West, Mumbai - 400 053</p>
-                </div>
+                <article class="home-contact-card">
+                  <div class="home-contact-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                  </div>
+                  <div class="home-contact-copy">
+                    <h4>Website</h4>
+                    <a href="https://imaginetechnomedia.in" target="_blank" rel="noopener noreferrer">imaginetechnomedia.in</a>
+                  </div>
+                </article>
+
+                <article class="home-contact-card">
+                  <div class="home-contact-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </div>
+                  <div class="home-contact-copy">
+                    <h4>Office Address</h4>
+                    <p>Office no. 406, Abhishek Premises Co-Operative Society Ltd. Plot No. C-5, Dalia Industrial Estate, Off New Link Road, Andheri West, Mumbai - 400053</p>
+                  </div>
+                </article>
               </div>
             </div>
 
-            <!-- Right Side: Contact Form -->
-            <div class="contact-form-container">
-              <h3>Send A Message</h3>
-              <form class="contact-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Message sent successfully!'); this.reset();">
-                <div class="form-group">
-                  <label for="contact-name">Full Name</label>
-                  <input type="text" id="contact-name" name="name" placeholder="Your Name" required>
+            <div class="home-contact-form-panel">
+              <h3 class="home-contact-form-title">Send A Message</h3>
+
+              <form class="home-contact-form" id="home-contact-form" onsubmit="event.preventDefault(); alert('Thank you for reaching out! We will contact you shortly.'); this.reset();">
+                <div class="home-contact-field">
+                  <label for="home-contact-name">Full Name</label>
+                  <input id="home-contact-name" type="text" placeholder="Your Name" required autocomplete="name">
                 </div>
-                <div class="form-group">
-                  <label for="contact-email">Email Address</label>
-                  <input type="email" id="contact-email" name="email" placeholder="Your Email" required>
+
+                <div class="home-contact-field">
+                  <label for="home-contact-email">Email Address</label>
+                  <input id="home-contact-email" type="email" placeholder="Your Email" required autocomplete="email">
                 </div>
-                <div class="form-group">
-                  <label for="contact-message">Your Message</label>
-                  <textarea id="contact-message" name="message" rows="4" placeholder="How can we help you?" required></textarea>
+
+                <div class="home-contact-field">
+                  <label for="home-contact-message">Your Message</label>
+                  <textarea id="home-contact-message" placeholder="How can we help you?" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary form-submit-btn">Send Message</button>
+
+                <button class="home-contact-submit" type="submit">Send Message</button>
               </form>
             </div>
           </div>
-
         </div>
       </div>
     </section>
+
   </main>
 
   <div id="site-footer"></div>
@@ -5345,11 +5789,9 @@
         bindReveal(".tools-title", { y: 50, duration: 0.85 }, ".tools-section");
         bindReveal(".tools-marquee-row-wrapper:nth-child(odd)", { x: -90, duration: 0.95 }, ".tools-section");
         bindReveal(".tools-marquee-row-wrapper:nth-child(even)", { x: 90, duration: 0.95 }, ".tools-section");
-
-        bindReveal(".cta-head", { y: 55, duration: 0.85 }, ".cta-section");
-        bindReveal(".contact-info", { x: -80, duration: 0.95 }, ".cta-section");
-        bindReveal(".contact-form-container", { x: 80, duration: 0.95 }, ".cta-section");
-        bindReveal(".contact-card-item", { y: 40, duration: 0.75, stagger: 0.06 }, ".cta-section");
+        bindReveal(".home-contact-head", { y: 55, duration: 0.85 }, ".home-contact-section");
+        bindReveal(".home-contact-card", { x: -55, duration: 0.8, stagger: 0.08 }, ".home-contact-section");
+        bindReveal(".home-contact-form-panel", { x: 70, duration: 0.9 }, ".home-contact-section");
 
         bindReveal(".footer-brand", { x: -60, duration: 0.9 }, ".site-footer");
         bindReveal(".footer-links", { y: 40, duration: 0.8, stagger: 0.08 }, ".site-footer");
@@ -5399,11 +5841,98 @@
           .to(clickBadge, { opacity: 0.72, duration: 0.28 }, "<0.02");
       };
 
+      const initTiltHover = (selector, options = {}) => {
+        const config = Object.assign({
+          maxRotateX: 8,
+          maxRotateY: 10,
+          lift: 10,
+          scale: 1.01,
+          mobileMaxWidth: 991
+        }, options);
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          return;
+        }
+
+        gsap.utils.toArray(selector).forEach((element) => {
+          if (!element || element.dataset.tiltBound === "true") {
+            return;
+          }
+
+          element.dataset.tiltBound = "true";
+          let rafId = null;
+
+          const resetTilt = () => {
+            element.classList.remove("is-tilting");
+            gsap.to(element, {
+              rotateX: 0,
+              rotateY: 0,
+              y: 0,
+              scale: 1,
+              duration: 0.45,
+              ease: "power3.out",
+              overwrite: true
+            });
+          };
+
+          const updateTilt = (event) => {
+            if (window.innerWidth <= config.mobileMaxWidth) {
+              resetTilt();
+              return;
+            }
+
+            const rect = element.getBoundingClientRect();
+            const relX = (event.clientX - rect.left) / rect.width;
+            const relY = (event.clientY - rect.top) / rect.height;
+            const rotateY = (relX - 0.5) * config.maxRotateY * 2;
+            const rotateX = (0.5 - relY) * config.maxRotateX * 2;
+
+            element.classList.add("is-tilting");
+            gsap.to(element, {
+              rotateX,
+              rotateY,
+              y: -config.lift,
+              scale: config.scale,
+              duration: 0.28,
+              ease: "power2.out",
+              overwrite: true,
+              transformPerspective: 1600,
+              transformOrigin: "center center"
+            });
+          };
+
+          element.addEventListener("mousemove", (event) => {
+            if (rafId) {
+              cancelAnimationFrame(rafId);
+            }
+
+            rafId = requestAnimationFrame(() => updateTilt(event));
+          });
+
+          element.addEventListener("mouseleave", () => {
+            if (rafId) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+            resetTilt();
+          });
+
+          element.addEventListener("blur", resetTilt, true);
+          window.addEventListener("resize", () => {
+            if (window.innerWidth <= config.mobileMaxWidth) {
+              resetTilt();
+            }
+          });
+        });
+      };
+
       // Create matchMedia interface for responsive scroll animations
       let mm = gsap.matchMedia();
 
       initSectionReveals();
       initAboutCameraFlash();
+      initTiltHover(".director-card", { maxRotateX: 7, maxRotateY: 9, lift: 8, scale: 1.012 });
+      initTiltHover(".home-contact-card, .home-contact-form-panel", { maxRotateX: 5, maxRotateY: 7, lift: 6, scale: 1.01 });
 
       // Desktop animation: horizontal pin scrolljacking
       mm.add("(min-width: 992px)", () => {
@@ -5735,7 +6264,7 @@
       // Bind cursor expansion classes on hovering any active clickable/interactive elements
       const updateHoverBindings = () => {
         const hoverTargets = document.querySelectorAll(
-          "a, button, .service-card, .tool-card, .project-item, .workflow-circle-container, .workflow-mobile-item, .outline-btn, .btn-primary, .btn-secondary, .services-arrow, .services-dot, .about-stat-card, .about-lens-only-img"
+          "a, button, input, textarea, .service-card, .tool-card, .project-item, .workflow-circle-container, .workflow-mobile-item, .outline-btn, .btn-primary, .btn-secondary, .services-arrow, .services-dot, .about-stat-card, .about-lens-only-img, .home-contact-card, .home-contact-form-panel"
         );
         hoverTargets.forEach((target) => {
           target.removeEventListener("mouseenter", addHoverClass);
@@ -5764,12 +6293,15 @@
       setTimeout(initSectionReveals, 2000);
       setTimeout(initAboutCameraFlash, 800);
       setTimeout(initAboutCameraFlash, 2000);
+      setTimeout(() => initTiltHover(".director-card", { maxRotateX: 7, maxRotateY: 9, lift: 8, scale: 1.012 }), 800);
+      setTimeout(() => initTiltHover(".home-contact-card, .home-contact-form-panel", { maxRotateX: 5, maxRotateY: 7, lift: 6, scale: 1.01 }), 800);
     });
   </script>
   <!-- Floating WhatsApp Chat Button -->
   <a href="https://wa.me/918097647925" class="whatsapp-float-btn" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-    <span>Chat with us</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" fill="#fff">
+      <path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"/>
+    </svg>
   </a>
   </div>
 </body>

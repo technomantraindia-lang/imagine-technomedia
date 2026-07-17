@@ -734,7 +734,6 @@
         radial-gradient(circle at 84% 18%, rgba(255, 0, 0, 0.18), transparent 24%),
         linear-gradient(135deg, #060606 0%, #080808 58%, #130303 100%);
       overflow: hidden;
-      padding-top: 60px;
     }
 
     .site-footer::before {
@@ -764,28 +763,35 @@
 
     .footer-inner {
       width: var(--container);
-      max-width: 1200px;
+      max-width: 1380px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1.6fr;
-      gap: 48px;
-      padding: 0 0 40px;
+      grid-template-columns: minmax(340px, 1.9fr) minmax(150px, 0.95fr) minmax(150px, 0.95fr) minmax(280px, 1.45fr);
+      gap: 64px;
+      padding: 60px 0 40px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      justify-self: start;
+      max-width: 360px;
     }
 
     .footer-brand img {
-      width: 104px;
+      display: block;
+      width: min(100%, 220px);
       height: auto;
       object-fit: contain;
-      margin-bottom: 16px;
+      margin: 0 0 22px;
     }
 
     .footer-brand p {
       max-width: 300px;
       margin: 0 0 18px;
       color: rgba(255, 255, 255, 0.68);
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.85;
     }
 
@@ -819,7 +825,7 @@
       margin: 0 0 16px;
       color: var(--accent);
       font-family: var(--font-display);
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       letter-spacing: -0.03em;
       text-transform: uppercase;
     }
@@ -834,8 +840,8 @@
     .footer-contact a,
     .footer-contact p {
       color: rgba(255, 255, 255, 0.74);
-      font-size: 12px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.75;
       text-decoration: none;
       margin: 0;
     }
@@ -874,6 +880,7 @@
 
     .footer-bottom {
       width: var(--container);
+      max-width: 1380px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -881,16 +888,17 @@
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: 16px;
-      padding: 24px 0 36px;
+      padding: 0 0 10px;
     }
 
     .footer-bottom p {
       margin: 0;
       color: rgba(255, 255, 255, 0.56);
-      font-size: 11px;
+      font-size: 13px;
       line-height: 1.5;
+      text-align: center;
     }
 
     .footer-top {
@@ -902,12 +910,134 @@
       place-items: center;
       color: rgba(255, 255, 255, 0.82);
       font-size: 12px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    .footer-top:hover {
-      border-color: var(--accent);
-      background: rgba(226, 16, 16, 0.08);
-      color: var(--accent);
+    @media (max-width: 1240px) {
+      .footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 16px;
+        padding: 40px 16px 24px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+      }
+
+      .footer-brand img {
+        width: 130px;
+        margin: 0 auto 16px;
+      }
+
+      .footer-brand p {
+        text-align: center;
+        margin: 0 auto 20px;
+        max-width: 320px;
+        font-size: 13.5px;
+        line-height: 1.8;
+      }
+
+      .footer-socials {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .footer-links h3 {
+        margin-bottom: 12px;
+        text-align: left;
+      }
+
+      .footer-links {
+        align-items: flex-start;
+        text-align: left;
+        gap: 8px;
+      }
+
+      .footer-links a {
+        font-size: 13.5px;
+        line-height: 1.7;
+        text-align: left;
+      }
+
+      .footer-contact {
+        grid-column: 1 / -1;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .footer-contact h3 {
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .footer-contact a,
+      .footer-contact p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .contact-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .contact-item div {
+        align-items: center;
+      }
+
+      .contact-item p {
+        text-align: center;
+        max-width: 280px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        justify-content: center;
+        padding: 16px 0;
+        gap: 12px;
+      }
+
+      .footer-top {
+        position: static;
+        transform: none;
+        margin: 8px auto 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-inner {
+        gap: 28px;
+      }
+      .footer-socials {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .footer-bottom p {
+        text-align: center;
+      }
     }
 
     /* Page reveal anim layout class */
@@ -1061,8 +1191,7 @@
 
     @media (max-width: 500px) {
       .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 36px;
+        gap: 28px;
       }
       
       .footer-bottom {
@@ -1081,6 +1210,50 @@
       
       .summary-stats-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    /* Floating WhatsApp Button Style */
+    .whatsapp-float-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25d366;
+      color: #ffffff;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+      z-index: 9999;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      text-decoration: none;
+    }
+
+    .whatsapp-float-btn:hover {
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+      background: #22c35e;
+    }
+
+    .whatsapp-float-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      .whatsapp-float-btn {
+        right: 20px;
+        bottom: 20px;
+        width: 50px;
+        height: 50px;
+      }
+      .whatsapp-float-btn svg {
+        width: 24px;
+        height: 24px;
       }
     }
   </style>
@@ -1372,6 +1545,13 @@
 
   <!-- INJECTED SITE FOOTER -->
   <div id="site-footer"></div>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/918097647925" class="whatsapp-float-btn" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" fill="#fff">
+      <path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 32.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"/>
+    </svg>
+  </a>
 
   </div> <!-- Close .itm-page-shell -->
 
