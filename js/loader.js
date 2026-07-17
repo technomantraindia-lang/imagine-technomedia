@@ -50,13 +50,15 @@ class ImagineTechnomediaLoader {
       return;
     }
 
+    const hasSeenLoader = sessionStorage.getItem("itm_loader_session_seen") === "true";
     const isReload = !!window.__ITM_LOADER_IS_RELOAD__;
+    const showMainLoader = isReload || !hasSeenLoader;
 
     document.documentElement.classList.add("itm-loader-active");
     this.loader.setAttribute("aria-hidden", "false");
     document.body.setAttribute("aria-busy", "true");
 
-    if (isReload) {
+    if (showMainLoader) {
       // Main sophisticated loader flow
       this.setStatus("Loading Imagine Technomedia");
 
@@ -360,6 +362,9 @@ class ImagineTechnomediaLoader {
   destroy() {
     if (this.destroyed) return;
     this.destroyed = true;
+    try {
+      sessionStorage.setItem("itm_loader_session_seen", "true");
+    } catch (e) {}
 
     document.documentElement.classList.remove("itm-loader-boot", "itm-loader-active");
     document.body.removeAttribute("aria-busy");

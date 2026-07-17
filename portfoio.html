@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Imagine Technomedia</title>
+  <meta name="description" content="Explore Imagine Technomedia's premium portfolio. A showcase of post-production excellence in editing, VFX, color grading, sound design and visualization.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/loader.css">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script>
+    (function () {
+      var isReload = false;
+      try {
+        var navigation = performance.getEntriesByType("navigation")[0];
+        if (navigation) {
+          isReload = navigation.type === "reload";
+        }
+      } catch (e) {
+        isReload = false;
+      }
+      window.__ITM_LOADER_IS_RELOAD__ = isReload;
+      document.documentElement.classList.add("itm-loader-boot");
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #040404;
+      --panel: #0a0a0a;
+      --panel-2: #111111;
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f5f5f5;
+      --muted: rgba(255, 255, 255, 0.72);
+      --accent: #e21010;
+      --accent-2: #8c0909;
+      --container: calc(100% - 64px);
+      --container-max: 1200px;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+      --font-display: "Outfit", sans-serif;
+      --font-body: "Plus Jakarta Sans", sans-serif;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: 
+        linear-gradient(135deg, #050505 0%, #0c0202 50%, #030303 100%),
+        radial-gradient(circle at 10% 20%, rgba(226, 16, 16, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(140, 9, 9, 0.04) 0%, transparent 40%);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .grid-bg-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.04;
+      background-size: 60px 60px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s var(--ease);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      width: var(--container);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Custom Animated Cursor */
+    .custom-cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: #ff1010;
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+    }
+
+    .custom-cursor-follower {
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid rgba(255, 16, 16, 0.4);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+    }
+    
+    body.cursor-hover .custom-cursor-follower {
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 16, 16, 0.08);
+      border-color: #ff1010;
+      box-shadow: 0 0 15px rgba(255, 16, 16, 0.35);
+    }
+    
+    body.cursor-hover .custom-cursor-dot {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Header styling from index.html */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .header-inner {
+      width: var(--container);
+      margin: 0 auto;
+      min-height: 94px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .brand img {
+      width: 126px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      flex: 1 1 auto;
+    }
+
+    .site-nav a,
+    .header-cta {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .site-nav a {
+      color: rgba(255, 255, 255, 0.88);
+      transition: color 0.25s ease, text-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(226, 16, 16, 0.6);
+    }
+
+    .site-nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .site-nav a:hover::after,
+    .site-nav a.active::after {
+      width: 100%;
+      left: 0;
+    }
+
+    .header-cta {
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .header-cta:hover {
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: 0 0 20px rgba(226, 16, 16, 0.45);
+      transform: translateY(-2px);
+    }
+
+    /* Menu Toggle Hamburger */
+    .menu-toggle {
+      display: none;
+    }
+
+    /* HERO BANNER SECTION - FULL WIDTH */
+    .portfolio-hero-section {
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .portfolio-hero-banner-wrap {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      background: #050505;
+    }
+
+    .portfolio-hero-banner-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s var(--ease);
+    }
+
+    .portfolio-hero-banner-wrap:hover img {
+      transform: scale(1.02);
+    }
+
+    /* FILTER BAR SECTION */
+    .portfolio-filter-section {
+      padding: 20px 0 40px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .filter-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 30px;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .filter-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(226, 16, 16, 0.35);
+    }
+
+    /* PORTFOLIO GRID */
+    .portfolio-grid-section {
+      padding: 20px 0 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .portfolio-card {
+      background: rgba(8, 8, 8, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+      will-change: transform;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-8px) rotateY(360deg);
+      border-color: rgba(226, 16, 16, 0.3);
+      box-shadow: 0 25px 50px rgba(226, 16, 16, 0.12), 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .portfolio-img-container {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .portfolio-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .portfolio-card:hover .portfolio-img-container img {
+      transform: scale(1.08);
+    }
+
+    /* Red play button matching diagram */
+    .play-button-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      opacity: 0.85;
+      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 0 20px rgba(226, 16, 16, 0.45);
+    }
+
+    .portfolio-card:hover .play-button-overlay {
+      transform: translate(-50%, -50%) scale(1.05);
+      opacity: 1;
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+    }
+
+    .play-button-overlay svg {
+      width: 18px;
+      height: 18px;
+      margin-left: 2px;
+    }
+
+    .portfolio-info {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+    }
+
+    .portfolio-category {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .portfolio-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .portfolio-card:hover .portfolio-title {
+      color: var(--accent);
+    }
+
+    .portfolio-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex: 1 1 auto;
+    }
+
+    .portfolio-card-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .portfolio-tags {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .portfolio-year {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* PROJECT CTA BANNER */
+    .portfolio-cta-section {
+      padding: 40px 0 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-cta-banner {
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(226, 16, 16, 0.15) 0%, transparent 50%),
+        rgba(10, 10, 10, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-cta-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(226, 16, 16, 0.35) 0%, transparent 60%) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .cta-banner-content {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .cta-badge {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(226, 16, 16, 0.1);
+      border: 1.5px solid rgba(226, 16, 16, 0.25);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      filter: drop-shadow(0 0 10px rgba(226, 16, 16, 0.25));
+    }
+
+    .cta-banner-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .cta-banner-info p {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .cta-banner-btn {
+      color: #ffffff;
+      border: 1.5px solid var(--accent);
+      padding: 14px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: rgba(226, 16, 16, 0.03);
+      box-shadow: 0 0 15px rgba(226, 16, 16, 0.1);
+      white-space: nowrap;
+    }
+
+    .cta-banner-btn:hover {
+      background: var(--accent);
+      box-shadow: 0 10px 30px rgba(226, 16, 16, 0.45);
+      transform: translateY(-3px);
+    }
+
+    /* CLIENT MARQUEE SHOWCASE STYLING */
+    .client-showcase-section {
+      padding: 80px 0;
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: linear-gradient(180deg, rgba(4, 4, 4, 0.2) 0%, rgba(8, 8, 8, 0.4) 100%);
+    }
+
+    .marquee-container {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    .marquee-container::before,
+    .marquee-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 150px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .marquee-container::before {
+      left: 0;
+      background: linear-gradient(to right, #040404, transparent);
+    }
+
+    .marquee-container::after {
+      right: 0;
+      background: linear-gradient(to left, #040404, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 35s linear infinite;
+    }
+
+    .marquee-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 60px;
+      padding: 0 30px;
+    }
+
+    .marquee-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 175px;
+      height: 75px;
+      opacity: 0.75;
+      transition: all 0.4s var(--ease);
+    }
+
+    .marquee-item:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .marquee-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* SUMMARY STATS GRID ROW */
+    .summary-stats-section {
+      padding: 60px 0;
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(5, 5, 5, 0.3);
+    }
+
+    .summary-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .summary-stat-item {
+      background: rgba(10, 10, 10, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 30px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .summary-stat-item:hover {
+      border-color: rgba(226, 16, 16, 0.25);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(226, 16, 16, 0.05);
+    }
+
+    .summary-stat-icon-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(226, 16, 16, 0.08);
+      border: 1px solid rgba(226, 16, 16, 0.15);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      margin-bottom: 20px;
+      transition: all 0.35s ease;
+    }
+
+    .summary-stat-item:hover .summary-stat-icon-box {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(226, 16, 16, 0.45);
+    }
+
+    .summary-stat-item h3 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .summary-stat-item p {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* FOOTER STYLING */
+    .site-footer {
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255, 0, 0, 0.18), transparent 24%),
+        linear-gradient(135deg, #060606 0%, #080808 58%, #130303 100%);
+      overflow: hidden;
+      padding-top: 60px;
+    }
+
+    .site-footer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .site-footer::after {
+      content: "";
+      position: absolute;
+      right: -8%;
+      top: -16%;
+      width: 520px;
+      height: 220px;
+      background:
+        radial-gradient(circle at center, rgba(255, 0, 0, 0.12), transparent 62%);
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    .footer-inner {
+      width: var(--container);
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.6fr;
+      gap: 48px;
+      padding: 0 0 40px;
+    }
+
+    .footer-brand img {
+      width: 104px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      max-width: 300px;
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      line-height: 1.85;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-socials a {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.6);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .footer-socials a:hover {
+      color: #ffffff;
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(226, 16, 16, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .footer-links h3,
+    .footer-contact h3 {
+      margin: 0 0 16px;
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a,
+    .footer-contact a,
+    .footer-contact p {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 12px;
+      line-height: 1.7;
+      text-decoration: none;
+      margin: 0;
+    }
+
+    .footer-links a:hover,
+    .footer-contact a:hover {
+      color: #ffffff;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: 20px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .contact-item div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-icon {
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .footer-bottom {
+      width: var(--container);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      min-height: 46px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0 36px;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.56);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .footer-top {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 12px;
+    }
+
+    .footer-top:hover {
+      border-color: var(--accent);
+      background: rgba(226, 16, 16, 0.08);
+      color: var(--accent);
+    }
+
+    /* Page reveal anim layout class */
+    [data-reveal] {
+      opacity: 0;
+      transform: translate3d(0, 40px, 0);
+    }
+
+    /* RESPONSIVE STYLING */
+    @media (max-width: 1024px) {
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .clients-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .summary-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-cta {
+        display: none !important;
+      }
+
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        width: 42px;
+        height: 42px;
+        z-index: 50;
+        transition: all 0.3s ease;
+      }
+
+      .menu-toggle:hover {
+        border-color: var(--accent);
+        background: rgba(226, 16, 16, 0.08);
+      }
+
+      .menu-toggle svg {
+        transition: transform 0.3s ease;
+      }
+
+      .nav-open .menu-toggle svg {
+        transform: rotate(90deg);
+      }
+
+      .site-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(5, 5, 5, 0.98);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-direction: column;
+        gap: 0 !important;
+        padding: 16px 24px;
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 45;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+      }
+
+      .nav-open .site-nav {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .site-nav a {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.01);
+        border-radius: 8px;
+        margin-bottom: 8px;
+        box-sizing: border-box;
+        transition: all 0.25s ease;
+      }
+
+      .site-nav a:hover,
+      .site-nav a.active {
+        background: rgba(226, 16, 16, 0.08);
+        border-color: rgba(226, 16, 16, 0.2);
+        color: var(--accent) !important;
+      }
+
+      .site-nav a::after {
+        display: none !important;
+      }
+
+      .site-nav a::before {
+        content: ">";
+        order: 2;
+        color: var(--accent);
+        font-weight: 800;
+        font-size: 14px;
+        transition: transform 0.2s ease;
+      }
+
+      .site-nav a:hover::before {
+        transform: translateX(4px);
+      }
+      
+      .portfolio-hero-banner-wrap {
+        aspect-ratio: auto;
+        height: 280px;
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .project-cta-banner {
+        flex-direction: column;
+        padding: 30px 24px;
+        text-align: center;
+        gap: 24px;
+      }
+      
+      .cta-banner-content {
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .clients-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+      
+      .hero-stats-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .summary-stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VOLUMETRIC PAGE LOADER -->
+  <div class="itm-loader" id="itm-loader" aria-hidden="true">
+    <div class="itm-loader__ambient"></div>
+    <div class="itm-loader__particles" aria-hidden="true">
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+      <span class="itm-loader__particle"></span>
+    </div>
+    <div class="itm-loader__timecode" aria-hidden="true">IMAGINE // FRAME 001</div>
+    <div class="itm-loader__beam-wrap" aria-hidden="true">
+      <div class="itm-loader__beam"></div>
+      <div class="itm-loader__beam-pulse"></div>
+    </div>
+    <div class="itm-loader__inner">
+      <div class="itm-loader__stage" aria-hidden="true">
+        <svg class="itm-loader__rings" viewBox="0 0 420 420" aria-hidden="true">
+          <circle class="itm-loader__ring" cx="210" cy="210" r="125"></circle>
+          <circle class="itm-loader__ring" cx="210" cy="210" r="139"></circle>
+          <circle class="itm-loader__ring" cx="210" cy="210" r="153"></circle>
+          <circle class="itm-loader__ring" cx="210" cy="210" r="167"></circle>
+          <circle class="itm-loader__ring" cx="210" cy="210" r="181"></circle>
+          <circle class="itm-loader__ring-highlight" cx="210" cy="210" r="181"></circle>
+        </svg>
+        <div class="itm-loader__logo-stage">
+          <img class="itm-loader__logo-core" src="images/ne bg lgo.png" alt="" fetchpriority="high">
+          <img class="itm-loader__logo-full" src="images/ne bg lgo.png" alt="Imagine Technomedia logo" fetchpriority="high">
+          <div class="itm-loader__scan"></div>
+        </div>
+      </div>
+      <div class="itm-loader__services" aria-hidden="true">
+        <div class="itm-loader__service-line"></div>
+        <span class="itm-loader__service-item">Post Production</span>
+        <span class="itm-loader__service-item">Video Editing</span>
+        <span class="itm-loader__service-item">VFX &amp; Animation</span>
+        <span class="itm-loader__service-item">Color Grading</span>
+        <span class="itm-loader__service-item">Motion Graphics</span>
+        <span class="itm-loader__service-item">Sound Design</span>
+        <span class="itm-loader__service-item">DI &amp; Finishing</span>
+      </div>
+    </div>
+    <div class="itm-loader__progress">
+      <div class="itm-loader__progress-top">
+        <span class="itm-loader__progress-label">Crafting The Experience</span>
+        <span class="itm-loader__progress-value">0%</span>
+      </div>
+      <div class="itm-loader__progress-track">
+        <div class="itm-loader__progress-fill"></div>
+      </div>
+    </div>
+    <div class="itm-loader__status" aria-live="polite">Loading Imagine Technomedia</div>
+  </div>
+
+  <div class="itm-page-shell">
+    <div class="grid-bg-overlay"></div>
+
+    <!-- INJECTED SITE HEADER -->
+    <div id="site-header"></div>
+
+  <!-- PORTFOLIO HERO SECTION -->
+  <section class="portfolio-hero-section">
+    <div class="portfolio-hero-banner-wrap" data-reveal="down">
+      <img src="images/portfoilo bnner.png" alt="Imagine Technomedia Portfolio Banner">
+    </div>
+  </section>
+
+  <!-- PORTFOLIO GRID SECTION -->
+  <section class="portfolio-grid-section" style="padding-top: 80px;">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="projects-grid-header" style="margin-bottom: 50px; text-align: center;" data-reveal="up">
+        <h2 class="projects-title" style="font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: -0.01em;">Our Projects</h2>
+      </div>
+      <div class="portfolio-grid" id="portfolio-grid">
+        
+        <!-- Card 1 -->
+        <div class="portfolio-card" data-category="feature-film" data-reveal="left">
+          <div class="portfolio-img-container">
+            <img src="images/portfoilo/new last foniter.png" alt="The Last Frontier">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Feature Film</span>
+            <h3 class="portfolio-title">The Last Frontier</h3>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="portfolio-card" data-category="web-series" data-reveal="up">
+          <div class="portfolio-img-container">
+            <img src="images/portfoilo/beyond limits.png" alt="Beyond Limits">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Web Series</span>
+            <h3 class="portfolio-title">Beyond Limits</h3>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="portfolio-card" data-category="tv-commercial" data-reveal="right">
+          <div class="portfolio-img-container">
+            <img src="images/portfoilo/urban pulse.png" alt="Urban Pulse">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">TV Commercial</span>
+            <h3 class="portfolio-title">Urban Pulse</h3>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="portfolio-card" data-category="corporate-film" data-reveal="left">
+          <div class="portfolio-img-container">
+            <img src="images/portfoilo/future tech.png" alt="Future Tech">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Corporate Film</span>
+            <h3 class="portfolio-title">Future Tech</h3>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="portfolio-card" data-category="music-video" data-reveal="up">
+          <div class="portfolio-img-container">
+            <img src="images/portfoilo/sunth wave.png" alt="Synth Wave">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Music Video</span>
+            <h3 class="portfolio-title">Synth Wave</h3>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="portfolio-card" data-category="visualization" data-reveal="right">
+          <div class="portfolio-img-container">
+            <img src="images/portfoilo/arch vision.png" alt="Arch Vision">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Architectural Visualization</span>
+            <h3 class="portfolio-title">Arch Vision</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER SECTION -->
+  <section class="portfolio-cta-section">
+    <div class="container">
+      <div class="project-cta-banner" data-reveal="scale">
+        <div class="cta-banner-content">
+          <div class="cta-badge">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </div>
+          <div class="cta-banner-info">
+            <h3>Have a Project in Mind?</h3>
+            <p>Let's Create Something Amazing Together!</p>
+          </div>
+        </div>
+        <a href="contact us .html" class="cta-banner-btn">
+          Schedule a Call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT LOGOS SHOWCASE -->
+  <section class="client-showcase-section">
+    <div class="container" style="margin-bottom: 40px; text-align: center;" data-reveal="down">
+      <span class="section-eyebrow" style="padding-left: 0; display: block; margin-bottom: 12px; margin-top: 10px;">Our Partners</span>
+      <h2 class="section-title" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.2;">Trusted by <span>Leading Brands</span></h2>
+    </div>
+    <div class="marquee-container" data-reveal="left">
+      <div class="marquee-track">
+        <!-- Copy 1 -->
+        <div class="marquee-list">
+          <div class="marquee-item"><img src="images/clients/adani.png" alt="Adani logo"></div>
+          <div class="marquee-item"><img src="images/clients/airtel.png" alt="Airtel logo"></div>
+          <div class="marquee-item"><img src="images/clients/alt.png" alt="ALT Balaji logo"></div>
+          <div class="marquee-item"><img src="images/clients/amazon.png" alt="Amazon logo"></div>
+          <div class="marquee-item"><img src="images/clients/cocla.png" alt="Coca-Cola logo"></div>
+          <div class="marquee-item"><img src="images/clients/colors.png" alt="Colors TV logo"></div>
+          <div class="marquee-item"><img src="images/clients/disnp hostar.png" alt="Disney+ Hotstar logo"></div>
+          <div class="marquee-item"><img src="images/clients/godhrej.png" alt="Godrej logo"></div>
+          <div class="marquee-item"><img src="images/clients/infosys.png" alt="Infosys logo"></div>
+          <div class="marquee-item"><img src="images/clients/macd.png" alt="McDonald's logo"></div>
+          <div class="marquee-item"><img src="images/clients/netflix.png" alt="Netflix logo"></div>
+          <div class="marquee-item"><img src="images/clients/sony.png" alt="Sony logo"></div>
+          <div class="marquee-item"><img src="images/clients/star.png" alt="Star TV logo"></div>
+          <div class="marquee-item"><img src="images/clients/suzuki.png" alt="Suzuki logo"></div>
+          <div class="marquee-item"><img src="images/clients/tata.png" alt="Tata logo"></div>
+          <div class="marquee-item"><img src="images/clients/zee.png" alt="Zee TV logo"></div>
+        </div>
+        <!-- Copy 2 (Duplicated for infinite seamless loop) -->
+        <div class="marquee-list">
+          <div class="marquee-item"><img src="images/clients/adani.png" alt="Adani logo"></div>
+          <div class="marquee-item"><img src="images/clients/airtel.png" alt="Airtel logo"></div>
+          <div class="marquee-item"><img src="images/clients/alt.png" alt="ALT Balaji logo"></div>
+          <div class="marquee-item"><img src="images/clients/amazon.png" alt="Amazon logo"></div>
+          <div class="marquee-item"><img src="images/clients/cocla.png" alt="Coca-Cola logo"></div>
+          <div class="marquee-item"><img src="images/clients/colors.png" alt="Colors TV logo"></div>
+          <div class="marquee-item"><img src="images/clients/disnp hostar.png" alt="Disney+ Hotstar logo"></div>
+          <div class="marquee-item"><img src="images/clients/godhrej.png" alt="Godrej logo"></div>
+          <div class="marquee-item"><img src="images/clients/infosys.png" alt="Infosys logo"></div>
+          <div class="marquee-item"><img src="images/clients/macd.png" alt="McDonald's logo"></div>
+          <div class="marquee-item"><img src="images/clients/netflix.png" alt="Netflix logo"></div>
+          <div class="marquee-item"><img src="images/clients/sony.png" alt="Sony logo"></div>
+          <div class="marquee-item"><img src="images/clients/star.png" alt="Star TV logo"></div>
+          <div class="marquee-item"><img src="images/clients/suzuki.png" alt="Suzuki logo"></div>
+          <div class="marquee-item"><img src="images/clients/tata.png" alt="Tata logo"></div>
+          <div class="marquee-item"><img src="images/clients/zee.png" alt="Zee TV logo"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY STATS SECTION -->
+  <section class="summary-stats-section">
+    <div class="container summary-stats-grid">
+      <div class="summary-stat-item" data-reveal="scale">
+        <div class="summary-stat-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </div>
+        <h3>1000+</h3>
+        <p>Projects Delivered</p>
+      </div>
+      
+      <div class="summary-stat-item" data-reveal="scale">
+        <div class="summary-stat-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+        </div>
+        <h3>500+</h3>
+        <p>Happy Clients</p>
+      </div>
+      
+      <div class="summary-stat-item" data-reveal="scale">
+        <div class="summary-stat-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <h3>25+</h3>
+        <p>Countries Served</p>
+      </div>
+      
+      <div class="summary-stat-item" data-reveal="scale">
+        <div class="summary-stat-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+        </div>
+        <h3>50+</h3>
+        <p>Awards Won</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INJECTED SITE FOOTER -->
+  <div id="site-footer"></div>
+
+  </div> <!-- Close .itm-page-shell -->
+
+  <!-- LOADER CLASS AND PARTIALS INJECTION SCRIPT -->
+  <script src="js/loader.js"></script>
+  <script>
+    // Injection script for headers and footers
+    async function injectPartial(targetId, file) {
+      const target = document.getElementById(targetId);
+      if (!target) return null;
+
+      try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error("Failed to load " + file);
+        target.innerHTML = await response.text();
+
+        if (targetId === "site-header") {
+          const links = target.querySelectorAll(".site-nav a");
+          const currentPath = (window.location.pathname.split("/").pop() || "portfoio.html").toLowerCase();
+
+          links.forEach((link) => {
+            const href = (link.getAttribute("href") || "").toLowerCase();
+            const isPortfolioLink = href === "portfoio.html" || href.endsWith("portfoio.html") || href.includes("work");
+            
+            link.classList.toggle("active", isPortfolioLink);
+
+            link.addEventListener("click", () => {
+              document.body.classList.remove("nav-open");
+            });
+          });
+
+          // Mobile hamburger menu trigger
+          const toggleBtn = target.querySelector(".menu-toggle");
+          if (toggleBtn) {
+            toggleBtn.addEventListener("click", (event) => {
+              event.stopPropagation();
+              document.body.classList.toggle("nav-open");
+            });
+          }
+
+          document.addEventListener("click", (event) => {
+            if (!target.contains(event.target)) {
+              document.body.classList.remove("nav-open");
+            }
+          });
+        }
+
+        return target;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+
+    // Load Header & Footer
+    injectPartial("site-header", "header.html");
+    injectPartial("site-footer", "footer.html");
+
+    // GSAP ScrollTrigger Animations
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize Loader
+      const pageLoader = new ImagineTechnomediaLoader();
+      pageLoader.init();
+
+      // 1. Custom Mouse Follower Setup
+      const cursorDot = document.createElement("div");
+      const cursorFollower = document.createElement("div");
+      cursorDot.className = "custom-cursor-dot";
+      cursorFollower.className = "custom-cursor-follower";
+      document.body.appendChild(cursorDot);
+      document.body.appendChild(cursorFollower);
+
+      const xSetDot = gsap.quickSetter(cursorDot, "x", "px");
+      const ySetDot = gsap.quickSetter(cursorDot, "y", "px");
+      const xSetFollower = gsap.quickSetter(cursorFollower, "x", "px");
+      const ySetFollower = gsap.quickSetter(cursorFollower, "y", "px");
+
+      let mouseX = 0, mouseY = 0;
+      let followerX = 0, followerY = 0;
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        xSetDot(mouseX);
+        ySetDot(mouseY);
+      });
+
+      gsap.ticker.add(() => {
+        const dt = 1.0 - Math.pow(1.0 - 0.15, gsap.ticker.deltaRatio());
+        followerX += (mouseX - followerX) * dt;
+        followerY += (mouseY - followerY) * dt;
+        xSetFollower(followerX);
+        ySetFollower(followerY);
+      });
+
+      const bindHovers = () => {
+        const hoverTargets = document.querySelectorAll("a, button, .portfolio-card, .filter-btn, .client-logo-card, .footer-socials a");
+        hoverTargets.forEach((target) => {
+          target.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+          target.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+        });
+      };
+      
+      setTimeout(bindHovers, 800);
+
+      // 2. Scroll Trigger Reveal Animations
+      const revealItems = document.querySelectorAll("[data-reveal]");
+      revealItems.forEach((item) => {
+        const direction = item.getAttribute("data-reveal") || "bottom";
+        
+        let startState = { opacity: 0 };
+        
+        if (direction === "left") {
+          startState.x = -80;
+          startState.y = 0;
+        } else if (direction === "right") {
+          startState.x = 80;
+          startState.y = 0;
+        } else if (direction === "top") {
+          startState.x = 0;
+          startState.y = -60;
+        } else if (direction === "scale") {
+          startState.x = 0;
+          startState.y = 0;
+          startState.scale = 0.85;
+        } else {
+          startState.x = 0;
+          startState.y = 60; // bottom / default
+        }
+        
+        // Set initial state
+        gsap.set(item, startState);
+        
+        // Animate on scroll
+        gsap.to(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top 88%",
+            toggleActions: "play none none none"
+          },
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 1.0,
+          ease: "power2.out"
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
