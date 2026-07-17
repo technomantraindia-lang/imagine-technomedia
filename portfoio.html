@@ -23,7 +23,19 @@
         isReload = false;
       }
       window.__ITM_LOADER_IS_RELOAD__ = isReload;
+
+      var hasSeenLoader = false;
+      try {
+        hasSeenLoader = sessionStorage.getItem("itm_loader_session_seen") === "true";
+      } catch (e) {}
+      var showMainLoader = isReload || !hasSeenLoader;
+
       document.documentElement.classList.add("itm-loader-boot");
+      if (showMainLoader) {
+        document.documentElement.classList.add("itm-loader-main");
+      } else {
+        document.documentElement.classList.add("itm-loader-simple");
+      }
     })();
   </script>
   <style>

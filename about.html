@@ -24,8 +24,18 @@
       }
       window.__ITM_LOADER_IS_RELOAD__ = isReload;
 
-      // Always boot the loader container immediately to avoid white flash of empty page on load
+      var hasSeenLoader = false;
+      try {
+        hasSeenLoader = sessionStorage.getItem("itm_loader_session_seen") === "true";
+      } catch (e) {}
+      var showMainLoader = isReload || !hasSeenLoader;
+
       document.documentElement.classList.add("itm-loader-boot");
+      if (showMainLoader) {
+        document.documentElement.classList.add("itm-loader-main");
+      } else {
+        document.documentElement.classList.add("itm-loader-simple");
+      }
     })();
   </script>
   <style>
@@ -1284,7 +1294,7 @@
       padding: 36px 24px;
       text-align: center;
       background: rgba(10, 10, 10, 0.55);
-      border: 1.5px solid rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -1322,7 +1332,7 @@
     }
 
     .industry-card:hover {
-      border-color: rgba(226, 16, 16, 0.35);
+      border-color: rgba(226, 16, 16, 0.6);
       background: rgba(226, 16, 16, 0.04);
       box-shadow: 
         0 20px 40px rgba(0, 0, 0, 0.65),
@@ -2585,7 +2595,7 @@
     <!-- CTA BANNER -->
     <section class="section" id="about-cta" style="padding-top: 40px;">
       <div class="container">
-        <div class="cta-panel glass-card" data-reveal="up">
+        <div class="cta-panel glass-card tilt-3d" data-reveal="up">
           <div class="cta-glow-backdrop"></div>
           <div class="cta-panel-content">
             <span class="section-eyebrow" style="padding-left: 0; margin-bottom: 12px;">Let's Build</span>

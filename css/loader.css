@@ -426,3 +426,16 @@ html.itm-loader-active .itm-loader {
 @keyframes itmSpin {
   to { transform: rotate(360deg); }
 }
+
+/* Simple transition overrides to prevent hologram flashing */
+html.itm-loader-simple .itm-loader__timecode,
+html.itm-loader-simple .itm-loader__beam-wrap,
+html.itm-loader-simple .itm-loader__inner,
+html.itm-loader-simple .itm-loader__progress,
+html.itm-loader-simple .itm-loader__particles {
+  display: none !important;
+}
+
+html.itm-loader-simple .itm-loader__spinner-wrap {
+  display: flex !important;
+}
