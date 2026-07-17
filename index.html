@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Imagine Technomedia</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -3684,6 +3685,277 @@
         transform: translateX(-50%);
       }
     }
+
+    /* PRODUCTION & STUDIO SERVICES */
+    .production-services {
+      padding: 100px 0;
+      background: linear-gradient(180deg, rgba(7, 7, 7, 1) 0%, rgba(4, 4, 4, 0.95) 100%);
+      position: relative;
+    }
+
+    .prod-services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .prod-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1.5px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .prod-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 0% 0%, rgba(226, 16, 16, 0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .prod-card:hover {
+      border-color: rgba(226, 16, 16, 0.35);
+      transform: translateY(-5px);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.65),
+        0 0 25px rgba(226, 16, 16, 0.08);
+    }
+
+    .prod-card:hover::before {
+      opacity: 1;
+    }
+
+    .prod-icon-box {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      background: rgba(0, 0, 0, 0.4);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 2;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .prod-icon-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .prod-card:hover .prod-icon-box {
+      border-color: rgba(226, 16, 16, 0.5);
+      box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.7),
+        0 0 20px rgba(226, 16, 16, 0.2);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .prod-card:hover .prod-icon-box img {
+      transform: scale(1.12);
+    }
+
+    .prod-info {
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .prod-info span {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .prod-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .prod-info p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 860px) {
+      .prod-services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .prod-card {
+        padding: 30px;
+      }
+    }
+
+    /* TESTIMONIALS SECTION */
+    .testimonials-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, rgba(4, 4, 4, 0.95) 0%, rgba(7, 7, 7, 1) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials-container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 40px;
+    }
+
+    .testimonial-wrapper {
+      position: relative;
+      min-height: 280px;
+    }
+
+    .testimonial-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(15px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .testimonial-slide.active {
+      position: relative;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .quote-icon-decor {
+      font-size: 5rem;
+      color: rgba(226, 16, 16, 0.15);
+      line-height: 0.1;
+      margin-bottom: 24px;
+      font-family: serif;
+      user-select: none;
+    }
+
+    .testimonial-text {
+      font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.88);
+      font-style: italic;
+      font-weight: 500;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .testimonial-client {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .client-avatar {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 15px rgba(226, 16, 16, 0.2);
+    }
+
+    .client-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+
+    .client-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 4px 0 0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Slider Controls */
+    .testimonial-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .testimonial-arrow {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-arrow:hover {
+      background: rgba(226, 16, 16, 0.1);
+      border-color: rgba(226, 16, 16, 0.4);
+      color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .testimonial-dots {
+      display: flex;
+      gap: 10px;
+    }
+
+    .testimonial-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
@@ -3805,9 +4077,9 @@
 
           <!-- Descriptions -->
           <div class="about-paragraphs">
-            <p>Imagine TechnoMedia is a creative post-production company dedicated to delivering visually stunning and emotionally engaging content.</p>
-            <p>We provide end-to-end post-production services for films, TV shows, web series, commercials, corporate videos, and digital content.</p>
-            <p>With a team of passionate professionals and cutting-edge technology, we ensure every project meets international standards with creativity, precision, and on-time delivery.</p>
+            <p>Imagine TechnoMedia is a premier film production and media solutions provider in Mumbai, delivering visually stunning and emotionally engaging content.</p>
+            <p>We specialize in Corporate Services: Post Films Production, Marketing Support, Media Solutions &amp; Films Advertising Services, and Promotional Activities, alongside complete indoor and outdoor shoots.</p>
+            <p>With our own shooting studios and a dedicated team, we ensure every project meets international standards with creativity, precision, and on-time delivery.</p>
           </div>
 
           <!-- Achievements header row -->
@@ -3942,6 +4214,75 @@
       </div>
     </section>
 
+    <!-- PRODUCTION & STUDIO SERVICES -->
+    <section class="production-services" id="production-services" data-reveal="up">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin: 0 auto 50px;">
+          <span class="section-eyebrow" style="padding-left: 0; display: block; margin-bottom: 12px;">Production Solutions</span>
+          <h2 class="section-title" style="color: #ffffff; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; text-transform: uppercase;">Film Production &amp; <span style="color: var(--accent);">Studio Services</span></h2>
+          <p class="section-desc" style="max-width: 650px; margin: 16px auto 0; color: var(--muted); font-size: 1.05rem;">
+            Imagine Technomedia provides complete Film Production, state-of-the-art Shooting Studios, and creative Media Solutions in Mumbai. Contact us for creative production services tailored to your needs.
+          </p>
+        </div>
+
+        <div class="prod-services-grid">
+          <!-- Card 1: Studio for Shooting -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/camra.png" alt="Studio for Shooting Icon">
+            </div>
+            <div class="prod-info">
+              <span>01 / We have own Studios</span>
+              <h3>Studio for Shooting</h3>
+              <p>Our own best studios for photo and video shoots. We provide professional film production and media services in Mumbai, including indoor and outdoor shooting, advertisement shooting, and more.</p>
+            </div>
+          </article>
+
+          <!-- Card 2: Advertisement Shooting -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/cinema.png" alt="Advertisement Shooting Icon">
+            </div>
+            <div class="prod-info">
+              <span>02 / Advertisement Shooting</span>
+              <h3>Advertisement Shooting</h3>
+              <p>We have an expert advertisement shooting team for both indoor and outdoor commercial productions, ensuring visually arresting brand narratives that captivate and convert viewers.</p>
+            </div>
+          </article>
+
+          <!-- Card 3: Dedicated Media Services -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/oc.png" alt="Dedicated Media Services Icon">
+            </div>
+            <div class="prod-info">
+              <span>03 / All type Media Services</span>
+              <h3>Dedicated Media Services</h3>
+              <p>Our media solutions company helps businesses establish a strong digital presence across multiple platforms through professional media services and targeted coverage campaigns.</p>
+            </div>
+          </article>
+
+          <!-- Card 4: Film Production Services -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/cinema.png" alt="Film Production Services Icon">
+            </div>
+            <div class="prod-info">
+              <span>04 / All type Film Production Services</span>
+              <h3>Film Production Services</h3>
+              <p>We provide complete film production and media solution services in Mumbai. Contact us for creative production services tailored to your exact creative specs and budgets.</p>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: 48px;">
+          <a href="contact us .html" class="btn" style="display: inline-flex; align-items: center; gap: 8px;">
+            <span>Contact Us for Creative Services</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </section>
 
     <section class="process-section" id="process">
       <div class="container">
@@ -4437,6 +4778,73 @@
                 </div>
               </div>
             </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials-section" id="testimonials" data-reveal="up">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin: 0 auto 50px;">
+          <span class="section-eyebrow" style="padding-left: 0; display: block; margin-bottom: 12px;">Testimonials</span>
+          <h2 class="section-title">What Our <span>Clients Say</span></h2>
+        </div>
+
+        <div class="testimonials-container">
+          <div class="testimonial-wrapper">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-slide active" data-slide="0">
+              <span class="quote-icon-decor">&ldquo;</span>
+              <p class="testimonial-text">
+                "Our experience with this film production and media solutions company was excellent. The team was highly professional, creative, and delivered the project on time. Their attention to detail and storytelling truly elevated our brand presence."
+              </p>
+              <div class="testimonial-client">
+                <img src="images/client_marcus.png" alt="Marcus Sterling Portrait" class="client-avatar">
+                <h3 class="client-name">Marcus Sterling</h3>
+                <p class="client-meta">Creative Director, Vanguard Media</p>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-slide" data-slide="1">
+              <span class="quote-icon-decor">&ldquo;</span>
+              <p class="testimonial-text">
+                "They brought a level of cinematic visual polish to our commercial projects that exceeded all expectations. The color grading and VFX work was top-tier, and the team was an absolute pleasure to collaborate with throughout."
+              </p>
+              <div class="testimonial-client">
+                <img src="images/client_sarah.png" alt="Sarah Jenkins Portrait" class="client-avatar">
+                <h3 class="client-name">Sarah Jenkins</h3>
+                <p class="client-meta">Executive Producer, Apex Entertainment</p>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-slide" data-slide="2">
+              <span class="quote-icon-decor">&ldquo;</span>
+              <p class="testimonial-text">
+                "From shoot logistics to final sound design, Imagine Technomedia handled every phase with precision. They are hands-down the best production partner we've worked with in Mumbai."
+              </p>
+              <div class="testimonial-client">
+                <img src="images/client_david.png" alt="David Vance Portrait" class="client-avatar">
+                <h3 class="client-name">David Vance</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="testimonial-controls">
+            <button class="testimonial-arrow testimonial-prev" aria-label="Previous Testimonial">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <div class="testimonial-dots">
+              <span class="testimonial-dot active" data-dot="0"></span>
+              <span class="testimonial-dot" data-dot="1"></span>
+              <span class="testimonial-dot" data-dot="2"></span>
+            </div>
+            <button class="testimonial-arrow testimonial-next" aria-label="Next Testimonial">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -6264,7 +6672,7 @@
       // Bind cursor expansion classes on hovering any active clickable/interactive elements
       const updateHoverBindings = () => {
         const hoverTargets = document.querySelectorAll(
-          "a, button, input, textarea, .service-card, .tool-card, .project-item, .workflow-circle-container, .workflow-mobile-item, .outline-btn, .btn-primary, .btn-secondary, .services-arrow, .services-dot, .about-stat-card, .about-lens-only-img, .home-contact-card, .home-contact-form-panel"
+          "a, button, input, textarea, .service-card, .tool-card, .project-item, .workflow-circle-container, .workflow-mobile-item, .outline-btn, .btn-primary, .btn-secondary, .services-arrow, .services-dot, .about-stat-card, .about-lens-only-img, .home-contact-card, .home-contact-form-panel, .testimonial-arrow, .testimonial-dot"
         );
         hoverTargets.forEach((target) => {
           target.removeEventListener("mouseenter", addHoverClass);
@@ -6283,6 +6691,52 @@
         document.body.classList.remove("cursor-hover");
       }
 
+      // Testimonial Slider Controller
+      {
+        const testiSlides = document.querySelectorAll(".testimonial-slide");
+        const testiDots = document.querySelectorAll(".testimonial-dot");
+        const testiNextBtn = document.querySelector(".testimonial-next");
+        const testiPrevBtn = document.querySelector(".testimonial-prev");
+        let testiCurrentSlide = 0;
+
+        if (testiSlides.length > 0) {
+          const showTestiSlide = (index) => {
+            testiSlides.forEach(s => s.classList.remove("active"));
+            testiDots.forEach(d => d.classList.remove("active"));
+            
+            testiSlides[index].classList.add("active");
+            testiDots[index].classList.add("active");
+            testiCurrentSlide = index;
+          };
+
+          if (testiNextBtn) {
+            testiNextBtn.addEventListener("click", () => {
+              let next = (testiCurrentSlide + 1) % testiSlides.length;
+              showTestiSlide(next);
+            });
+          }
+
+          if (testiPrevBtn) {
+            testiPrevBtn.addEventListener("click", () => {
+              let prev = (testiCurrentSlide - 1 + testiSlides.length) % testiSlides.length;
+              showTestiSlide(prev);
+            });
+          }
+
+          testiDots.forEach((dot, idx) => {
+            dot.addEventListener("click", () => {
+              showTestiSlide(idx);
+            });
+          });
+
+          // Auto rotation
+          setInterval(() => {
+            let next = (testiCurrentSlide + 1) % testiSlides.length;
+            showTestiSlide(next);
+          }, 8000);
+        }
+      }
+
       // Initial binding
       updateHoverBindings();
 
@@ -6295,6 +6749,7 @@
       setTimeout(initAboutCameraFlash, 2000);
       setTimeout(() => initTiltHover(".director-card", { maxRotateX: 7, maxRotateY: 9, lift: 8, scale: 1.012 }), 800);
       setTimeout(() => initTiltHover(".home-contact-card, .home-contact-form-panel", { maxRotateX: 5, maxRotateY: 7, lift: 6, scale: 1.01 }), 800);
+      setTimeout(() => initTiltHover(".prod-card", { maxRotateX: 6, maxRotateY: 8, lift: 10, scale: 1.015 }), 800);
     });
   </script>
   <!-- Floating WhatsApp Chat Button -->

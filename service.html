@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Services | Imagine Technomedia</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
   <meta name="description" content="Explore the premium post-production services offered by Imagine Technomedia. From offline/online video editing and cinematic color grading to visual effects, sound design, and DI finishing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1873,6 +1874,132 @@
         text-align: center;
       }
     }
+
+    /* PRODUCTION & STUDIO SERVICES */
+    .production-services {
+      padding: 100px 0;
+      background: linear-gradient(180deg, rgba(7, 7, 7, 1) 0%, rgba(4, 4, 4, 0.95) 100%);
+      position: relative;
+    }
+
+    .prod-services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .prod-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1.5px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .prod-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 0% 0%, rgba(226, 16, 16, 0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .prod-card:hover {
+      border-color: rgba(226, 16, 16, 0.35);
+      transform: translateY(-5px);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.65),
+        0 0 25px rgba(226, 16, 16, 0.08);
+    }
+
+    .prod-card:hover::before {
+      opacity: 1;
+    }
+
+    .prod-icon-box {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      background: rgba(0, 0, 0, 0.4);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 2;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .prod-icon-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .prod-card:hover .prod-icon-box {
+      border-color: rgba(226, 16, 16, 0.5);
+      box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.7),
+        0 0 20px rgba(226, 16, 16, 0.2);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .prod-card:hover .prod-icon-box img {
+      transform: scale(1.12);
+    }
+
+    .prod-info {
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .prod-info span {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .prod-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .prod-info p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 860px) {
+      .prod-services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .prod-card {
+        padding: 30px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2480,6 +2607,76 @@
       </div>
     </section>
   </div><!-- .services-stack-container -->
+
+    <!-- PRODUCTION & STUDIO SERVICES -->
+    <section class="production-services" id="production-services" data-reveal="up">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin: 0 auto 50px;">
+          <span class="section-eyebrow" style="padding-left: 0; display: block; margin-bottom: 12px;">Production Solutions</span>
+          <h2 class="section-title" style="color: #ffffff; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; text-transform: uppercase;">Film Production &amp; <span style="color: var(--accent);">Studio Services</span></h2>
+          <p class="section-desc" style="max-width: 650px; margin: 16px auto 0; color: var(--muted); font-size: 1.05rem;">
+            Imagine Technomedia provides complete Film Production, state-of-the-art Shooting Studios, and creative Media Solutions in Mumbai. Contact us for creative production services tailored to your needs.
+          </p>
+        </div>
+
+        <div class="prod-services-grid">
+          <!-- Card 1: Studio for Shooting -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/camra.png" alt="Studio for Shooting Icon">
+            </div>
+            <div class="prod-info">
+              <span>01 / We have own Studios</span>
+              <h3>Studio for Shooting</h3>
+              <p>Our own best studios for photo and video shoots. We provide professional film production and media services in Mumbai, including indoor and outdoor shooting, advertisement shooting, and more.</p>
+            </div>
+          </article>
+
+          <!-- Card 2: Advertisement Shooting -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/cinema.png" alt="Advertisement Shooting Icon">
+            </div>
+            <div class="prod-info">
+              <span>02 / Advertisement Shooting</span>
+              <h3>Advertisement Shooting</h3>
+              <p>We have an expert advertisement shooting team for both indoor and outdoor commercial productions, ensuring visually arresting brand narratives that captivate and convert viewers.</p>
+            </div>
+          </article>
+
+          <!-- Card 3: Dedicated Media Services -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/oc.png" alt="Dedicated Media Services Icon">
+            </div>
+            <div class="prod-info">
+              <span>03 / All type Media Services</span>
+              <h3>Dedicated Media Services</h3>
+              <p>Our media solutions company helps businesses establish a strong digital presence across multiple platforms through professional media services and targeted coverage campaigns.</p>
+            </div>
+          </article>
+
+          <!-- Card 4: Film Production Services -->
+          <article class="prod-card glass-card tilt-3d" tabindex="0">
+            <div class="prod-icon-box">
+              <img src="images/cinema.png" alt="Film Production Services Icon">
+            </div>
+            <div class="prod-info">
+              <span>04 / All type Film Production Services</span>
+              <h3>Film Production Services</h3>
+              <p>We provide complete film production and media solution services in Mumbai. Contact us for creative production services tailored to your exact creative specs and budgets.</p>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: 48px;">
+          <a href="contact us .html" class="btn" style="display: inline-flex; align-items: center; gap: 8px;">
+            <span>Contact Us for Creative Services</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- INDUSTRIES WE SERVE SECTION -->
     <section class="industries-section" id="industries">

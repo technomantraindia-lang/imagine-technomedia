@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Imagine Technomedia</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
   <meta name="description" content="Learn more about Imagine Technomedia, a premium post-production company delivering editing, VFX, animation, color grading, sound design and finishing services.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2039,6 +2040,151 @@
         align-items: flex-start;
       }
     }
+
+    /* TESTIMONIALS SECTION */
+    .testimonials-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, rgba(4, 4, 4, 0.95) 0%, rgba(7, 7, 7, 1) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials-container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 40px;
+    }
+
+    .testimonial-wrapper {
+      position: relative;
+      min-height: 280px;
+    }
+
+    .testimonial-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(15px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .testimonial-slide.active {
+      position: relative;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .quote-icon-decor {
+      font-size: 5rem;
+      color: rgba(226, 16, 16, 0.15);
+      line-height: 0.1;
+      margin-bottom: 24px;
+      font-family: serif;
+      user-select: none;
+    }
+
+    .testimonial-text {
+      font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.88);
+      font-style: italic;
+      font-weight: 500;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .testimonial-client {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .client-avatar {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 15px rgba(226, 16, 16, 0.2);
+    }
+
+    .client-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+
+    .client-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 4px 0 0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Slider Controls */
+    .testimonial-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .testimonial-arrow {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-arrow:hover {
+      background: rgba(226, 16, 16, 0.1);
+      border-color: rgba(226, 16, 16, 0.4);
+      color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .testimonial-dots {
+      display: flex;
+      gap: 10px;
+    }
+
+    .testimonial-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      transform: scale(1.2);
+    }
   </style>
   <noscript>
     <style>
@@ -2138,12 +2284,15 @@
         <div class="story-grid">
           <div class="story-content" data-reveal="left">
             <span class="section-eyebrow">Who We Are</span>
-            <h1 class="section-title">Premium <span>Post-Production</span> Excellence</h1>
+            <h1 class="section-title">Premium <span>Film Production</span> &amp; Media Solutions</h1>
             <p style="margin-top: 24px;">
-              Imagine TechnoMedia is a creative post-production company dedicated to delivering visually stunning and emotionally engaging content. We provide end-to-end post-production services for films, TV shows, web series, commercials, corporate videos and digital content.
+              Imagine TechnoMedia is the premier film production and media service provider in Mumbai. We provide creative services, professional shoot studio setups, and end-to-end post-production solutions for films, TV shows, web series, commercials, corporate videos, and digital content.
             </p>
             <p>
-              With a team of passionate professionals and cutting-edge technology, we ensure every project meets international standards with creativity, precision and on-time delivery. We exist to bring your vision to life, frame by frame.
+              We specialize in Corporate Services: Post Films Production, Marketing Support, Media Solutions &amp; Films Advertising Services, and Promotional Activities. Our capabilities cover indoor and outdoor shoots, advertisement campaigns, and all types of digital media coverage, including articles, RSS feeds, video content, and customized media campaigns.
+            </p>
+            <p>
+              With our own fully-equipped shooting studios and a dedicated professional team, we guarantee consistent quality, data security, and on-time execution. We exist to bring your vision to life, from script to final delivery.
             </p>
           </div>
 
@@ -2726,6 +2875,73 @@
       </div>
     </section>
 
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials-section" id="testimonials" data-reveal="up">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin: 0 auto 50px;">
+          <span class="section-eyebrow" style="padding-left: 0; display: block; margin-bottom: 12px;">Testimonials</span>
+          <h2 class="section-title">What Our <span>Clients Say</span></h2>
+        </div>
+
+        <div class="testimonials-container">
+          <div class="testimonial-wrapper">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-slide active" data-slide="0">
+              <span class="quote-icon-decor">&ldquo;</span>
+              <p class="testimonial-text">
+                "Our experience with this film production and media solutions company was excellent. The team was highly professional, creative, and delivered the project on time. Their attention to detail and storytelling truly elevated our brand presence."
+              </p>
+              <div class="testimonial-client">
+                <img src="images/client_marcus.png" alt="Marcus Sterling Portrait" class="client-avatar">
+                <h3 class="client-name">Marcus Sterling</h3>
+                <p class="client-meta">Creative Director, Vanguard Media</p>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-slide" data-slide="1">
+              <span class="quote-icon-decor">&ldquo;</span>
+              <p class="testimonial-text">
+                "They brought a level of cinematic visual polish to our commercial projects that exceeded all expectations. The color grading and VFX work was top-tier, and the team was an absolute pleasure to collaborate with throughout."
+              </p>
+              <div class="testimonial-client">
+                <img src="images/client_sarah.png" alt="Sarah Jenkins Portrait" class="client-avatar">
+                <h3 class="client-name">Sarah Jenkins</h3>
+                <p class="client-meta">Executive Producer, Apex Entertainment</p>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-slide" data-slide="2">
+              <span class="quote-icon-decor">&ldquo;</span>
+              <p class="testimonial-text">
+                "From shoot logistics to final sound design, Imagine Technomedia handled every phase with precision. They are hands-down the best production partner we've worked with in Mumbai."
+              </p>
+              <div class="testimonial-client">
+                <img src="images/client_david.png" alt="David Vance Portrait" class="client-avatar">
+                <h3 class="client-name">David Vance</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="testimonial-controls">
+            <button class="testimonial-arrow testimonial-prev" aria-label="Previous Testimonial">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <div class="testimonial-dots">
+              <span class="testimonial-dot active" data-dot="0"></span>
+              <span class="testimonial-dot" data-dot="1"></span>
+              <span class="testimonial-dot" data-dot="2"></span>
+            </div>
+            <button class="testimonial-arrow testimonial-next" aria-label="Next Testimonial">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA BANNER -->
     <section class="section" id="about-cta" style="padding-top: 40px;">
       <div class="container">
@@ -2935,7 +3151,7 @@
       });
 
       const bindHovers = () => {
-        const hoverTargets = document.querySelectorAll("a, button, .glass-card, .btn, .why-selector-card, .industry-card, .footer-socials a");
+        const hoverTargets = document.querySelectorAll("a, button, .glass-card, .btn, .why-selector-card, .industry-card, .footer-socials a, .testimonial-arrow, .testimonial-dot");
         hoverTargets.forEach((target) => {
           target.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
           target.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
@@ -3194,6 +3410,52 @@
             item.style.opacity = "1";
             item.classList.add("active");
           });
+        }
+      }
+
+      // Testimonial Slider Controller
+      {
+        const testiSlides = document.querySelectorAll(".testimonial-slide");
+        const testiDots = document.querySelectorAll(".testimonial-dot");
+        const testiNextBtn = document.querySelector(".testimonial-next");
+        const testiPrevBtn = document.querySelector(".testimonial-prev");
+        let testiCurrentSlide = 0;
+
+        if (testiSlides.length > 0) {
+          const showTestiSlide = (index) => {
+            testiSlides.forEach(s => s.classList.remove("active"));
+            testiDots.forEach(d => d.classList.remove("active"));
+            
+            testiSlides[index].classList.add("active");
+            testiDots[index].classList.add("active");
+            testiCurrentSlide = index;
+          };
+
+          if (testiNextBtn) {
+            testiNextBtn.addEventListener("click", () => {
+              let next = (testiCurrentSlide + 1) % testiSlides.length;
+              showTestiSlide(next);
+            });
+          }
+
+          if (testiPrevBtn) {
+            testiPrevBtn.addEventListener("click", () => {
+              let prev = (testiCurrentSlide - 1 + testiSlides.length) % testiSlides.length;
+              showTestiSlide(prev);
+            });
+          }
+
+          testiDots.forEach((dot, idx) => {
+            dot.addEventListener("click", () => {
+              showTestiSlide(idx);
+            });
+          });
+
+          // Auto rotation
+          setInterval(() => {
+            let next = (testiCurrentSlide + 1) % testiSlides.length;
+            showTestiSlide(next);
+          }, 8000);
         }
       }
     });
