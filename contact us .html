@@ -1549,6 +1549,8 @@
                 document.body.classList.remove("nav-open");
               }
             });
+          if (window.ScrollTrigger) {
+            ScrollTrigger.refresh();
           }
           return element;
         }
