@@ -6921,6 +6921,48 @@
           }
         }, 500);
       });
+
+      // Bulletproof scroll-to-bottom fallback for mobile viewports
+      const handleBottomScrollFallback = () => {
+        const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        const threshold = 150; // trigger within 150px of bottom
+        
+        if (window.innerHeight + scrollY >= scrollHeight - threshold) {
+          const bottomSelectors = [
+            ".home-contact-head",
+            ".home-contact-card",
+            ".home-contact-form-panel",
+            ".footer-brand",
+            ".footer-links",
+            ".footer-contact",
+            ".footer-bottom"
+          ];
+          
+          bottomSelectors.forEach((selector) => {
+            document.querySelectorAll(selector).forEach((el) => {
+              // If the element is still hidden or has not completed its reveal, force show it
+              if (window.gsap) {
+                gsap.to(el, {
+                  opacity: 1,
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  duration: 0.6,
+                  overwrite: "auto",
+                  clearProps: "all"
+                });
+              } else {
+                el.style.opacity = "1";
+                el.style.transform = "none";
+              }
+            });
+          });
+          
+          window.removeEventListener("scroll", handleBottomScrollFallback);
+        }
+      };
+      window.addEventListener("scroll", handleBottomScrollFallback, { passive: true });
     });
   </script>
   <!-- Floating WhatsApp Chat Button -->
