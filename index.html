@@ -119,15 +119,15 @@
       background: #ffffff;
     }
 
-    /* Hide default cursor on devices that support hover */
-    @media (hover: hover) and (pointer: fine) {
+    /* Hide default cursor on devices that support hover and are desktop/laptop viewports */
+    @media (hover: hover) and (pointer: fine) and (min-width: 992px) {
       body, a, button, [role="button"], input, select, textarea, .service-card, .tool-card, .project-item {
         cursor: none !important;
       }
     }
 
-    /* Hide custom cursor on touch devices */
-    @media (hover: none) or (pointer: coarse) {
+    /* Hide custom cursor on mobile/tablet viewports and touch devices */
+    @media (max-width: 991px), (hover: none) or (pointer: coarse) {
       .custom-cursor-dot,
       .custom-cursor-follower {
         display: none !important;
@@ -5498,6 +5498,10 @@
           });
         }
 
+        if (window.ScrollTrigger) {
+          ScrollTrigger.refresh();
+        }
+
         return target;
       } catch (error) {
         console.error(error);
@@ -6905,6 +6909,15 @@
       setTimeout(() => initTiltHover(".director-card", { maxRotateX: 7, maxRotateY: 9, lift: 8, scale: 1.012 }), 800);
       setTimeout(() => initTiltHover(".home-contact-card, .home-contact-form-panel", { maxRotateX: 5, maxRotateY: 7, lift: 6, scale: 1.01 }), 800);
       setTimeout(() => initTiltHover(".prod-card", { maxRotateX: 6, maxRotateY: 8, lift: 10, scale: 1.015 }), 800);
+
+      // Listen for headers/footers load completion to refresh ScrollTrigger layout positions
+      Promise.all([headerLoadPromise, footerLoadPromise]).then(() => {
+        setTimeout(() => {
+          if (window.ScrollTrigger) {
+            ScrollTrigger.refresh();
+          }
+        }, 300);
+      });
     });
   </script>
   <!-- Floating WhatsApp Chat Button -->
