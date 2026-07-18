@@ -6344,9 +6344,9 @@
         bindReveal(".tools-title", { y: 50, duration: 0.85 }, ".tools-section");
         bindReveal(".tools-marquee-row-wrapper:nth-child(odd)", { x: -90, duration: 0.95 }, ".tools-section");
         bindReveal(".tools-marquee-row-wrapper:nth-child(even)", { x: 90, duration: 0.95 }, ".tools-section");
-        bindReveal(".home-contact-head", { y: 55, duration: 0.85 }, ".home-contact-section");
-        bindReveal(".home-contact-card", { x: -55, duration: 0.8, stagger: 0.08 }, ".home-contact-section");
-        bindReveal(".home-contact-form-panel", { x: 70, duration: 0.9 }, ".home-contact-section");
+        bindReveal(".home-contact-head", { y: 55, duration: 0.85, start: "top 92%" }, ".home-contact-section");
+        bindReveal(".home-contact-card", { x: -55, duration: 0.8, stagger: 0.08, start: "top 92%" }, ".home-contact-section");
+        bindReveal(".home-contact-form-panel", { x: 70, duration: 0.9, start: "top 92%" }, ".home-contact-section");
 
         bindReveal(".footer-brand", { x: -60, duration: 0.9 }, ".site-footer");
         bindReveal(".footer-links", { y: 40, duration: 0.8, stagger: 0.08 }, ".site-footer");
@@ -6890,8 +6890,14 @@
       // Since headers/footers load dynamically, run binding check after a short timeout
       setTimeout(updateHoverBindings, 800);
       setTimeout(updateHoverBindings, 2000);
-      setTimeout(initSectionReveals, 800);
-      setTimeout(initSectionReveals, 2000);
+      setTimeout(() => {
+        initSectionReveals();
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      }, 800);
+      setTimeout(() => {
+        initSectionReveals();
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      }, 2000);
       setTimeout(initAboutCameraFlash, 800);
       setTimeout(initAboutCameraFlash, 2000);
       setTimeout(() => initTiltHover(".director-card", { maxRotateX: 7, maxRotateY: 9, lift: 8, scale: 1.012 }), 800);
@@ -6905,6 +6911,15 @@
             ScrollTrigger.refresh();
           }
         }, 300);
+      });
+
+      // Extra safety: final refresh on full window load (after images, fonts, and assets are fully rendered)
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          if (window.ScrollTrigger) {
+            ScrollTrigger.refresh();
+          }
+        }, 500);
       });
     });
   </script>

@@ -1704,6 +1704,15 @@
         });
       }
 
+      // Extra safety: final refresh on full window load (after images, fonts, and assets are fully rendered)
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          if (window.ScrollTrigger) {
+            ScrollTrigger.refresh();
+          }
+        }, 500);
+      });
+
     });
   </script>
 </body>
