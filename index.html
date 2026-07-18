@@ -49,6 +49,7 @@
       --accent: #e21010;
       --accent-2: #8c0909;
       --container: calc(100% - 64px);
+      --container-max: 1400px; /* Cinematic expansive layout */
       --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
       --font-display: "Outfit", sans-serif;
       --font-body: "Plus Jakarta Sans", sans-serif;
@@ -60,6 +61,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: clip;
     }
 
     body {
@@ -68,7 +70,7 @@
       font-family: var(--font-body);
       background:
         linear-gradient(90deg, #050505 0%, #050505 74%, #260101 100%);
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
 
@@ -124,6 +126,14 @@
       }
     }
 
+    /* Hide custom cursor on touch devices */
+    @media (hover: none) or (pointer: coarse) {
+      .custom-cursor-dot,
+      .custom-cursor-follower {
+        display: none !important;
+      }
+    }
+
     body::before {
       content: "";
       position: fixed;
@@ -149,7 +159,9 @@
 
     .container {
       width: var(--container);
+      max-width: var(--container-max);
       margin: 0 auto;
+      position: relative;
     }
 
     .site-header {
@@ -3472,17 +3484,143 @@
         height: 24px;
       }
 
+    }
+
+    @media (max-width: 600px) {
       .footer-inner {
-        gap: 28px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 40px 20px !important;
+        padding: 50px 16px 30px !important;
       }
-
+      .footer-brand {
+        grid-column: 1 / -1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        max-width: 100% !important;
+        margin-bottom: 16px !important;
+      }
+      .footer-brand img {
+        margin: 0 auto 16px !important;
+        width: 180px !important;
+      }
+      .footer-brand::after {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 1.5px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        margin: 16px auto 24px;
+      }
+      .footer-brand p {
+        text-align: center !important;
+        margin: 0 auto 20px !important;
+        max-width: 100% !important;
+      }
       .footer-socials {
-        flex-wrap: wrap;
-        justify-content: center;
+        justify-content: center !important;
       }
-
+      .footer-links {
+        grid-column: span 1 !important;
+      }
+      .footer-links h3 {
+        color: var(--accent) !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        margin-bottom: 16px !important;
+      }
+      .footer-links a {
+        display: block !important;
+        font-size: 14px !important;
+        margin-bottom: 12px !important;
+      }
+      .footer-links a::before {
+        content: "— ";
+        color: var(--accent);
+        margin-right: 6px;
+        font-weight: bold;
+      }
+      .footer-contact {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+      }
+      .footer-contact h3 {
+        color: var(--accent) !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        margin-bottom: 20px !important;
+      }
+      .contact-item {
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        border-radius: 12px !important;
+        padding: 16px 20px !important;
+        margin-bottom: 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 18px !important;
+        width: 100% !important;
+        text-align: left !important;
+      }
+      .contact-icon {
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+      }
+      /* Phone item */
+      .footer-contact .contact-item:nth-of-type(1) .contact-icon {
+        border: 1.5px solid rgba(37, 211, 102, 0.45) !important;
+        color: #25d366 !important;
+        background: rgba(37, 211, 102, 0.06) !important;
+      }
+      /* Email item */
+      .footer-contact .contact-item:nth-of-type(2) .contact-icon {
+        border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
+        color: #3b82f6 !important;
+        background: rgba(59, 130, 246, 0.06) !important;
+      }
+      /* Website item */
+      .footer-contact .contact-item:nth-of-type(3) .contact-icon {
+        border: 1.5px solid rgba(167, 139, 250, 0.45) !important;
+        color: #a78bfa !important;
+        background: rgba(167, 139, 250, 0.06) !important;
+      }
+      /* Address item */
+      .footer-contact .contact-item:nth-of-type(4) .contact-icon {
+        border: 1.5px solid rgba(251, 191, 36, 0.45) !important;
+        color: #fbbf24 !important;
+        background: rgba(251, 191, 36, 0.06) !important;
+      }
+      .contact-item div {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+      }
+      .contact-item a, 
+      .contact-item p {
+        font-size: 14px !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+        line-height: 1.5 !important;
+      }
+      .footer-bottom {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 16px !important;
+        text-align: center !important;
+        padding-top: 30px !important;
+      }
       .footer-bottom p {
-        text-align: center;
+        text-align: center !important;
       }
     }
 
@@ -3812,6 +3950,23 @@
       }
     }
 
+    @media (max-width: 480px) {
+      .prod-services-grid {
+        gap: 16px;
+      }
+      .prod-card {
+        padding: 24px;
+        gap: 16px;
+      }
+      .prod-icon-box {
+        width: 64px;
+        height: 64px;
+      }
+      .prod-info h3 {
+        font-size: 1.35rem;
+      }
+    }
+
     /* TESTIMONIALS SECTION */
     .testimonials-section {
       padding: 100px 0;
@@ -4077,7 +4232,7 @@
 
           <!-- Descriptions -->
           <div class="about-paragraphs">
-            <p>Imagine TechnoMedia is a premier film production and media solutions provider in Mumbai, delivering visually stunning and emotionally engaging content.</p>
+            <p>Imagine TechnoMedia is a premier post-production and media solutions provider in Mumbai, delivering visually stunning and emotionally engaging content.</p>
             <p>We specialize in Corporate Services: Post Films Production, Marketing Support, Media Solutions &amp; Films Advertising Services, and Promotional Activities, alongside complete indoor and outdoor shoots.</p>
             <p>With our own shooting studios and a dedicated team, we ensure every project meets international standards with creativity, precision, and on-time delivery.</p>
           </div>
@@ -4219,9 +4374,9 @@
       <div class="container">
         <div class="section-header" style="text-align: center; margin: 0 auto 50px;">
           <span class="section-eyebrow" style="padding-left: 0; display: block; margin-bottom: 12px;">Production Solutions</span>
-          <h2 class="section-title" style="color: #ffffff; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; text-transform: uppercase;">Film Production &amp; <span style="color: var(--accent);">Studio Services</span></h2>
+          <h2 class="section-title" style="color: #ffffff; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; text-transform: uppercase;">Post Production &amp; <span style="color: var(--accent);">Studio Services</span></h2>
           <p class="section-desc" style="max-width: 650px; margin: 16px auto 0; color: var(--muted); font-size: 1.05rem;">
-            Imagine Technomedia provides complete Film Production, state-of-the-art Shooting Studios, and creative Media Solutions in Mumbai. Contact us for creative production services tailored to your needs.
+            Imagine Technomedia provides complete Post Production, state-of-the-art Shooting Studios, and creative Media Solutions in Mumbai. Contact us for creative post-production services tailored to your needs.
           </p>
         </div>
 
@@ -4234,7 +4389,7 @@
             <div class="prod-info">
               <span>01 / We have own Studios</span>
               <h3>Studio for Shooting</h3>
-              <p>Our own best studios for photo and video shoots. We provide professional film production and media services in Mumbai, including indoor and outdoor shooting, advertisement shooting, and more.</p>
+              <p>Our own best studios for photo and video shoots. We provide professional post-production and media services in Mumbai, including indoor and outdoor shooting, advertisement shooting, and more.</p>
             </div>
           </article>
 
@@ -4262,15 +4417,15 @@
             </div>
           </article>
 
-          <!-- Card 4: Film Production Services -->
+          <!-- Card 4: Post Production Services -->
           <article class="prod-card glass-card tilt-3d" tabindex="0">
             <div class="prod-icon-box">
-              <img src="images/cinema.png" alt="Film Production Services Icon">
+              <img src="images/cinema.png" alt="Post Production Services Icon">
             </div>
             <div class="prod-info">
-              <span>04 / All type Film Production Services</span>
-              <h3>Film Production Services</h3>
-              <p>We provide complete film production and media solution services in Mumbai. Contact us for creative production services tailored to your exact creative specs and budgets.</p>
+              <span>04 / All type Post Production Services</span>
+              <h3>Post Production Services</h3>
+              <p>We provide complete post-production services, transforming raw footage into polished, high-quality visual content. Our experienced team delivers professional editing, color grading, VFX, sound design, motion graphics, and final mastering to ensure every project is production-ready and meets the highest industry standards.</p>
             </div>
           </article>
         </div>
@@ -4797,7 +4952,7 @@
             <div class="testimonial-slide active" data-slide="0">
               <span class="quote-icon-decor">&ldquo;</span>
               <p class="testimonial-text">
-                "Our experience with this film production and media solutions company was excellent. The team was highly professional, creative, and delivered the project on time. Their attention to detail and storytelling truly elevated our brand presence."
+                "Our experience with this post-production and media solutions company was excellent. The team was highly professional, creative, and delivered the project on time. Their attention to detail and storytelling truly elevated our brand presence."
               </p>
               <div class="testimonial-client">
                 <img src="images/client_marcus.png" alt="Marcus Sterling Portrait" class="client-avatar">

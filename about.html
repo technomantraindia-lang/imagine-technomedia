@@ -69,6 +69,7 @@
     html {
       scroll-behavior: smooth;
       background: var(--bg);
+      overflow-x: clip;
     }
 
     body {
@@ -78,7 +79,7 @@
         radial-gradient(circle at 10% 20%, rgba(226, 16, 16, 0.05) 0%, transparent 40%),
         radial-gradient(circle at 90% 80%, rgba(140, 9, 9, 0.04) 0%, transparent 40%);
       color: var(--text);
-      overflow-x: hidden;
+      overflow-x: clip;
       line-height: 1.6;
     }
 
@@ -227,6 +228,21 @@
     body.cursor-hover .custom-cursor-dot {
       width: 12px;
       height: 12px;
+    }
+
+    /* Hide default cursor on devices that support hover */
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, [role="button"], input, select, textarea, .service-card, .tool-card, .project-item {
+        cursor: none !important;
+      }
+    }
+
+    /* Hide custom cursor on touch devices */
+    @media (hover: none) or (pointer: coarse) {
+      .custom-cursor-dot,
+      .custom-cursor-follower {
+        display: none !important;
+      }
     }
 
     /* Header styling from index.html */
@@ -1090,6 +1106,11 @@
       flex-shrink: 0;
     }
 
+    /* Why Choose Us Mobile Styles */
+    .why-mobile-list {
+      display: none;
+    }
+
     /* TIMELINE WORKFLOW */
     .workflow-timeline {
       position: relative;
@@ -1841,29 +1862,72 @@
 
     @media (max-width: 920px) {
       .why-split-container {
+        display: none !important;
+      }
+      .why-mobile-list {
+        display: grid;
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
+        margin-top: 40px;
       }
-      .why-center-track {
-        display: none; /* Hide track on mobile viewports */
+      .why-mobile-card {
+        padding: 24px;
+        border-radius: var(--radius-md);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
       }
-      .why-left-column {
-        flex-direction: row;
-        overflow-x: auto;
-        gap: 12px;
-        padding: 10px 4px;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
+      .why-mobile-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
-      .why-selector-card {
-        flex: 0 0 240px;
-        scroll-snap-align: start;
+      .why-mobile-icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-sm);
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
       }
-      .why-selector-card.active {
-        transform: translateY(-2px);
+      .why-mobile-num {
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--muted);
       }
-      .why-selector-card:hover {
-        transform: translateY(-2px);
+      .why-mobile-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fff;
+        margin-top: 4px;
+      }
+      .why-mobile-card p {
+        color: var(--muted);
+        font-size: 0.96rem;
+        line-height: 1.6;
+      }
+      .why-mobile-card ul {
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        margin-top: 6px;
+      }
+      .why-mobile-card ul li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .why-mobile-card ul li svg {
+        color: var(--accent);
+        flex-shrink: 0;
       }
     }
 
@@ -2032,12 +2096,143 @@
       .industries-board {
         grid-template-columns: 1fr;
       }
+    }
+
+    @media (max-width: 600px) {
       .footer-inner {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 40px 20px !important;
+        padding: 50px 16px 30px !important;
+      }
+      .footer-brand {
+        grid-column: 1 / -1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        max-width: 100% !important;
+        margin-bottom: 16px !important;
+      }
+      .footer-brand img {
+        margin: 0 auto 16px !important;
+        width: 180px !important;
+      }
+      .footer-brand::after {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 1.5px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        margin: 16px auto 24px;
+      }
+      .footer-brand p {
+        text-align: center !important;
+        margin: 0 auto 20px !important;
+        max-width: 100% !important;
+      }
+      .footer-socials {
+        justify-content: center !important;
+      }
+      .footer-links {
+        grid-column: span 1 !important;
+      }
+      .footer-links h3 {
+        color: var(--accent) !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        margin-bottom: 16px !important;
+      }
+      .footer-links a {
+        display: block !important;
+        font-size: 14px !important;
+        margin-bottom: 12px !important;
+      }
+      .footer-links a::before {
+        content: "— ";
+        color: var(--accent);
+        margin-right: 6px;
+        font-weight: bold;
+      }
+      .footer-contact {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+      }
+      .footer-contact h3 {
+        color: var(--accent) !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        margin-bottom: 20px !important;
+      }
+      .contact-item {
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        border-radius: 12px !important;
+        padding: 16px 20px !important;
+        margin-bottom: 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 18px !important;
+        width: 100% !important;
+        text-align: left !important;
+      }
+      .contact-icon {
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+      }
+      /* Phone item */
+      .footer-contact .contact-item:nth-of-type(1) .contact-icon {
+        border: 1.5px solid rgba(37, 211, 102, 0.45) !important;
+        color: #25d366 !important;
+        background: rgba(37, 211, 102, 0.06) !important;
+      }
+      /* Email item */
+      .footer-contact .contact-item:nth-of-type(2) .contact-icon {
+        border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
+        color: #3b82f6 !important;
+        background: rgba(59, 130, 246, 0.06) !important;
+      }
+      /* Website item */
+      .footer-contact .contact-item:nth-of-type(3) .contact-icon {
+        border: 1.5px solid rgba(167, 139, 250, 0.45) !important;
+        color: #a78bfa !important;
+        background: rgba(167, 139, 250, 0.06) !important;
+      }
+      /* Address item */
+      .footer-contact .contact-item:nth-of-type(4) .contact-icon {
+        border: 1.5px solid rgba(251, 191, 36, 0.45) !important;
+        color: #fbbf24 !important;
+        background: rgba(251, 191, 36, 0.06) !important;
+      }
+      .contact-item div {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+      }
+      .contact-item a, 
+      .contact-item p {
+        font-size: 14px !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+        line-height: 1.5 !important;
       }
       .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 16px !important;
+        text-align: center !important;
+        padding-top: 30px !important;
+      }
+      .footer-bottom p {
+        text-align: center !important;
       }
     }
 
@@ -2284,9 +2479,9 @@
         <div class="story-grid">
           <div class="story-content" data-reveal="left">
             <span class="section-eyebrow">Who We Are</span>
-            <h1 class="section-title">Premium <span>Film Production</span> &amp; Media Solutions</h1>
+            <h1 class="section-title">Premium <span>Post Production</span> &amp; Media Solutions</h1>
             <p style="margin-top: 24px;">
-              Imagine TechnoMedia is the premier film production and media service provider in Mumbai. We provide creative services, professional shoot studio setups, and end-to-end post-production solutions for films, TV shows, web series, commercials, corporate videos, and digital content.
+              Imagine TechnoMedia is the premier post-production and media service provider in Mumbai. We provide creative services, professional shoot studio setups, and end-to-end post-production solutions for films, TV shows, web series, commercials, corporate videos, and digital content.
             </p>
             <p>
               We specialize in Corporate Services: Post Films Production, Marketing Support, Media Solutions &amp; Films Advertising Services, and Promotional Activities. Our capabilities cover indoor and outdoor shoots, advertisement campaigns, and all types of digital media coverage, including articles, RSS feeds, video content, and customized media campaigns.
@@ -2569,6 +2764,160 @@
             </div>
           </div>
         </div>
+
+        <!-- Mobile version: shown only on mobile -->
+        <div class="why-mobile-list">
+          <!-- Card 1 -->
+          <div class="why-mobile-card glass-card">
+            <div class="why-mobile-card-header">
+              <div class="why-mobile-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <span class="why-mobile-num">01</span>
+            </div>
+            <h3>Experienced Team</h3>
+            <p>Skilled professionals with years of industry experience guiding every stage of post-production.</p>
+            <ul>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Film &amp; TV show post-production specialists
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Decades of cumulative creative credentials
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Custom project-level creative direction
+              </li>
+            </ul>
+          </div>
+          <!-- Card 2 -->
+          <div class="why-mobile-card glass-card">
+            <div class="why-mobile-card-header">
+              <div class="why-mobile-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </div>
+              <span class="why-mobile-num">02</span>
+            </div>
+            <h3>Latest Technology</h3>
+            <p>We use industry-leading software and high-performance systems for reliable professional output.</p>
+            <ul>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Adobe Premiere, After Effects, DaVinci Resolve Studio
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                High-performance rendering GPU workstations
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Secure project databases and cloud workflow syncs
+              </li>
+            </ul>
+          </div>
+          <!-- Card 3 -->
+          <div class="why-mobile-card glass-card">
+            <div class="why-mobile-card-header">
+              <div class="why-mobile-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 3-1.912 5.813H3.945l4.975 3.61L7.008 18.25 12 14.622l4.992 3.628-1.912-5.827 4.975-3.61h-6.143L12 3Z"></path></svg>
+              </div>
+              <span class="why-mobile-num">03</span>
+            </div>
+            <h3>High Quality Output</h3>
+            <p>We deliver visually stunning and technically flawless results built for screens of every size.</p>
+            <ul>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                4K/8K HDR color-accurate grading output
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Flawless composition and graphics layers
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Strict adherence to theatrical and digital specifications
+              </li>
+            </ul>
+          </div>
+          <!-- Card 4 -->
+          <div class="why-mobile-card glass-card">
+            <div class="why-mobile-card-header">
+              <div class="why-mobile-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v10l5 5"></path><circle cx="12" cy="12" r="10"></circle></svg>
+              </div>
+              <span class="why-mobile-num">04</span>
+            </div>
+            <h3>Fast Turnaround</h3>
+            <p>We value your time and ensure on-time delivery without compromising craft or consistency.</p>
+            <ul>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Accelerated delivery timelines mapped out in advance
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Collaborative pipeline systems avoiding process lag
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Responsive communication loops with daily project updates
+              </li>
+            </ul>
+          </div>
+          <!-- Card 5 -->
+          <div class="why-mobile-card glass-card">
+            <div class="why-mobile-card-header">
+              <div class="why-mobile-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              </div>
+              <span class="why-mobile-num">05</span>
+            </div>
+            <h3>Affordable Pricing</h3>
+            <p>Premium quality services within your budget, designed for long-term creative partnerships.</p>
+            <ul>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Competitive rates for industry-grade outputs
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Clear breakdowns of project costs beforehand
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Custom configurations tailored to project scales
+              </li>
+            </ul>
+          </div>
+          <!-- Card 6 -->
+          <div class="why-mobile-card glass-card">
+            <div class="why-mobile-card-header">
+              <div class="why-mobile-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </div>
+              <span class="why-mobile-num">06</span>
+            </div>
+            <h3>Confidentiality</h3>
+            <p>We prioritize your data security and project confidentiality across every exchange and delivery.</p>
+            <ul>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Strict data encryption and storage measures
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Non-disclosure agreement options for active files
+              </li>
+              <li>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Secure offline servers preventing digital leaks
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2737,9 +3086,9 @@
           <div class="industry-row row-right">
             <div class="industry-card arrow-right-start glass-card tilt-3d">
               <div class="industry-card-icon">
-                <img src="images/clients/film.png" alt="Film Production Icon" class="industry-icon-img">
+                <img src="images/clients/film.png" alt="Post Production Icon" class="industry-icon-img">
               </div>
-              <h4>Film Production</h4>
+              <h4>Post Production</h4>
             </div>
             <div class="industry-card arrow-right-mid glass-card tilt-3d">
               <div class="industry-card-icon">
@@ -2889,7 +3238,7 @@
             <div class="testimonial-slide active" data-slide="0">
               <span class="quote-icon-decor">&ldquo;</span>
               <p class="testimonial-text">
-                "Our experience with this film production and media solutions company was excellent. The team was highly professional, creative, and delivered the project on time. Their attention to detail and storytelling truly elevated our brand presence."
+                "Our experience with this post-production and media solutions company was excellent. The team was highly professional, creative, and delivered the project on time. Their attention to detail and storytelling truly elevated our brand presence."
               </p>
               <div class="testimonial-client">
                 <img src="images/client_marcus.png" alt="Marcus Sterling Portrait" class="client-avatar">
