@@ -1404,7 +1404,257 @@
       .whatsapp-float-btn svg {
         width: 24px;
         height: 24px;
+    }
+
+    /* ==========================================================================
+       PRODUCTION GALLERY STYLES
+       ========================================================================== */
+    .gallery-filter-btn {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .gallery-filter-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .gallery-filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(226, 16, 16, 0.35);
+    }
+
+    .gallery-card {
+      background: rgba(10, 10, 10, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      aspect-ratio: 16 / 10;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s var(--ease);
+      will-change: transform;
+    }
+
+    .gallery-card:hover {
+      border-color: rgba(226, 16, 16, 0.35);
+      box-shadow: 0 25px 50px rgba(226, 16, 16, 0.15), 0 10px 30px rgba(0, 0, 0, 0.6);
+      transform: translateY(-5px);
+    }
+
+    .gallery-media-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .gallery-thumbnail,
+    .gallery-video-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .gallery-card:hover .gallery-thumbnail,
+    .gallery-card:hover .gallery-video-preview {
+      transform: scale(1.06);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.9) 100%);
+      opacity: 0.85;
+      transition: opacity 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+    }
+
+    .gallery-card:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-play-btn,
+    .gallery-zoom-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 0 15px rgba(226, 16, 16, 0.4);
+      transform: scale(0.95);
+      z-index: 5;
+    }
+
+    .gallery-zoom-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      box-shadow: none;
+    }
+
+    .gallery-card:hover .gallery-play-btn {
+      transform: scale(1.05);
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+    }
+
+    .gallery-card:hover .gallery-zoom-btn {
+      transform: scale(1.05);
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(226, 16, 16, 0.45);
+    }
+
+    .gallery-play-btn svg {
+      width: 16px;
+      height: 16px;
+      margin-left: 2px;
+    }
+
+    .gallery-zoom-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .gallery-card-category {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .gallery-card-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .gallery-card-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease), opacity 0.4s var(--ease);
+    }
+
+    .gallery-card:hover .gallery-card-desc {
+      max-height: 50px;
+      opacity: 1;
+    }
+
+    /* Lightbox Modal styles */
+    .gallery-lightbox.active {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    .lightbox-media {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .gallery-lightbox.active .lightbox-media {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .lightbox-arrow:hover {
+      background: var(--accent) !important;
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 20px rgba(226, 16, 16, 0.45);
+      transform: translateY(-50%) scale(1.05) !important;
+    }
+
+    .lightbox-close:hover {
+      color: var(--accent) !important;
+    }
+
+    @media (max-width: 767px) {
+      .gallery-lightbox .lightbox-arrow {
+        width: 44px;
+        height: 44px;
       }
+      .gallery-lightbox .prev {
+        left: 15px;
+      }
+      .gallery-lightbox .next {
+        right: 15px;
+      }
+      .gallery-lightbox .lightbox-close {
+        top: 15px;
+        right: 20px;
+      }
+    }
+
+    /* Show native cursor and hide custom cursor when lightbox is open */
+    html.lightbox-open-active,
+    html.lightbox-open-active *,
+    body.lightbox-open-active,
+    body.lightbox-open-active * {
+      cursor: auto !important;
+    }
+    html.lightbox-open-active a,
+    html.lightbox-open-active button,
+    html.lightbox-open-active .lightbox-arrow,
+    html.lightbox-open-active .lightbox-close,
+    html.lightbox-open-active video,
+    html.lightbox-open-active img,
+    body.lightbox-open-active a,
+    body.lightbox-open-active button,
+    body.lightbox-open-active .lightbox-arrow,
+    body.lightbox-open-active .lightbox-close,
+    body.lightbox-open-active video,
+    body.lightbox-open-active img {
+      cursor: pointer !important;
+    }
+    html.lightbox-open-active .custom-cursor-dot,
+    html.lightbox-open-active .custom-cursor-follower,
+    body.lightbox-open-active .custom-cursor-dot,
+    body.lightbox-open-active .custom-cursor-follower {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      display: none !important;
     }
   </style>
 </head>
@@ -1581,9 +1831,279 @@
           </div>
         </div>
 
+        <!-- Card 7 -->
+        <div class="portfolio-card tilt-3d" data-category="cgi-adventure" data-reveal="left">
+          <div class="portfolio-img-container">
+            <img src="images/clients/neha jaha.png" alt="Ne Zha 2">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">CGI Animated Adventure</span>
+            <h3 class="portfolio-title">Ne Zha 2</h3>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="portfolio-card tilt-3d" data-category="animated-comedy" data-reveal="up">
+          <div class="portfolio-img-container">
+            <img src="images/clients/amazing.png" alt="The Amazing Maurice">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Animated Comedy</span>
+            <h3 class="portfolio-title">The Amazing Maurice</h3>
+          </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="portfolio-card tilt-3d" data-category="animated-movie" data-reveal="right">
+          <div class="portfolio-img-container">
+            <img src="images/clients/appu.png" alt="Appu">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Animated Movie</span>
+            <h3 class="portfolio-title">Appu</h3>
+          </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="portfolio-card tilt-3d" data-category="3d-animated" data-reveal="left">
+          <div class="portfolio-img-container">
+            <img src="images/clients/deep sea.png" alt="Deep Sea">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">3D Animated Film</span>
+            <h3 class="portfolio-title">Deep Sea</h3>
+          </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="portfolio-card tilt-3d" data-category="animated-scifi" data-reveal="up">
+          <div class="portfolio-img-container">
+            <img src="images/clients/white plastic sky.png" alt="White Plastic Sky">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Animated Sci-Fi</span>
+            <h3 class="portfolio-title">White Plastic Sky</h3>
+          </div>
+        </div>
+
+        <!-- Card 12 -->
+        <div class="portfolio-card tilt-3d" data-category="animated-fantasy" data-reveal="right">
+          <div class="portfolio-img-container">
+            <img src="images/clients/sirroco.png" alt="Sirocco">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Animated Fantasy</span>
+            <h3 class="portfolio-title">Sirocco</h3>
+          </div>
+        </div>
+
+        <!-- Card 13 -->
+        <div class="portfolio-card tilt-3d" data-category="animated-short" data-reveal="left">
+          <div class="portfolio-img-container">
+            <img src="images/shadow of the  time.png" alt="Shadow of the Time">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Animated Short Film</span>
+            <h3 class="portfolio-title">Shadow of the Time</h3>
+          </div>
+        </div>
+
+        <!-- Card 14 -->
+        <div class="portfolio-card tilt-3d" data-category="animated-scifi" data-reveal="up">
+          <div class="portfolio-img-container">
+            <img src="images/drive in to fuutre.png" alt="Drive into Future">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">CGI Sci-Fi Concept</span>
+            <h3 class="portfolio-title">Drive into Future</h3>
+          </div>
+        </div>
+
+        <!-- Card 15 -->
+        <div class="portfolio-card tilt-3d" data-category="cgi-adventure" data-reveal="right">
+          <div class="portfolio-img-container">
+            <img src="images/nature call.png" alt="Nature Call">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">CGI Animated Feature</span>
+            <h3 class="portfolio-title">Nature Call</h3>
+          </div>
+        </div>
+
+        <!-- Card 16 -->
+        <div class="portfolio-card tilt-3d" data-category="vfx-feature" data-reveal="left">
+          <div class="portfolio-img-container">
+            <img src="images/savant.png" alt="Savant">
+            <div class="play-button-overlay" aria-label="Play project video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">VFX Feature Film</span>
+            <h3 class="portfolio-title">Savant</h3>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
+
+  <!-- PRODUCTION GALLERY SECTION -->
+  <section class="gallery-section" style="padding: 100px 0 100px; background: linear-gradient(180deg, rgba(8,8,8,0.5), rgba(4,4,4,0.8)); position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="gallery-header" style="margin-bottom: 50px; text-align: center;" data-reveal="up">
+        <h2 class="gallery-title" style="font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: -0.01em;">Our <span>Gallery</span></h2>
+        <div class="gallery-title-mark" style="width: 82px; height: 3px; margin: 14px auto 14px; border-radius: 999px; background: linear-gradient(90deg, rgba(255, 16, 16, 0.25), var(--accent), rgba(255, 16, 16, 0.25)); box-shadow: 0 0 20px rgba(255, 16, 16, 0.25);"></div>
+      </div>
+
+      <!-- Grid Layout -->
+      <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
+        <!-- Card 1 (Video) -->
+        <div class="gallery-card" data-type="video" data-src="images/gallery/shooting.mp4" data-title="Cinematic Camera Rigging" data-reveal="up">
+          <div class="gallery-media-container">
+            <video class="gallery-video-preview" muted loop playsinline preload="none" poster="images/gallery/shoting.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);"></video>
+            <div class="gallery-overlay">
+              <div class="gallery-play-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 (Photo) -->
+        <div class="gallery-card" data-type="image" data-src="images/gallery/shooting.jpg" data-title="On-Set Production" data-reveal="up">
+          <div class="gallery-media-container">
+            <img src="images/gallery/shooting.jpg" alt="On-Set Production" class="gallery-thumbnail">
+            <div class="gallery-overlay">
+              <div class="gallery-zoom-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 (Video) -->
+        <div class="gallery-card" data-type="video" data-src="images/gallery/color.mp4" data-title="Color Correction Suite" data-reveal="up">
+          <div class="gallery-media-container">
+            <video class="gallery-video-preview" muted loop playsinline preload="none" poster="images/color grading.png" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);"></video>
+            <div class="gallery-overlay">
+              <div class="gallery-play-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 (Video) -->
+        <div class="gallery-card" data-type="video" data-src="images/gallery/2d 3d editing.mp4" data-title="2D &amp; 3D Animation" data-reveal="up">
+          <div class="gallery-media-container">
+            <video class="gallery-video-preview" muted loop playsinline preload="none" poster="images/aniamtion.png" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);"></video>
+            <div class="gallery-overlay">
+              <div class="gallery-play-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 (Photo) -->
+        <div class="gallery-card" data-type="image" data-src="images/gallery/iamge.jpg" data-title="Post-Production Studio" data-reveal="up">
+          <div class="gallery-media-container">
+            <img src="images/gallery/iamge.jpg" alt="Post-Production Studio" class="gallery-thumbnail">
+            <div class="gallery-overlay">
+              <div class="gallery-zoom-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 (Video) -->
+        <div class="gallery-card" data-type="video" data-src="images/gallery/sound handeling.webm" data-title="Sound Design Studio" data-reveal="up">
+          <div class="gallery-media-container">
+            <video class="gallery-video-preview" muted loop playsinline preload="none" poster="images/sound design.png" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);"></video>
+            <div class="gallery-overlay">
+              <div class="gallery-play-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 (Photo) -->
+        <div class="gallery-card" data-type="image" data-src="images/gallery/shoting.jpg" data-title="Cinematic Lighting Setup" data-reveal="up">
+          <div class="gallery-media-container">
+            <img src="images/gallery/shoting.jpg" alt="Cinematic Lighting Setup" class="gallery-thumbnail">
+            <div class="gallery-overlay">
+              <div class="gallery-zoom-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 (Photo) -->
+        <div class="gallery-card" data-type="image" data-src="images/gallery/soundd.jpg" data-title="Sound Design Workstation" data-reveal="up">
+          <div class="gallery-media-container">
+            <img src="images/gallery/soundd.jpg" alt="Sound Design Workstation" class="gallery-thumbnail">
+            <div class="gallery-overlay">
+              <div class="gallery-zoom-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true" style="position: fixed; inset: 0; z-index: 10000; background: rgba(0, 0, 0, 0.95); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(20px);">
+    <button class="lightbox-close" aria-label="Close Lightbox" style="position: absolute; top: 30px; right: 40px; background: none; border: none; color: #fff; font-size: 36px; cursor: pointer; transition: color 0.3s ease; z-index: 10010;">&times;</button>
+    <button class="lightbox-arrow prev" aria-label="Previous Slide" style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: #fff; cursor: pointer; transition: all 0.3s ease; z-index: 10010;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="lightbox-arrow next" aria-label="Next Slide" style="position: absolute; right: 40px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: #fff; cursor: pointer; transition: all 0.3s ease; z-index: 10010;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <div class="lightbox-content-container" style="width: 85%; height: 80%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div class="lightbox-media-wrapper" style="width: 100%; height: 90%; display: flex; align-items: center; justify-content: center; position: relative;">
+        <!-- Injected Media goes here -->
+      </div>
+      <div class="lightbox-caption" style="text-align: center; margin-top: 20px; color: #fff; font-family: var(--font-body); max-width: 600px;">
+        <h4 class="lightbox-title" style="font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">Title</h4>
+      </div>
+    </div>
+  </div>
 
   <!-- CTA BANNER SECTION -->
   <section class="portfolio-cta-section">
@@ -1886,6 +2406,210 @@
           });
         });
       });
+
+      // ==========================================================================
+      // ==========================================================================
+      // PRODUCTION GALLERY INTERACTIVITY
+      // ==========================================================================
+      const galleryCards = document.querySelectorAll(".gallery-card");
+      const lightbox = document.getElementById("gallery-lightbox");
+      const lightboxClose = document.querySelector(".lightbox-close");
+      const lightboxPrev = document.querySelector(".lightbox-arrow.prev");
+      const lightboxNext = document.querySelector(".lightbox-arrow.next");
+      const mediaWrapper = document.querySelector(".lightbox-media-wrapper");
+      const lightboxTitle = document.querySelector(".lightbox-title");
+      
+      let galleryCurrentIndex = 0;
+      let activeGalleryCards = [];
+
+      const updateActiveCards = () => {
+        activeGalleryCards = Array.from(galleryCards);
+      };
+
+      // Initial active cards calculation
+      updateActiveCards();
+
+      // 1. Lightbox Content Update
+      const updateLightboxMedia = (index) => {
+        if (!activeGalleryCards.length) return;
+        
+        // Wrap-around checks
+        if (index < 0) index = activeGalleryCards.length - 1;
+        if (index >= activeGalleryCards.length) index = 0;
+        galleryCurrentIndex = index;
+
+        const card = activeGalleryCards[galleryCurrentIndex];
+        const type = card.getAttribute("data-type");
+        const src = card.getAttribute("data-src");
+        const title = card.getAttribute("data-title") || "";
+
+        // Transition animation for media content
+        gsap.to(mediaWrapper.children, {
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.2,
+          onComplete: () => {
+            mediaWrapper.innerHTML = "";
+
+            let newMedia;
+            if (type === "video") {
+              newMedia = document.createElement("video");
+              newMedia.src = src;
+              newMedia.controls = true;
+              newMedia.autoplay = true;
+              newMedia.loop = true;
+              newMedia.playsInline = true;
+              newMedia.style.maxWidth = "100%";
+              newMedia.style.maxHeight = "100%";
+              newMedia.style.objectFit = "contain";
+            } else {
+              newMedia = document.createElement("img");
+              newMedia.src = src;
+              newMedia.alt = title;
+              newMedia.style.maxWidth = "100%";
+              newMedia.style.maxHeight = "100%";
+              newMedia.style.objectFit = "contain";
+            }
+            newMedia.className = "lightbox-media";
+            mediaWrapper.appendChild(newMedia);
+
+            lightboxTitle.textContent = title;
+
+            // Fade and scale back in
+            gsap.to(newMedia, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.35,
+              ease: "power2.out"
+            });
+          }
+        });
+      };
+
+      // 2. Open Lightbox
+      galleryCards.forEach(card => {
+        card.addEventListener("click", () => {
+          updateActiveCards();
+          const cardIdx = activeGalleryCards.indexOf(card);
+          if (cardIdx === -1) return;
+
+          // Open overlay modal and change body class to show system cursor
+          lightbox.classList.add("active");
+          lightbox.setAttribute("aria-hidden", "false");
+          document.documentElement.classList.add("lightbox-open-active");
+          document.body.classList.add("lightbox-open-active");
+          
+          // Animate lightbox entry
+          gsap.fromTo(lightbox, 
+            { opacity: 0 }, 
+            { opacity: 1, duration: 0.35, ease: "power2.out" }
+          );
+
+          updateLightboxMedia(cardIdx);
+        });
+      });
+
+      // 3. Close Lightbox
+      const closeLightbox = () => {
+        if (!lightbox.classList.contains("active")) return;
+
+        gsap.to(lightbox, {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => {
+            lightbox.classList.remove("active");
+            lightbox.setAttribute("aria-hidden", "true");
+            document.documentElement.classList.remove("lightbox-open-active");
+            document.body.classList.remove("lightbox-open-active");
+            
+            // Clean up to stop any video playback and release memory
+            mediaWrapper.innerHTML = "";
+          }
+        });
+      };
+
+      if (lightboxClose) {
+        lightboxClose.addEventListener("click", closeLightbox);
+      }
+      
+      lightbox.addEventListener("click", (e) => {
+        // Close if click is directly on the background backdrop
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      // 4. Arrow Navigation
+      if (lightboxPrev) {
+        lightboxPrev.addEventListener("click", (e) => {
+          e.stopPropagation();
+          updateLightboxMedia(galleryCurrentIndex - 1);
+        });
+      }
+
+      if (lightboxNext) {
+        lightboxNext.addEventListener("click", (e) => {
+          e.stopPropagation();
+          updateLightboxMedia(galleryCurrentIndex + 1);
+        });
+      }
+
+      // 5. Keyboard Bindings for Accessibility
+      document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("active")) return;
+
+        if (e.key === "Escape") {
+          closeLightbox();
+        } else if (e.key === "ArrowLeft") {
+          updateLightboxMedia(galleryCurrentIndex - 1);
+        } else if (e.key === "ArrowRight") {
+          updateLightboxMedia(galleryCurrentIndex + 1);
+        }
+      });
+
+      // 6. Add gallery card elements to cursor hover targets
+      const updateGalleryHoverBindings = () => {
+        const galleryHoverTargets = document.querySelectorAll(".gallery-card, .lightbox-arrow, .lightbox-close");
+        galleryHoverTargets.forEach((target) => {
+          target.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+          target.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+        });
+      };
+      // 7. Setup Intersection Observer for auto-playing inline video previews
+      const setupVideoPreviews = () => {
+        const previewVideos = document.querySelectorAll(".gallery-video-preview");
+        if (!previewVideos.length || !window.IntersectionObserver) return;
+
+        const observerOptions = {
+          root: null,
+          rootMargin: "100px", // Start loading/playing slightly before entering viewport
+          threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const video = entry.target;
+            const card = video.closest(".gallery-card");
+            const src = card.getAttribute("data-src");
+
+            if (entry.isIntersecting) {
+              if (!video.src) {
+                video.src = src;
+              }
+              video.play().catch(err => {
+                console.log("Autoplay preview failed or was prevented:", err);
+              });
+            } else {
+              video.pause();
+            }
+          });
+        }, observerOptions);
+
+        previewVideos.forEach(video => observer.observe(video));
+      };
+      setupVideoPreviews();
+      setTimeout(updateGalleryHoverBindings, 850);
 
       // Extra safety: final refresh on full window load (after images, fonts, and assets are fully rendered)
       window.addEventListener("load", () => {
