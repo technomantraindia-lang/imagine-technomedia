@@ -1656,6 +1656,9 @@
       pointer-events: none !important;
       display: none !important;
     }
+    .portfolio-card:hover .upcoming-badge-overlay {
+      opacity: 1 !important;
+    }
   </style>
 </head>
 <body>
@@ -1954,6 +1957,66 @@
           <div class="portfolio-info">
             <span class="portfolio-category">CGI Animated Feature</span>
             <h3 class="portfolio-title">Nature Call</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- UPCOMING PROJECTS SECTION -->
+  <section class="upcoming-projects-section" style="padding: 100px 0 100px; background: linear-gradient(180deg, rgba(4,4,4,0.8), rgba(8,8,8,0.5)); position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="upcoming-header" style="margin-bottom: 50px; text-align: center;" data-reveal="up">
+        <span class="upcoming-eyebrow" style="color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; display: block; margin-bottom: 12px;">Coming Soon</span>
+        <h2 class="upcoming-title" style="font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: -0.01em;">Upcoming <span>Projects</span></h2>
+        <div class="upcoming-title-mark" style="width: 82px; height: 3px; margin: 14px auto 14px; border-radius: 999px; background: linear-gradient(90deg, rgba(255, 16, 16, 0.25), var(--accent), rgba(255, 16, 16, 0.25)); box-shadow: 0 0 20px rgba(255, 16, 16, 0.25);"></div>
+        <p style="color: var(--muted); max-width: 600px; margin: 0 auto; font-size: 14px;">A sneak peek into our exciting pipeline currently in active production and development.</p>
+      </div>
+
+      <!-- Grid Layout -->
+      <div class="upcoming-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+        
+        <!-- Upcoming Card 1 -->
+        <div class="portfolio-card tilt-3d" data-category="cgi-series" data-reveal="left">
+          <div class="portfolio-img-container">
+            <img src="images/clients/ALIENS.png" alt="We Are Aliens">
+            <div class="upcoming-badge-overlay" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease;">
+              <span style="background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 10px 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(226, 16, 16, 0.4);">In Production</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">CGI Animated Series</span>
+            <h3 class="portfolio-title">We Are Aliens</h3>
+          </div>
+        </div>
+
+        <!-- Upcoming Card 2 -->
+        <div class="portfolio-card tilt-3d" data-category="3d-cgi-feature" data-reveal="up">
+          <div class="portfolio-img-container">
+            <img src="images/clients/moon light.png" alt="Moonlight Creatures">
+            <div class="upcoming-badge-overlay" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease;">
+              <span style="background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 10px 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(226, 16, 16, 0.4);">Pre-Production</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">3D CGI Feature</span>
+            <h3 class="portfolio-title">Moonlight Creatures</h3>
+          </div>
+        </div>
+
+        <!-- Upcoming Card 3 -->
+        <div class="portfolio-card tilt-3d" data-category="cgi-fantasy" data-reveal="right">
+          <div class="portfolio-img-container">
+            <img src="images/clients/dream wlakers.png" alt="Dreamwalkers">
+            <div class="upcoming-badge-overlay" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease;">
+              <span style="background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 10px 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(226, 16, 16, 0.4);">In Production</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-category">Fantasy CGI Adventure</span>
+            <h3 class="portfolio-title">Dreamwalkers</h3>
           </div>
         </div>
 
