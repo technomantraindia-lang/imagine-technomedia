@@ -1136,9 +1136,16 @@
 
     @media (max-width: 767px) {
       .hero {
-        height: 72svh;
-        min-height: 420px;
-        max-height: 620px;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        aspect-ratio: 16 / 9;
+        background: #000;
+      }
+
+      .hero-video-alone {
+        object-fit: contain;
+        object-position: center center;
       }
 
       .director-section {
@@ -2847,10 +2854,13 @@
     @media (max-width: 767px) {
       .home-contact-section {
         padding: 60px 0 74px;
+        overflow: visible;
       }
 
       .home-contact-wrap {
-        padding: 28px 18px 22px;
+        width: 100%;
+        padding: 28px 16px 22px;
+        overflow: visible;
       }
 
       .home-contact-head {
@@ -2858,15 +2868,65 @@
       }
 
       .home-contact-form-panel {
-        padding: 24px 20px 24px;
+        width: 100%;
+        min-width: 0;
+        padding: 24px 16px;
       }
 
       .home-contact-card {
-        padding: 20px 18px;
+        width: 100%;
+        min-width: 0;
+        padding: 20px 16px;
+      }
+
+      .home-contact-grid,
+      .home-contact-info,
+      .home-contact-info-list,
+      .home-contact-copy,
+      .home-contact-form,
+      .home-contact-field {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .home-contact-copy a,
+      .home-contact-copy p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .home-contact-field input,
+      .home-contact-field textarea {
+        display: block;
+        max-width: 100%;
       }
 
       .home-contact-submit {
         width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .home-contact-section {
+        padding: 44px 0 56px;
+      }
+
+      .home-contact-title {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+        line-height: 1.02;
+      }
+
+      .home-contact-grid {
+        gap: 30px;
+      }
+
+      .home-contact-card {
+        gap: 12px;
+      }
+
+      .home-contact-icon {
+        width: 40px;
+        height: 40px;
       }
     }
 
@@ -6344,9 +6404,21 @@
         bindReveal(".tools-title", { y: 50, duration: 0.85 }, ".tools-section");
         bindReveal(".tools-marquee-row-wrapper:nth-child(odd)", { x: -90, duration: 0.95 }, ".tools-section");
         bindReveal(".tools-marquee-row-wrapper:nth-child(even)", { x: 90, duration: 0.95 }, ".tools-section");
-        bindReveal(".home-contact-head", { y: 55, duration: 0.85, start: "top 92%" }, ".home-contact-section");
-        bindReveal(".home-contact-card", { x: -55, duration: 0.8, stagger: 0.08, start: "top 92%" }, ".home-contact-section");
-        bindReveal(".home-contact-form-panel", { x: 70, duration: 0.9, start: "top 92%" }, ".home-contact-section");
+        if (window.matchMedia("(max-width: 767px)").matches) {
+          // Keep the complete contact section immediately visible on mobile.
+          // Horizontal entrance transforms can otherwise remain clipped when
+          // pinned sections above it alter ScrollTrigger's calculated offsets.
+          gsap.set(".home-contact-head, .home-contact-card, .home-contact-form-panel", {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            clearProps: "transform,opacity"
+          });
+        } else {
+          bindReveal(".home-contact-head", { y: 55, duration: 0.85, start: "top 92%" }, ".home-contact-section");
+          bindReveal(".home-contact-card", { x: -55, duration: 0.8, stagger: 0.08, start: "top 92%" }, ".home-contact-section");
+          bindReveal(".home-contact-form-panel", { x: 70, duration: 0.9, start: "top 92%" }, ".home-contact-section");
+        }
 
         bindReveal(".footer-brand", { x: -60, duration: 0.9 }, ".site-footer");
         bindReveal(".footer-links", { y: 40, duration: 0.8, stagger: 0.08 }, ".site-footer");
